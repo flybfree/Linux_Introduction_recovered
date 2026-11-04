@@ -1,0 +1,16 @@
+# Operating-system and editor files
+.DS_Store
+*~
+*.swp
+.vscode/
+.idea/
+
+# Generated or temporary files
+*.pdf
+*.html
+rendered/
+.tmp/
+
+# Python caches
+__pycache__/
+*.py[cod]

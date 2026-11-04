@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category">
+    <category>
+      <text>$course$/Linux Fundamentals/Lesson 1 - Operating Systems and Linux Fundamentals</text>
+    </category>
+  </question>
+
+  <question type="multichoice">
+    <name><text>Purpose of an operating system</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which statement best describes the primary purpose of an operating system?</p>]]></text></questiontext>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.0000000</penalty>
+    <hidden>0</hidden>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[<p>It manages computer resources and provides common services for applications.</p>]]></text><feedback format="html"><text><![CDATA[<p>Correct. The operating system manages hardware and provides services and abstractions for users and applications.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>It replaces the computer's physical hardware.</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>It is only the graphical desktop displayed to the user.</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>It is a collection of documents stored on the computer.</p>]]></text></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>Definition of a process</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What is a process?</p>]]></text></questiontext>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.0000000</penalty>
+    <hidden>0</hidden>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[<p>A running instance of a program</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>A physical processor core</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>A directory used to store programs</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>A device driver stored in firmware</p>]]></text></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>Linux distribution</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which description best matches a Linux distribution?</p>]]></text></questiontext>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.0000000</penalty>
+    <hidden>0</hidden>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[<p>A packaged operating system built around the Linux kernel</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>A physical model of a computer processor</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>A command typed into a shell</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>A single graphical application</p>]]></text></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>System layer responsible for hardware management</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which Linux system layer is primarily responsible for processor scheduling, memory management, and device interaction?</p>]]></text></questiontext>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.0000000</penalty>
+    <hidden>0</hidden>
+    <single>true</single>
+    <shuffleanswers>true</shuffleanswers>
+    <answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[<p>The kernel</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>The file manager</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>The application layer</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>The keyboard layout</p>]]></text></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>GUI and CLI use the operating system</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A GUI and a CLI are two different ways of requesting services from the underlying operating system.</p>]]></text></questiontext>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.0000000</penalty>
+    <hidden>0</hidden>
+    <answer fraction="100" format="html"><text>true</text><feedback format="html"><text><![CDATA[<p>Correct. Both interfaces ultimately rely on operating-system services.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>false</text></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>Linux kernel is a complete desktop distribution</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The Linux kernel by itself provides a complete desktop environment, installer, package manager, and collection of user applications.</p>]]></text></questiontext>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.0000000</penalty>
+    <hidden>0</hidden>
+    <answer fraction="0" format="html"><text>true</text></answer>
+    <answer fraction="100" format="html"><text>false</text><feedback format="html"><text><![CDATA[<p>Correct. A distribution combines the kernel with user-space tools, libraries, installers, package-management tools, and applications.</p>]]></text></feedback></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>Installation storage safety</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Selecting the wrong storage device during installation can overwrite existing data.</p>]]></text></questiontext>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.0000000</penalty>
+    <hidden>0</hidden>
+    <answer fraction="100" format="html"><text>true</text><feedback format="html"><text><![CDATA[<p>Correct. Installation should be performed only on an approved disposable or instructor-designated disk.</p>]]></text></feedback></answer>
+    <answer fraction="0" format="html"><text>false</text></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>Memory management responsibility</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which task is an example of memory management?</p>]]></text></questiontext>
+    <defaultgrade>1.0000000</defaultgrade><penalty>0.0000000</penalty><hidden>0</hidden><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[<p>Allocating memory to processes and protecting one process from another</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>Changing the monitor's physical brightness</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>Choosing a distribution's name</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>Creating a keyboard shortcut in a word processor</p>]]></text></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>File system function</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which information is commonly managed by a file system?</p>]]></text></questiontext>
+    <defaultgrade>1.0000000</defaultgrade><penalty>0.0000000</penalty><hidden>0</hidden><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[<p>File names, locations, metadata, and permissions</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>Only the color of the desktop wallpaper</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>Only the number of processor cores</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>Only the user's preferred web browser</p>]]></text></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>CLI strength</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which is a major strength of a command-line interface?</p>]]></text></questiontext>
+    <defaultgrade>1.0000000</defaultgrade><penalty>0.0000000</penalty><hidden>0</hidden><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[<p>Commands can be precise, repeated, combined, and automated.</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>It eliminates the need for an operating system.</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>It guarantees that every command is safe.</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>It can be used only when no network exists.</p>]]></text></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>GNU Project contribution</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which item is associated with the GNU Project's contribution to Linux systems?</p>]]></text></questiontext>
+    <defaultgrade>1.0000000</defaultgrade><penalty>0.0000000</penalty><hidden>0</hidden><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[<p>Utilities, libraries, compilers, shells, and other user-space software</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>The physical RAM installed in a computer</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>The original Unix source code sold by Bell Labs</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>A replacement for every computer display</p>]]></text></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>System call purpose</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why does an application use a system call?</p>]]></text></questiontext>
+    <defaultgrade>1.0000000</defaultgrade><penalty>0.0000000</penalty><hidden>0</hidden><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[<p>To request a protected service from the kernel</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>To replace the kernel with a shell</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>To physically install more memory</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>To select a different computer manufacturer</p>]]></text></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>Distribution selection factor</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which factor should be considered when selecting a Linux distribution?</p>]]></text></questiontext>
+    <defaultgrade>1.0000000</defaultgrade><penalty>0.0000000</penalty><hidden>0</hidden><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[<p>Release lifecycle, package ecosystem, support model, and intended workload</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>Only the logo used by the project</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>Only whether the name contains the word Linux</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>Only the number of icons in its default desktop</p>]]></text></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>Ubuntu in this course</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Why is Ubuntu Desktop used as the default environment in this course?</p>]]></text></questiontext>
+    <defaultgrade>1.0000000</defaultgrade><penalty>0.0000000</penalty><hidden>0</hidden><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[<p>It provides a practical beginner environment with a desktop, documentation, and a broad software ecosystem.</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>It is the only Linux distribution that contains a kernel.</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>It prevents students from using the command line.</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>It requires no installation or configuration.</p>]]></text></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>Process scheduling</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The operating system can schedule processor time among multiple processes.</p>]]></text></questiontext>
+    <defaultgrade>1.0000000</defaultgrade><penalty>0.0000000</penalty><hidden>0</hidden>
+    <answer fraction="100" format="html"><text>true</text></answer><answer fraction="0" format="html"><text>false</text></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>Virtual memory equals physical RAM</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Virtual memory makes storage exactly as fast as physical RAM.</p>]]></text></questiontext>
+    <defaultgrade>1.0000000</defaultgrade><penalty>0.0000000</penalty><hidden>0</hidden>
+    <answer fraction="0" format="html"><text>true</text></answer><answer fraction="100" format="html"><text>false</text></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>Device drivers</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Device drivers help the operating system communicate with particular hardware.</p>]]></text></questiontext>
+    <defaultgrade>1.0000000</defaultgrade><penalty>0.0000000</penalty><hidden>0</hidden>
+    <answer fraction="100" format="html"><text>true</text></answer><answer fraction="0" format="html"><text>false</text></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>Shell and kernel distinction</text></name>
+    <questiontext format="html"><text><![CDATA[<p>A shell and the kernel are the same component of a Linux system.</p>]]></text></questiontext>
+    <defaultgrade>1.0000000</defaultgrade><penalty>0.0000000</penalty><hidden>0</hidden>
+    <answer fraction="0" format="html"><text>true</text></answer><answer fraction="100" format="html"><text>false</text></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>Open source and quality control</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Open-source software cannot have maintainers, testing, or quality-control processes.</p>]]></text></questiontext>
+    <defaultgrade>1.0000000</defaultgrade><penalty>0.0000000</penalty><hidden>0</hidden>
+    <answer fraction="0" format="html"><text>true</text></answer><answer fraction="100" format="html"><text>false</text></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>Distribution differences</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Linux distributions can differ in package formats, release schedules, default software, and support options.</p>]]></text></questiontext>
+    <defaultgrade>1.0000000</defaultgrade><penalty>0.0000000</penalty><hidden>0</hidden>
+    <answer fraction="100" format="html"><text>true</text></answer><answer fraction="0" format="html"><text>false</text></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>User space restrictions</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Ordinary applications normally run with unrestricted access to all hardware and all memory.</p>]]></text></questiontext>
+    <defaultgrade>1.0000000</defaultgrade><penalty>0.0000000</penalty><hidden>0</hidden>
+    <answer fraction="0" format="html"><text>true</text></answer><answer fraction="100" format="html"><text>false</text></answer>
+  </question>
+  <question type="multichoice">
+    <name><text>whoami command</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What information does the <code>whoami</code> command normally display?</p>]]></text></questiontext>
+    <defaultgrade>1.0000000</defaultgrade><penalty>0.0000000</penalty><hidden>0</hidden><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[<p>The name of the current user</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>The kernel version only</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>The available disk devices</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>The current directory contents</p>]]></text></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>hostname command</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does the <code>hostname</code> command identify?</p>]]></text></questiontext>
+    <defaultgrade>1.0000000</defaultgrade><penalty>0.0000000</penalty><hidden>0</hidden><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[<p>The name assigned to the computer on the network</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>The current logged-in user</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>The amount of installed memory</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>The contents of the root directory</p>]]></text></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>uname command</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which command is used in this lesson to display selected kernel information?</p>]]></text></questiontext>
+    <defaultgrade>1.0000000</defaultgrade><penalty>0.0000000</penalty><hidden>0</hidden><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[<p><code>uname -srm</code></p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p><code>whoami -srm</code></p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p><code>lsblk -srm</code></p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p><code>free -srm</code></p>]]></text></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>Hardware inspection commands</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Which command pair is used in the demonstration to inspect processor and memory information?</p>]]></text></questiontext>
+    <defaultgrade>1.0000000</defaultgrade><penalty>0.0000000</penalty><hidden>0</hidden><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[<p><code>lscpu</code> and <code>free -h</code></p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p><code>whoami</code> and <code>hostname</code></p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p><code>mkdir</code> and <code>cat</code></p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p><code>uname</code> and <code>ls</code></p>]]></text></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>lsblk command</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What kind of information does <code>lsblk</code> help display?</p>]]></text></questiontext>
+    <defaultgrade>1.0000000</defaultgrade><penalty>0.0000000</penalty><hidden>0</hidden><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[<p>Block storage devices and their relationships</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>Logged-in user accounts only</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>Running processes only</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>Shell command history only</p>]]></text></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>mkdir command</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does <code>mkdir -p ~/lesson1-demo/cli-created</code> do?</p>]]></text></questiontext>
+    <defaultgrade>1.0000000</defaultgrade><penalty>0.0000000</penalty><hidden>0</hidden><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[<p>It creates the specified directory path, creating missing parent directories as needed.</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>It displays the current user's name.</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>It deletes the entire home directory.</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>It reports the Linux kernel release.</p>]]></text></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>free command</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The <code>free -h</code> command can display memory information in a human-readable format.</p>]]></text></questiontext>
+    <defaultgrade>1.0000000</defaultgrade><penalty>0.0000000</penalty><hidden>0</hidden>
+    <answer fraction="100" format="html"><text>true</text></answer><answer fraction="0" format="html"><text>false</text></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>cat os-release command</text></name>
+    <questiontext format="html"><text><![CDATA[<p>The command <code>cat /etc/os-release</code> can provide identifying information about the installed Linux distribution.</p>]]></text></questiontext>
+    <defaultgrade>1.0000000</defaultgrade><penalty>0.0000000</penalty><hidden>0</hidden>
+    <answer fraction="100" format="html"><text>true</text></answer><answer fraction="0" format="html"><text>false</text></answer>
+  </question>
+  <question type="multichoice">
+    <name><text>APT update command</text></name>
+    <questiontext format="html"><text><![CDATA[<p>What does <code>sudo apt update</code> do?</p>]]></text></questiontext>
+    <defaultgrade>1.0000000</defaultgrade><penalty>0.0000000</penalty><hidden>0</hidden><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[<p>It refreshes local information about available software packages.</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>It immediately upgrades every installed package.</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>It creates a new user account.</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>It displays the current kernel version.</p>]]></text></answer>
+  </question>
+
+  <question type="multichoice">
+    <name><text>APT upgrade command</text></name>
+    <questiontext format="html"><text><![CDATA[<p>In the lesson's Ubuntu post-installation workflow, what is the purpose of <code>sudo apt upgrade -y</code>?</p>]]></text></questiontext>
+    <defaultgrade>1.0000000</defaultgrade><penalty>0.0000000</penalty><hidden>0</hidden><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100" format="html"><text><![CDATA[<p>It applies available package upgrades and automatically confirms the prompts.</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>It only lists storage devices.</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>It removes the Ubuntu desktop.</p>]]></text></answer>
+    <answer fraction="0" format="html"><text><![CDATA[<p>It changes the computer's hostname.</p>]]></text></answer>
+  </question>
+
+  <question type="truefalse">
+    <name><text>APT update installs updates</text></name>
+    <questiontext format="html"><text><![CDATA[<p>Running <code>sudo apt update</code> by itself installs all available package upgrades.</p>]]></text></questiontext>
+    <defaultgrade>1.0000000</defaultgrade><penalty>0.0000000</penalty><hidden>0</hidden>
+    <answer fraction="0" format="html"><text>true</text></answer><answer fraction="100" format="html"><text>false</text></answer>
+  </question>
+</quiz>
