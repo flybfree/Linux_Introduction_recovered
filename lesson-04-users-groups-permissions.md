@@ -87,6 +87,8 @@ The symbolic forms `chmod u+s program` and `chmod +t shared-directory` set these
 
 Access control lists (ACLs) can give named users or groups permissions beyond the basic owner, group, and other classes. ACLs add detail to the access model and can make a file's effective permissions less obvious from the three triplets alone. Their inspection and administration are advanced topics; this lesson focuses on the basic mode bits and ownership.
 
+`getfacl file` displays the access ACL entries for a file or directory. An ACL can include a named user or group in addition to the owner and owning group. The ACL mask limits the effective permissions for group-class entries, including named users and groups, so the displayed entry and the effective access can differ. `setfacl -m u:username:r file` adds or modifies a named user's read entry; `setfacl -x u:username file` removes that named-user entry. These examples belong only in the instructor's disposable VM. This lesson does not use recursive ACL changes or remove every ACL entry at once.
+
 ## 8. Account and group administration belongs in a controlled environment
 
 Administrators create accounts and groups with tools such as `useradd` and `groupadd`, and adjust membership or account properties with `usermod`. These operations can affect login access, home directories, and running services. Use them only on an approved disposable VM or a system for which the administrator has explicit responsibility. Never create practice accounts on a shared classroom computer or personal system as part of this lesson.
@@ -160,6 +162,19 @@ ls -l /srv/lesson4-demo/shared.txt
 
 This is instructor demonstration material only. The instructor should explain the effect of each command, confirm the VM snapshot is current, and restore the VM afterward. Never run this sequence on a personal or production host. The `-aG` form appends a supplementary group; omitting `-a` can replace existing supplementary memberships. The interactive `adduser` helper may also be shown as the Ubuntu-friendly account-creation alternative.
 
+## Demonstration 6: Inspect and modify an ACL in the disposable VM
+
+Prepare `/srv/lesson4-demo/shared.txt` in the VM, with `lesson4-student` as its owner, and ensure `lesson4-reader` is a separate demo account. Then demonstrate:
+
+```bash
+sudo setfacl -m u:lesson4-reader:r /srv/lesson4-demo/shared.txt
+getfacl /srv/lesson4-demo/shared.txt
+sudo setfacl -x u:lesson4-reader /srv/lesson4-demo/shared.txt
+getfacl /srv/lesson4-demo/shared.txt
+```
+
+Have students identify the named-user entry and the ACL mask in the output, then observe that the entry is gone after `-x`. This changes only the prepared VM file. Restore the VM snapshot after class.
+
 # Student lab: Lesson 4 — Users, Groups, and Permissions
 
 ## Safety and scope
@@ -218,9 +233,9 @@ ls -ld mask-check.txt mask-check-directory
 
 Compare the displayed permissions. Explain why `umask` is a filter on new objects rather than a command that edits the permissions of existing files.
 
-## Part F: Read an ownership example
+## Part F: Read ownership and ACL examples
 
-Do not run ownership commands. Review the instructor's VM output for `chown`, `chgrp`, `useradd`, `groupadd`, and `usermod`. For each, state which identity or ownership property it changes and why the operation belongs in an approved administrative environment.
+Do not run ownership or ACL-changing commands. Review the instructor's VM output for `chown`, `chgrp`, `useradd`, `groupadd`, `usermod`, `setfacl`, and `getfacl`. For each, state which identity, ownership, or access property it inspects or changes and why the operation belongs in an approved administrative environment.
 
 ## Lab reflection
 
@@ -259,6 +274,10 @@ Do not run ownership commands. Review the instructor's VM output for `chown`, `c
 18. What additional access can an ACL describe?
 19. What do typical masks `027` and `077` commonly produce for new files and directories?
 20. Why must account and ownership demonstrations use a disposable VM?
+21. What does `getfacl file` display?
+22. What does `setfacl -m u:reader:r file` do?
+23. What does `setfacl -x u:reader file` do?
+24. What is the purpose of the ACL mask?
 
 ## Answer key
 
@@ -282,6 +301,10 @@ Do not run ownership commands. Review the instructor's VM output for `chown`, `c
 18. Permissions for named users or groups beyond the basic owner/group/other classes.
 19. Typically `027` yields files `640` and directories `750`; `077` yields files `600` and directories `700`, depending on the creating program's requested mode.
 20. They alter system identities and ownership, can affect access or login, and require administrative authority; a disposable VM can be restored safely.
+21. The file's access control list entries, including any named-user or named-group entries.
+22. It adds or modifies a named user's read permission entry for the file.
+23. It removes that named-user ACL entry.
+24. It limits effective permissions for group-class ACL entries, including named users and groups.
 
 ## Exit ticket
 
@@ -291,6 +314,8 @@ Before you change a permission, what two things should you verify about the targ
 
 **Group:** A named collection of users represented internally by a numeric GID.  
 **Group ID (GID):** The numeric identifier associated with a group.  
+**Access control list (ACL):** Additional per-user or per-group permission entries beyond the basic owner/group/other classes.  
+**ACL mask:** The maximum effective permission set for group-class ACL entries.  
 **Least privilege:** Giving an identity only the access needed for its task.  
 **Ownership:** The user and group associated with a filesystem object.  
 **Permission bits:** The read, write, and execute settings for owner, group, and other users.  
@@ -312,6 +337,7 @@ Before you change a permission, what two things should you verify about the targ
 - Run account and ownership demonstrations only in a dedicated, snapshot-backed VM and restore it after class.
 - Explain that `usermod -aG` appends a supplementary group, while omitting `-a` can discard other supplementary memberships.
 - Mention ACLs and other access controls as topics beyond the basic model, without implying that the three permission triplets are the entire security system.
+- Keep `getfacl` and `setfacl` demonstrations in the disposable VM; explain the ACL mask when reading output and avoid recursive or remove-all operations.
 - Treat SUID and sticky bits as recognition topics only; do not ask students to set them on a host or system file.
 - Qualify common `umask` outcomes as dependent on the mode requested by the creating program.
 
@@ -332,4 +358,4 @@ Before you change a permission, what two things should you verify about the targ
 
 ## Commands introduced
 
-`id`, `groups`, `chmod`, `umask`, `chown`, `chgrp`, `useradd`, `adduser`, `groupadd`, and `usermod`. `ls -l` and `sudo` are reused from earlier lessons. Account and ownership-changing commands are instructor demonstration material in a disposable VM only. Special permission bits and ACLs are conceptual extensions, not student lab operations.
+`id`, `groups`, `chmod`, `umask`, `chown`, `chgrp`, `useradd`, `adduser`, `groupadd`, `usermod`, `getfacl`, and `setfacl`. `ls -l` and `sudo` are reused from earlier lessons. Account, ownership, and ACL-changing commands are instructor demonstration material in a disposable VM only. Special permission bits are conceptual extensions, not student lab operations.
