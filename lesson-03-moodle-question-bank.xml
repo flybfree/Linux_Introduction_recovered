@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+  <question type="category"><category><text>$course$/Linux Introduction/Lesson 3 - Files, Directories, and Paths</text></category></question>
+  <question type="multichoice">
+    <name><text>L3 root directory</text></name><questiontext format="html"><text><![CDATA[<p>What does <code>/</code> represent at the beginning of an absolute Linux path?</p>]]></text></questiontext>
+    <defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>The root directory at the top of the filesystem tree</text></answer><answer fraction="0"><text>The current user's home directory</text></answer><answer fraction="0"><text>The current working directory only</text></answer><answer fraction="0"><text>A hidden-file marker</text></answer>
+  </question>
+  <question type="multichoice">
+    <name><text>L3 parent path</text></name><questiontext format="html"><text><![CDATA[<p>In a relative path, what does <code>..</code> refer to?</p>]]></text></questiontext><defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>The parent directory</text></answer><answer fraction="0"><text>The filesystem root in every context</text></answer><answer fraction="0"><text>The user's home directory</text></answer><answer fraction="0"><text>A file named dot-dot</text></answer>
+  </question>
+  <question type="multichoice">
+    <name><text>L3 hidden listing</text></name><questiontext format="html"><text><![CDATA[<p>Which command includes dot-prefixed hidden names in a directory listing?</p>]]></text></questiontext><defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><code>ls -a</code></text></answer><answer fraction="0"><text><code>ls -r</code></text></answer><answer fraction="0"><text><code>file -a</code></text></answer><answer fraction="0"><text><code>touch -a</code></text></answer>
+  </question>
+  <question type="truefalse">
+    <name><text>L3 hidden means protected</text></name><questiontext format="html"><text><![CDATA[<p>A filename beginning with a dot is protected from other users by that naming convention alone.</p>]]></text></questiontext><defaultgrade>1</defaultgrade><answer fraction="0"><text>true</text></answer><answer fraction="100"><text>false</text></answer>
+  </question>
+  <question type="multichoice">
+    <name><text>L3 touch purpose</text></name><questiontext format="html"><text><![CDATA[<p>What does <code>touch draft.txt</code> do if <code>draft.txt</code> does not exist?</p>]]></text></questiontext><defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>Creates an empty file named draft.txt</text></answer><answer fraction="0"><text>Writes the word “draft” into a text file</text></answer><answer fraction="0"><text>Displays the file's content</text></answer><answer fraction="0"><text>Creates a directory named draft.txt</text></answer>
+  </question>
+  <question type="multichoice">
+    <name><text>L3 touch existing file</text></name><questiontext format="html"><text><![CDATA[<p>What normally happens when <code>touch</code> is used on an existing file?</p>]]></text></questiontext><defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>Its modification time is updated; its contents are not replaced</text></answer><answer fraction="0"><text>Its contents are erased</text></answer><answer fraction="0"><text>It is moved to the home directory</text></answer><answer fraction="0"><text>The command refuses to run</text></answer>
+  </question>
+  <question type="multichoice">
+    <name><text>L3 copy command</text></name><questiontext format="html"><text><![CDATA[<p>Which command copies <code>notes.txt</code> to <code>backup.txt</code> while leaving the original in place?</p>]]></text></questiontext><defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><code>cp notes.txt backup.txt</code></text></answer><answer fraction="0"><text><code>mv notes.txt backup.txt</code></text></answer><answer fraction="0"><text><code>rm notes.txt backup.txt</code></text></answer><answer fraction="0"><text><code>rmdir notes.txt backup.txt</code></text></answer>
+  </question>
+  <question type="multichoice">
+    <name><text>L3 move rename</text></name><questiontext format="html"><text><![CDATA[<p>What does <code>mv old.txt new.txt</code> do when both names refer to entries in the same directory and the destination is unused?</p>]]></text></questiontext><defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>Renames old.txt to new.txt</text></answer><answer fraction="0"><text>Copies the file and leaves old.txt in place</text></answer><answer fraction="0"><text>Creates a directory called new.txt</text></answer><answer fraction="0"><text>Prints the file's type</text></answer>
+  </question>
+  <question type="multichoice">
+    <name><text>L3 recursive copy</text></name><questiontext format="html"><text><![CDATA[<p>Which option is commonly needed to copy a directory and its contents with <code>cp</code>?</p>]]></text></questiontext><defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><code>-r</code></text></answer><answer fraction="0"><text><code>-n</code></text></answer><answer fraction="0"><text><code>-p</code></text></answer><answer fraction="0"><text><code>-q</code></text></answer>
+  </question>
+  <question type="multichoice">
+    <name><text>L3 rm behavior</text></name><questiontext format="html"><text><![CDATA[<p>Why should a user check the exact target before running <code>rm filename</code>?</p>]]></text></questiontext><defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>It generally removes the file without placing it in a trash folder</text></answer><answer fraction="0"><text>It always asks an administrator to approve the action</text></answer><answer fraction="0"><text>It only hides the file temporarily</text></answer><answer fraction="0"><text>It copies the file to the root directory</text></answer>
+  </question>
+  <question type="multichoice">
+    <name><text>L3 rmdir condition</text></name><questiontext format="html"><text><![CDATA[<p>Under what condition does <code>rmdir folder</code> remove the directory?</p>]]></text></questiontext><defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>The directory is empty</text></answer><answer fraction="0"><text>The directory contains at least one file</text></answer><answer fraction="0"><text>The directory is hidden</text></answer><answer fraction="0"><text>The command is run from the user's home directory</text></answer>
+  </question>
+  <question type="multichoice">
+    <name><text>L3 find scope and type</text></name><questiontext format="html"><text><![CDATA[<p>What does <code>find . -type f</code> select?</p>]]></text></questiontext><defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>Regular files below the current directory</text></answer><answer fraction="0"><text>Directories below the filesystem root only</text></answer><answer fraction="0"><text>All files owned by the administrator</text></answer><answer fraction="0"><text>Only files modified today in the home directory</text></answer>
+  </question>
+  <question type="multichoice">
+    <name><text>L3 find name pattern quoting</text></name><questiontext format="html"><text><![CDATA[<p>Why is the pattern quoted in <code>find . -name '*.txt'</code>?</p>]]></text></questiontext><defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>So the shell passes the pattern to find instead of expanding it in the current directory first</text></answer><answer fraction="0"><text>So find interprets the quotes as part of each filename</text></answer><answer fraction="0"><text>To make the search include hidden files only</text></answer><answer fraction="0"><text>To prevent find from searching subdirectories</text></answer>
+  </question>
+  <question type="truefalse">
+    <name><text>L3 find delete lab</text></name><questiontext format="html"><text><![CDATA[<p>The introductory lab should add a deletion action to <code>find</code> so students can remove every matching file automatically.</p>]]></text></questiontext><defaultgrade>1</defaultgrade><answer fraction="0"><text>true</text></answer><answer fraction="100"><text>false</text></answer>
+  </question>
+  <question type="multichoice">
+    <name><text>L3 file command</text></name><questiontext format="html"><text><![CDATA[<p>How does the <code>file</code> command estimate the type of a path?</p>]]></text></questiontext><defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>By examining content signatures and heuristics</text></answer><answer fraction="0"><text>Only by reading the filename extension</text></answer><answer fraction="0"><text>By opening the file in a text editor and saving it</text></answer><answer fraction="0"><text>By checking whether the file is hidden</text></answer>
+  </question>
+  <question type="multichoice">
+    <name><text>L3 less quit</text></name><questiontext format="html"><text><![CDATA[<p>Which key normally exits the <code>less</code> pager?</p>]]></text></questiontext><defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><code>q</code></text></answer><answer fraction="0"><text><code>e</code></text></answer><answer fraction="0"><text><code>Ctrl+C</code> is required in all cases</text></answer><answer fraction="0"><text><code>Esc</code> followed by Enter</text></answer>
+  </question>
+  <question type="multichoice">
+    <name><text>L3 head purpose</text></name><questiontext format="html"><text><![CDATA[<p>What does <code>head -n 3 file.txt</code> display?</p>]]></text></questiontext><defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>The first three lines</text></answer><answer fraction="0"><text>The last three lines</text></answer><answer fraction="0"><text>The first three bytes only</text></answer><answer fraction="0"><text>The file's three most recently modified lines</text></answer>
+  </question>
+  <question type="multichoice">
+    <name><text>L3 tail purpose</text></name><questiontext format="html"><text><![CDATA[<p>What does <code>tail -n 2 file.txt</code> display?</p>]]></text></questiontext><defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>The last two lines</text></answer><answer fraction="0"><text>The first two lines</text></answer><answer fraction="0"><text>The two largest lines by size</text></answer><answer fraction="0"><text>The file's type and permissions</text></answer>
+  </question>
+  <question type="multichoice">
+    <name><text>L3 wildcard caution</text></name><questiontext format="html"><text><![CDATA[<p>What is a safe habit before using <code>*.txt</code> with a command that changes files?</p>]]></text></questiontext><defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>List or print the matches to confirm which names are selected</text></answer><answer fraction="0"><text>Add <code>sudo</code> so the command can choose correctly</text></answer><answer fraction="0"><text>Run it from <code>/</code> to make the pattern predictable</text></answer><answer fraction="0"><text>Remove the asterisk so every file is selected</text></answer>
+  </question>
+  <question type="truefalse">
+    <name><text>L3 quoted spaces</text></name><questiontext format="html"><text><![CDATA[<p>Quoting <code>"reading notes.txt"</code> keeps the spaced filename together as one shell argument.</p>]]></text></questiontext><defaultgrade>1</defaultgrade><answer fraction="100"><text>true</text></answer><answer fraction="0"><text>false</text></answer>
+  </question>
+  <question type="multichoice">
+    <name><text>L3 safe removal check</text></name><questiontext format="html"><text><![CDATA[<p>Which check is most useful immediately before removing a lab file?</p>]]></text></questiontext><defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>Confirm the working directory with <code>pwd</code> and inspect the exact target with <code>ls</code></text></answer><answer fraction="0"><text>Change to the filesystem root so the path is shorter</text></answer><answer fraction="0"><text>Use a wildcard to avoid typing the filename</text></answer><answer fraction="0"><text>Run <code>rm</code> twice to ensure it completed</text></answer>
+  </question>
+  <question type="multichoice">
+    <name><text>L3 absolute path</text></name><questiontext format="html"><text><![CDATA[<p>Which example is an absolute path?</p>]]></text></questiontext><defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><code>/home/sam/notes.txt</code></text></answer><answer fraction="0"><text><code>notes.txt</code></text></answer><answer fraction="0"><text><code>../notes.txt</code></text></answer><answer fraction="0"><text><code>./notes.txt</code></text></answer>
+  </question>
+  <question type="truefalse">
+    <name><text>L3 broad search scope</text></name><questiontext format="html"><text><![CDATA[<p>A narrow starting location such as the lab directory is generally preferable to searching the entire system when looking for a lab file.</p>]]></text></questiontext><defaultgrade>1</defaultgrade><answer fraction="100"><text>true</text></answer><answer fraction="0"><text>false</text></answer>
+  </question>
+  <question type="multichoice">
+    <name><text>L3 verify copy destination</text></name><questiontext format="html"><text><![CDATA[<p>After copying <code>notes.txt</code> to <code>archive/notes.txt</code>, what is a useful verification step?</p>]]></text></questiontext><defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>List the source and destination locations to confirm both entries</text></answer><answer fraction="0"><text>Run <code>rm notes.txt</code> to prove the copy succeeded</text></answer><answer fraction="0"><text>Run <code>rmdir archive</code> to check the copied file</text></answer><answer fraction="0"><text>Assume success because cp printed no message</text></answer>
+  </question>
+  <question type="multichoice">
+    <name><text>L3 filesystem hierarchy etc</text></name><questiontext format="html"><text><![CDATA[<p>Which description best matches the common purpose of <code>/etc</code>?</p>]]></text></questiontext><defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>System-wide configuration files</text></answer><answer fraction="0"><text>Regular users' home directories</text></answer><answer fraction="0"><text>Only temporary files</text></answer><answer fraction="0"><text>Personal trash folders for removed files</text></answer>
+  </question>
+  <question type="multichoice">
+    <name><text>L3 account files</text></name><questiontext format="html"><text><![CDATA[<p>Which statement about <code>/etc/passwd</code> and <code>/etc/shadow</code> is accurate?</p>]]></text></questiontext><defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text><code>/etc/passwd</code> contains account metadata, while password hashes and aging data are kept separately in restricted <code>/etc/shadow</code></text></answer><answer fraction="0"><text>Both files are ordinary student documents that can be edited in this lab</text></answer><answer fraction="0"><text><code>/etc/shadow</code> lists all temporary directories</text></answer><answer fraction="0"><text><code>/etc/passwd</code> contains only group membership</text></answer>
+  </question>
+  <question type="multichoice">
+    <name><text>L3 listing object type</text></name><questiontext format="html"><text><![CDATA[<p>In the first character of an <code>ls -l</code> listing, what does <code>l</code> indicate?</p>]]></text></questiontext><defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>A symbolic link</text></answer><answer fraction="0"><text>A regular file</text></answer><answer fraction="0"><text>A directory</text></answer><answer fraction="0"><text>A locked file</text></answer>
+  </question>
+  <question type="multichoice">
+    <name><text>L3 ln symlink</text></name><questiontext format="html"><text><![CDATA[<p>What does <code>ln -s notes/plan.txt plan-shortcut</code> create?</p>]]></text></questiontext><defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>A symbolic link named plan-shortcut that stores a path to notes/plan.txt</text></answer><answer fraction="0"><text>A full duplicate copy of plan.txt</text></answer><answer fraction="0"><text>A new directory named plan-shortcut</text></answer><answer fraction="0"><text>A hard link to a directory on another filesystem</text></answer>
+  </question>
+  <question type="multichoice">
+    <name><text>L3 locate index</text></name><questiontext format="html"><text><![CDATA[<p>Why might <code>locate</code> fail to show a file created moments ago?</p>]]></text></questiontext><defaultgrade>1</defaultgrade><single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>abc</answernumbering>
+    <answer fraction="100"><text>It searches a prepared filename index that may not yet reflect recent changes</text></answer><answer fraction="0"><text>It searches only file contents, not names</text></answer><answer fraction="0"><text>It can find only files in the current directory</text></answer><answer fraction="0"><text>It removes new files before listing them</text></answer>
+  </question>
+  <question type="truefalse">
+    <name><text>L3 special files editing</text></name><questiontext format="html"><text><![CDATA[<p>Students should open and modify device entries under <code>/dev</code> as part of the file-management lab.</p>]]></text></questiontext><defaultgrade>1</defaultgrade><answer fraction="0"><text>true</text></answer><answer fraction="100"><text>false</text></answer>
+  </question>
+</quiz>
