@@ -22,6 +22,7 @@ This repository contains the materials for a 14-lesson introductory Linux course
 - `lesson-13-troubleshooting-documentation.md` and `lesson-13-moodle-question-bank.xml` — Lesson 13 materials
 - `lesson-14-integration-capstone.md` and `lesson-14-moodle-question-bank.xml` — Lesson 14 capstone materials
 - `book-alignment-linux-plus-xk0-005.md` — companion reading map for the CompTIA Linux+ XK0-005 All-in-One Exam Guide
+- `lesson-plans.md` — 14 lesson plans using the course template, with assigned McGraw-Hill reading
 - `course-progression.md` — Roadmap for all 14 lessons
 
 Each lesson will be developed as an independent module while maintaining a coherent progression across the course. A completed lesson is expected to include textbook content, hands-on activities, assessments, and instructor-support materials.

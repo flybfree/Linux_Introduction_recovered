@@ -60,6 +60,7 @@ Commands should be explained in context, including their purpose, expected outpu
 - Lessons 1–14 each have a Markdown lesson file and Moodle XML question bank.
 - `course-progression.md` — The 14-lesson roadmap and scope for future modules.
 - `book-alignment-linux-plus-xk0-005.md` — mapping of course lessons to the published chapters of the CompTIA Linux+ XK0-005 All-in-One Exam Guide, Second Edition.
+- `lesson-plans.md` — all 14 course lesson plans in the instructor's Objectives/Lecture Topics/Labs/Preparation/Assignments template, aligned to the companion textbook.
 - `README.md` — Repository purpose, current artifacts, and project development standards.
 
 ## Textbook chapter structure

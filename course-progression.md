@@ -99,3 +99,7 @@ Lesson 14 — Integration Capstone — is complete in `lesson-14-integration-cap
 ## Companion textbook alignment
 
 The lesson-by-lesson reading guide for Jordan and Strohmayer's *CompTIA Linux+ Certification All-in-One Exam Guide, Second Edition (Exam XK0-005)* is in `book-alignment-linux-plus-xk0-005.md`. It uses the publisher's chapter sequence and distinguishes core companion reading from optional or advanced material.
+
+## Lesson plans
+
+The instructor-facing plans for Lessons 1–14 are collected in `lesson-plans.md`. Each plan follows the requested template and lists aligned textbook reading, lesson topics, labs, preparation, materials, and assignments.
