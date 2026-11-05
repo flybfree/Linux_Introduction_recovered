@@ -67,6 +67,10 @@ current system facts ──script──> timestamped text report
 
 The archive contains only the synthetic practice directory. The report contains a small set of system facts useful for basic context: the time it was generated, kernel/release summary, uptime, memory summary, and free space for the user's home filesystem. Even basic system details can reveal information about a device, so reports should be reviewed and redacted before sharing.
 
+![Within linux-capstone, capstone.sh reads selected system facts into a report and archives only demo-data. The backups folder contains the archive and listing. The archive extracts into restore-check/demo-data, whose contents are compared with the original synthetic input.](graphics/lesson-14/01-project-boundary-data-flow.png)
+
+**Figure 14.1.** Keep reports, archives, listings, and restore tests inside `~/linux-capstone/`. The archive includes only synthetic `demo-data/`; selected system facts go to the report instead. Compare the restored data with the original, and review report details before sharing.
+
 ## 4. Build a readable script
 
 Lesson 7 introduced Bash scripts, quoted variables, redirection, and exit status. The following example shows the intended size and structure. Review it line by line before running it:
@@ -146,6 +150,10 @@ diff -r "$HOME/linux-capstone/demo-data" \
 Replace `ARCHIVE_NAME` with the archive path printed by the script. `tar -xzf` extracts the gzip-compressed archive into the specified restore directory. Extraction writes files, so use only the approved project-local directory and a known archive. `diff -r` compares directory trees recursively; no output and a successful exit status indicate that the compared contents match. A difference should be investigated rather than ignored. Do not extract an unknown archive into a real home directory or system path.
 
 The restore check verifies a small local archive but not a complete backup strategy. A real backup plan needs a separate failure domain, appropriate access control, retention, and periodic restore tests. A second directory on the same disk is convenient for this exercise but would not protect against disk failure.
+
+![A syntax check establishes parsing, archive listing shows readable entries, extraction tests unpacking into a fresh directory, and diff recursively compares restored and source contents. No output plus diff exit status zero indicates no differences; these checks do not establish a separate failure domain or complete metadata equivalence.](graphics/lesson-14/02-verification-checks.png)
+
+**Figure 14.2.** Each check answers a different question. Syntax acceptance does not prove correct behavior; archive listing does not replace extraction; extraction does not replace comparison. Check both `diff -r` output and its status, and separately inspect report contents. A local restore test does not provide independent backup storage.
 
 ## 7. Verify the report and explain its limits
 
@@ -252,6 +260,10 @@ Submit:
 - a brief reflection describing one limitation and one possible future improvement.
 
 Do not submit the archive if it contains anything beyond synthetic practice data. Remove hostnames, usernames, addresses, and other identifying details from screenshots or output included in the submission.
+
+![Six submission components map to the evidence they provide: script, redacted report and archive listing, restore comparison result, setup guide, security and troubleshooting notes, and reflection. A final review removes identifying details and confirms synthetic data.](graphics/lesson-14/03-deliverables-evidence.png)
+
+**Figure 14.3.** Submit the script, redacted report and listing, restore-verification evidence, setup guide, security and troubleshooting notes, and reflection. Explain what each artifact demonstrates and what remains limited. Review all shared material for identifying information and non-synthetic data.
 
 # Knowledge check and answer key
 

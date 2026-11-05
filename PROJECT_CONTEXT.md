@@ -86,6 +86,8 @@ Commands should be explained in context, including their purpose, expected outpu
 
 - Lesson 13 includes Figures 13.1–13.3: iterative investigation, observation versus hypothesis, and evidence-based handoff documentation. Supporting information and prompts live in `graphics/lesson-13/`.
 
+- Lesson 14 includes Figures 14.1–14.3: project boundaries/data flow, verification checks, and deliverables tied to evidence. Supporting information and prompts live in `graphics/lesson-14/`.
+
 ## Current artifacts
 
 - Lessons 1–14 each have a Markdown lesson file. All Moodle XML question banks are stored in `Question Banks/`, using the existing `lesson-NN-moodle-question-bank.xml` names.

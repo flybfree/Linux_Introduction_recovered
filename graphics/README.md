@@ -17,6 +17,7 @@ Illustrations and their supporting information are organized by lesson. Use rela
 | 11 — Services and System Administration | [Chapter 11](../lesson-11-services-system-administration.md) | [Figures, captions, and production notes](lesson-11/README.md) |
 | 12 — Security and Safe Administration | [Chapter 12](../lesson-12-security-safe-administration.md) | [Figures, captions, and production notes](lesson-12/README.md) |
 | 13 — Troubleshooting and Documentation | [Chapter 13](../lesson-13-troubleshooting-documentation.md) | [Figures, captions, and production notes](lesson-13/README.md) |
+| 14 — Integration Capstone | [Chapter 14](../lesson-14-integration-capstone.md) | [Figures, captions, and production notes](lesson-14/README.md) |
 
 ## Conventions
 
