@@ -94,4 +94,4 @@ Students combine the course skills in a bounded project, such as a documented lo
 
 ## Recommended next artifact
 
-Lessons 12 and 13 — Security and Safe Administration, and Troubleshooting and Documentation — are complete with their Moodle question banks. Continue with Lesson 14 — Integration Capstone — using the established lesson structure.
+Lesson 14 — Integration Capstone — is complete in `lesson-14-integration-capstone.md`, with its Moodle question bank. The full 14-lesson sequence is drafted; review the curriculum for consistency, then prepare delivery materials or make refinements.

@@ -20,6 +20,7 @@ This repository contains the materials for a 14-lesson introductory Linux course
 - `lesson-11-demo.service` — harmless user-level service unit used in the Lesson 11 lab
 - `lesson-12-security-safe-administration.md` and `lesson-12-moodle-question-bank.xml` — Lesson 12 materials
 - `lesson-13-troubleshooting-documentation.md` and `lesson-13-moodle-question-bank.xml` — Lesson 13 materials
+- `lesson-14-integration-capstone.md` and `lesson-14-moodle-question-bank.xml` — Lesson 14 capstone materials
 - `course-progression.md` — Roadmap for all 14 lessons
 
 Each lesson will be developed as an independent module while maintaining a coherent progression across the course. A completed lesson is expected to include textbook content, hands-on activities, assessments, and instructor-support materials.
