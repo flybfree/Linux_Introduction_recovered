@@ -1,5 +1,7 @@
 # Lesson 5 — Processes and Job Control
 
+[PowerPoint presentation](Presentation/lesson-05-processes-job-control.pptx)
+
 ## Lesson purpose
 
 Every running program is represented by one or more processes. Linux provides tools to inspect those processes and signals to request that they stop or exit. This lesson builds on the process concepts from Lesson 1 and the safe process inspection and termination introduced in Lesson 2. Students practice only with processes they start themselves.

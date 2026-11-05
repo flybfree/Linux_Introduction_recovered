@@ -128,3 +128,8 @@ The workspace is `G:\NewCourseMaterial\Linux_Introduction`. The public repositor
 ## Recommended next steps
 
 The 14-lesson sequence is drafted; review the full curriculum for consistency, then refine or prepare course delivery materials as needed.
+
+
+## PowerPoint presentations
+
+All 14 lesson decks are stored in `Presentation/`. The [presentation index](Presentation/README.md) connects decks to their chapter sources and records slide and graphic counts. Each deck embeds every figure linked in its chapter and includes editable teaching text and supporting speaker notes. Keep the corresponding presentation synchronized when revising a lesson or its graphics. `Presentation/manifest.json` records source filenames and deck checksums.

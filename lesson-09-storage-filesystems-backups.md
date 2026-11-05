@@ -1,5 +1,7 @@
 # Lesson 9 — Storage, Filesystems, and Backups
 
+[PowerPoint presentation](Presentation/lesson-09-storage-filesystems-backups.pptx)
+
 ## Lesson purpose
 
 Linux presents files through one directory tree, but data may be stored across multiple devices and filesystems. This lesson teaches students to inspect storage without changing it, distinguish filesystem capacity from directory usage, and create and restore a small archive in a practice area. The lab does not partition, format, mount, or unmount devices.

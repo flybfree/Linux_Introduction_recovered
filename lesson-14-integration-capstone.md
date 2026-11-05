@@ -1,5 +1,7 @@
 # Lesson 14 — Integration Capstone
 
+[PowerPoint presentation](Presentation/lesson-14-integration-capstone.pptx)
+
 ## Lesson purpose
 
 The capstone brings the course together in a small, reviewable project. Students create a Bash workflow that gathers a limited system report, archives instructor-created practice data, checks the archive contents, and demonstrates a restore. They apply least privilege, safe file handling, evidence-based troubleshooting, and clear documentation. The project runs in a personal course directory and makes no system-wide changes.

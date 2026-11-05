@@ -1,5 +1,7 @@
 # Lesson 12 — Security and Safe Administration
 
+[PowerPoint presentation](Presentation/lesson-12-security-safe-administration.pptx)
+
 ## Lesson purpose
 
 Linux security is a set of habits and controls that reduce risk over time. This lesson connects identity and permissions (Lesson 4), software sources and updates (Lesson 6), backups (Lesson 9), networking (Lesson 10), and services (Lesson 11). Students practice making deliberate administrative decisions, recognizing untrusted software and suspicious SSH prompts, and planning safe system changes.

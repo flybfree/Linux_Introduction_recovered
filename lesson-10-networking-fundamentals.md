@@ -1,5 +1,7 @@
 # Lesson 10 — Networking Fundamentals
 
+[PowerPoint presentation](Presentation/lesson-10-networking-fundamentals.pptx)
+
 ## Lesson purpose
 
 Linux systems communicate over local networks and the Internet through network interfaces, addresses, routes, transport protocols, and application services. This lesson gives students a practical model of those layers and a safe sequence for investigating connectivity. The lab inspects the current system and sends only limited diagnostic requests to instructor-approved destinations; it does not change network settings or scan other systems.

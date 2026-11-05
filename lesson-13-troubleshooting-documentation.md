@@ -1,5 +1,7 @@
 # Lesson 13 — Troubleshooting and Documentation
 
+[PowerPoint presentation](Presentation/lesson-13-troubleshooting-documentation.pptx)
+
 ## Lesson purpose
 
 Linux troubleshooting is a disciplined way to move from a reported symptom to a supported explanation and a safe next step. This lesson brings together command-line inspection, processes, storage, networks, services, logs, and text processing from earlier chapters. Students practice separating observations from assumptions, testing one hypothesis at a time, and writing a concise record another person can follow.

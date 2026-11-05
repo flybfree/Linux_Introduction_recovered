@@ -1,0 +1,132 @@
+{
+  "format": "PowerPoint (.pptx)",
+  "aspect_ratio": "16:9",
+  "presentations": [
+    {
+      "lesson": 1,
+      "title": "Operating Systems and Linux Fundamentals",
+      "file": "lesson-01-prototype.pptx",
+      "slides": 21,
+      "graphics": 4,
+      "source": "lesson-01-prototype.md",
+      "sha256": "3d230ee70a23450d5c76c499b86c942a0cc0ec3c01417c1735fca87753a122bb"
+    },
+    {
+      "lesson": 2,
+      "title": "Working with the Linux Shell",
+      "file": "lesson-02-linux-shell.pptx",
+      "slides": 22,
+      "graphics": 3,
+      "source": "lesson-02-linux-shell.md",
+      "sha256": "eef9ca77dac6149205cae7f2121bed2c75bab5b9a3133345cd0555a0fec9d486"
+    },
+    {
+      "lesson": 3,
+      "title": "Files, Directories, and Paths",
+      "file": "lesson-03-files-directories.pptx",
+      "slides": 20,
+      "graphics": 3,
+      "source": "lesson-03-files-directories.md",
+      "sha256": "eb50bc89fecdba28dfc0c4af2d9b4a34fef8dba1bf5d2187ca219b0003d4eec4"
+    },
+    {
+      "lesson": 4,
+      "title": "Users, Groups, and Permissions",
+      "file": "lesson-04-users-groups-permissions.pptx",
+      "slides": 21,
+      "graphics": 3,
+      "source": "lesson-04-users-groups-permissions.md",
+      "sha256": "b0e78b003794213f50636d7b93d5719504739cf59c1902f2d1dbfac37772ca1b"
+    },
+    {
+      "lesson": 5,
+      "title": "Processes and Job Control",
+      "file": "lesson-05-processes-job-control.pptx",
+      "slides": 20,
+      "graphics": 3,
+      "source": "lesson-05-processes-job-control.md",
+      "sha256": "0e5468753aa02e6f4415d7d21b863302da08caaf6848553c72b6c8667dc654e8"
+    },
+    {
+      "lesson": 6,
+      "title": "Software and Package Management",
+      "file": "lesson-06-software-package-management.pptx",
+      "slides": 21,
+      "graphics": 3,
+      "source": "lesson-06-software-package-management.md",
+      "sha256": "e639511b8657da236bf924828749f477482804191c110423ccbf3497f5e933f6"
+    },
+    {
+      "lesson": 7,
+      "title": "Shell Scripting and Automation",
+      "file": "lesson-07-shell-scripting-automation.pptx",
+      "slides": 21,
+      "graphics": 3,
+      "source": "lesson-07-shell-scripting-automation.md",
+      "sha256": "03d1118c973810f078526edc06258b74e99f27e8f8aa0702c8d9e1470d5fb5ec"
+    },
+    {
+      "lesson": 8,
+      "title": "Text Processing and Pipelines",
+      "file": "lesson-08-text-processing-pipelines.pptx",
+      "slides": 19,
+      "graphics": 3,
+      "source": "lesson-08-text-processing-pipelines.md",
+      "sha256": "1061c71be1416e37f0215c8970e84e8ae890c9cd3279c1a9ff2f187a26fc6988"
+    },
+    {
+      "lesson": 9,
+      "title": "Storage, Filesystems, and Backups",
+      "file": "lesson-09-storage-filesystems-backups.pptx",
+      "slides": 23,
+      "graphics": 4,
+      "source": "lesson-09-storage-filesystems-backups.md",
+      "sha256": "11183b27b8db93709a3279dc6b2a8b2e67d23ffe0fd7f370951c0e65f4fa4c09"
+    },
+    {
+      "lesson": 10,
+      "title": "Networking Fundamentals",
+      "file": "lesson-10-networking-fundamentals.pptx",
+      "slides": 21,
+      "graphics": 3,
+      "source": "lesson-10-networking-fundamentals.md",
+      "sha256": "61b457aa4475e2094c2d3267484b147c635d100e5ac371262aabc9e836f3a401"
+    },
+    {
+      "lesson": 11,
+      "title": "Services and System Administration",
+      "file": "lesson-11-services-system-administration.pptx",
+      "slides": 23,
+      "graphics": 4,
+      "source": "lesson-11-services-system-administration.md",
+      "sha256": "b602aeaadfb8ebf9945dba7f9332ed7da8025c281f2075e40367d353e44d9a96"
+    },
+    {
+      "lesson": 12,
+      "title": "Security and Safe Administration",
+      "file": "lesson-12-security-safe-administration.pptx",
+      "slides": 20,
+      "graphics": 3,
+      "source": "lesson-12-security-safe-administration.md",
+      "sha256": "ada9c702fb3baca777a9d922a08726f3bc59816440d948d0dd387606ba6674da"
+    },
+    {
+      "lesson": 13,
+      "title": "Troubleshooting and Documentation",
+      "file": "lesson-13-troubleshooting-documentation.pptx",
+      "slides": 19,
+      "graphics": 3,
+      "source": "lesson-13-troubleshooting-documentation.md",
+      "sha256": "c00a4bc9044b75f176f0ff4ea3aac7fec3875fc05b4fd8e1af085ca7b0c390ff"
+    },
+    {
+      "lesson": 14,
+      "title": "Integration Capstone",
+      "file": "lesson-14-integration-capstone.pptx",
+      "slides": 18,
+      "graphics": 3,
+      "source": "lesson-14-integration-capstone.md",
+      "sha256": "9c1eb82383e4d3cac6e59d6a891067fbc760cb67bf3be519724d843255ade3ee"
+    }
+  ]
+}

@@ -1,5 +1,7 @@
 # Lesson 7 — Shell Scripting and Automation
 
+[PowerPoint presentation](Presentation/lesson-07-shell-scripting-automation.pptx)
+
 ## Lesson purpose
 
 The shell can do more than accept one command at a time. A Bash script records a sequence of commands and decisions so a person can repeat a task consistently, inspect what it will do, and improve it over time. This lesson introduces small, readable scripts that gather information and report results without changing system configuration.

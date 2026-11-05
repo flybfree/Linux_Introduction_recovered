@@ -1,5 +1,7 @@
 # Lesson 4 — Users, Groups, and Permissions
 
+[PowerPoint presentation](Presentation/lesson-04-users-groups-permissions.pptx)
+
 ## Lesson purpose
 
 Linux uses user and group identities to decide who may read, change, or run a file and who may enter a directory. This lesson connects the account records introduced in Lesson 3 with the permission information learners have already seen in `ls -l`. Students practice permission changes only on files in a course lab directory. Account creation and ownership changes that require administrator access are instructor demonstrations in a disposable, approved virtual machine.

@@ -1,5 +1,7 @@
 # Lesson 3 — Files, Directories, and Paths
 
+[PowerPoint presentation](Presentation/lesson-03-files-directories.pptx)
+
 ## Lesson purpose
 
 Linux stores configuration, programs, and user data in a single directory tree. This lesson helps students read that tree and manage files deliberately. It builds on Lesson 2's shell, command syntax, paths, and help resources. All operations in the lab take place in a dedicated practice directory.

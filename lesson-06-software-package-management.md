@@ -1,5 +1,7 @@
 # Lesson 6 — Software and Package Management
 
+[PowerPoint presentation](Presentation/lesson-06-software-package-management.pptx)
+
 ## Lesson purpose
 
 Linux distributions deliver most system software as packages from managed repositories. Package tools keep track of installed files, dependencies, versions, and updates. This lesson deepens the APT introduction from Lesson 1 and shows how to find, inspect, install, update, and remove software while reviewing the proposed changes before confirming them.

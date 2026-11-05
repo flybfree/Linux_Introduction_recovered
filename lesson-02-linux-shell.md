@@ -1,5 +1,7 @@
 # Lesson 2 — Working with the Linux Shell
 
+[PowerPoint presentation](Presentation/lesson-02-linux-shell.pptx)
+
 **Course position:** 2 of 14  
 **Suggested duration:** 2–3 hours  
 **Default environment:** Ubuntu Desktop LTS in an approved lab VM or computer  

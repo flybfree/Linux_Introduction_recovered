@@ -1,5 +1,7 @@
 # Lesson 11 — Services and System Administration
 
+[PowerPoint presentation](Presentation/lesson-11-services-system-administration.pptx)
+
 ## Lesson purpose
 
 Linux systems use hardware devices and background services to provide computing, storage, networking, printing, and other functions. This lesson introduces safe hardware discovery and driver inspection, then explains systemd as a service and system manager, unit files, startup relationships, service state, and logs. Students practice with a harmless user-level unit that they can start and stop themselves.

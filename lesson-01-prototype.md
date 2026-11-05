@@ -1,5 +1,7 @@
 # Lesson 1 — Operating Systems and Linux Fundamentals
 
+[PowerPoint presentation](Presentation/lesson-01-prototype.pptx)
+
 **Course position:** 1 of 14  
 **Prototype status:** Draft for review  
 **Suggested duration:** 2–3 hours, including installation lab  

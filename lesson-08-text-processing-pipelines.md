@@ -1,5 +1,7 @@
 # Lesson 8 — Text Processing and Pipelines
 
+[PowerPoint presentation](Presentation/lesson-08-text-processing-pipelines.pptx)
+
 ## Lesson purpose
 
 Linux commands often report useful information as lines of text. Text-processing tools can select relevant lines, choose fields, normalize values, count repeats, and summarize results. This lesson builds on the streams and pipeline basics from Lesson 2 and applies them to small, predictable data files. Students will construct a report in short, inspectable stages rather than rely on a long command they cannot explain.
