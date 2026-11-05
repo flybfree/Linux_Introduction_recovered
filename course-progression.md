@@ -59,7 +59,7 @@ Show how Linux tools compose through standard input and output. Introduce redire
 
 ### Lesson 9 — Storage, Filesystems, and Backups
 
-Return to the installation-safety theme with a deeper treatment of partitions, filesystems, mount points, removable media, and backup strategies. Use read-only inspection commands such as `lsblk`, `blkid`, `df`, `du`, and `mount`; demonstrate `tar` for an archive backup inside the lab VM. Do not require partitioning or filesystem formatting on personal hardware.
+Return to the installation-safety theme with a deeper treatment of partitions, filesystems, mount points, removable media, and backup strategies. Use read-only inspection commands such as `lsblk`, `blkid`, `df`, `du`, and `mount`; demonstrate `tar` to create, inspect, and restore an archive in the lab VM. Do not require partitioning, formatting, mounting, or unmounting storage in a student lab.
 
 ### Lesson 10 — Networking Fundamentals
 
@@ -94,4 +94,4 @@ Students combine the course skills in a bounded project, such as a documented lo
 
 ## Recommended next artifact
 
-Develop Lesson 9 — Storage, Filesystems, and Backups — using the established lesson structure. Build on earlier filesystem navigation while keeping storage inspection read-only and backup exercises inside a practice directory or disposable VM.
+Develop Lesson 10 — Networking Fundamentals — using the established lesson structure. Build on the course's read-only inspection approach, then practice interfaces, routes, name resolution, and safe connectivity checks.

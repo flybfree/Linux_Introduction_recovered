@@ -92,5 +92,5 @@ The workspace is `G:\NewCourseMaterial\Linux_Introduction`. The public repositor
 
 ## Recommended next steps
 
-Continue with Lesson 9 — Storage, Filesystems, and Backups — following the scope in `course-progression.md`.
+Continue with Lesson 10 — Networking Fundamentals — following the scope in `course-progression.md`.
 
