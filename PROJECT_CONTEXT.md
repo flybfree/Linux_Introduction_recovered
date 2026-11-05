@@ -60,7 +60,7 @@ Commands should be explained in context, including their purpose, expected outpu
 - Course graphics and associated information live in `graphics/`, with a shared [index](graphics/README.md).
 - Use `graphics/lesson-NN/` for each chapter as graphics are developed.
 - Each lesson folder includes images, a README with captions, alt text, placement, and review status, plus generation prompts or editable sources.
-- Chapters embed figures using relative paths. Chapter 1 includes Figure 1.1 (OS responsibilities), Figure 1.2 (Linux system structure), and Figure 1.3 (distribution components), with captions, accessibility text, review notes, and prompts in its graphics folder.
+- Chapters embed figures using relative paths. Chapter 1 includes Figure 1.1 (OS responsibilities), Figure 1.2 (Linux system structure), Figure 1.3 (distribution components), and Figure 1.4 (Unix/GNU/Linux history), with captions, accessibility text, review notes, and prompts in its graphics folder.
 
 ## Current artifacts
 

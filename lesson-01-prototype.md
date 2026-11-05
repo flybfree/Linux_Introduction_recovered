@@ -132,6 +132,10 @@ In 1991, Linus Torvalds began developing the Linux kernel as a personal project.
 
 Linux distributions commonly combine the Linux kernel with GNU utilities, libraries, package-management tools, installers, desktop environments, documentation, and other software. For this reason, the full system is sometimes called **GNU/Linux**, although “Linux” is widely used as the shorter name. In this course, “Linux” will usually refer to the broader family of operating systems, while “Linux kernel” will refer specifically to the kernel.
 
+![Dashed arrows show Unix design influence on the GNU Project and the Linux kernel. Separate solid contribution arrows connect GNU software, the Linux kernel, and other projects to many Linux distributions.](graphics/lesson-01/04-unix-gnu-linux-history.png)
+
+**Figure 1.4.** Unix influenced the design of GNU and Linux. GNU tools and libraries, the independently developed Linux kernel, and software from other projects are combined in many distributions. Dashed arrows indicate design influence; solid arrows indicate software contributions.
+
 ### Open-source development
 
 Linux is developed through a distributed, community-driven model involving individual contributors, nonprofit organizations, universities, hardware vendors, cloud providers, and commercial companies. People can contribute code, documentation, testing, translations, bug reports, design work, and support. Different parts of the ecosystem have different maintainers and governance structures, but they interact through shared standards and published source code.

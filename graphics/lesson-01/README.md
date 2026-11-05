@@ -41,6 +41,27 @@
 - **Production:** AI-generated illustration using the built-in image_gen tool; created November 4, 2026. [Original prompt](03-generation-prompt.txt).
 - **Review note:** Typical component categories, not a claim that every distribution ships the same installer, services, desktop, or support arrangement. Repositories may be accessed over a network rather than bundled in an installation image.
 
+## Figure 1.4 — Unix, GNU, and Linux: influence and contributions
+
+![Dashed arrows show Unix design influence on the GNU Project and the Linux kernel. Separate solid contribution arrows connect GNU software, the Linux kernel, and other projects to many Linux distributions.](04-unix-gnu-linux-history.png)
+
+- **File:** [04-unix-gnu-linux-history.png](04-unix-gnu-linux-history.png)
+- **Status:** Draft for instructional review; embedded in the chapter.
+- **Learning purpose:** Distinguish Unix design influence from the separate GNU and Linux projects and the software contributions assembled into distributions.
+- **Placement:** Section 3, after “The Linux kernel” discussion and before “Open-source development.”
+- **Caption:** **Figure 1.4.** Unix influenced the design of GNU and Linux. GNU tools and libraries, the independently developed Linux kernel, and software from other projects are combined in many distributions. Dashed arrows indicate design influence; solid arrows indicate software contributions.
+- **Alt text:** Dashed arrows show Unix design influence on the GNU Project and the Linux kernel. Separate solid contribution arrows connect GNU software, the Linux kernel, and other projects to many Linux distributions.
+- **Production:** AI-generated illustration using the built-in image_gen tool. [Original prompt](04-generation-prompt.txt).
+- **Review note:** This is a simplified relationship diagram, not a source-code family tree or exhaustive history. Unix began in 1969; GNU was announced in 1983 and development began in 1984; Linux began in 1991. GNU software is common in Linux distributions, but not universal. Figure numbering preserves existing figure references; this figure appears before Figures 1.2 and 1.3.
+
+### Historical references
+
+- [Bell Labs: 50 years of Unix](https://www.nokia.com/bell-labs/about/history/innovation-stories/50-years-unix/) — Unix origins in 1969.
+- [GNU: initial announcement](https://www.gnu.org/gnu/initial-announcement.en.html) — 1983 announcement and 1984 development start.
+- [GNU: overview of the GNU system](https://www.gnu.org/gnu/gnu-history.html) — GNU development and the combination with Linux.
+- [Linux 0.01 release notes](https://www.kernel.org/pub/linux/kernel/Historic/old-versions/RELNOTES-0.01) — original kernel description and use of GNU tools.
+
+
 ## Future screenshots
 
 Installer screenshots should be captured from the lab's actual Ubuntu release when that environment is available.
