@@ -94,4 +94,4 @@ Students combine the course skills in a bounded project, such as a documented lo
 
 ## Recommended next artifact
 
-Lesson 12 — Security and Safe Administration — is complete in `lesson-12-security-safe-administration.md`, with its Moodle question bank. Continue with Lesson 13 — Troubleshooting and Documentation — using the established lesson structure.
+Lessons 12 and 13 — Security and Safe Administration, and Troubleshooting and Documentation — are complete with their Moodle question banks. Continue with Lesson 14 — Integration Capstone — using the established lesson structure.
