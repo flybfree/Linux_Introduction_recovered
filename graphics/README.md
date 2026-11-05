@@ -9,6 +9,7 @@ Illustrations and their supporting information are organized by lesson. Use rela
 | 3 — Files, Directories, and Paths | [Chapter 3](../lesson-03-files-directories.md) | [Figures, captions, and production notes](lesson-03/README.md) |
 | 4 — Users, Groups, and Permissions | [Chapter 4](../lesson-04-users-groups-permissions.md) | [Figures, captions, and production notes](lesson-04/README.md) |
 | 5 — Processes and Job Control | [Chapter 5](../lesson-05-processes-job-control.md) | [Figures, captions, and production notes](lesson-05/README.md) |
+| 6 — Software and Package Management | [Chapter 6](../lesson-06-software-package-management.md) | [Figures, captions, and production notes](lesson-06/README.md) |
 
 ## Conventions
 

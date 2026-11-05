@@ -46,6 +46,10 @@ A dependency is another package needed for a program to work. A package manager 
 
 Ubuntu uses Debian-format `.deb` packages. APT provides a higher-level interface for working with repository metadata and resolving dependencies. `dpkg` maintains the local package database and performs lower-level package operations. APT uses `dpkg` to install or remove package files after it has resolved what is needed.
 
+![Configured repositories supply package indexes and Debian package archives. On Ubuntu, APT uses local indexes to plan dependencies and download selected packages. After transaction review and confirmation, dpkg installs package files and records local package state.](graphics/lesson-06/01-repository-apt-dpkg.png)
+
+**Figure 6.1.** APT uses repository metadata to plan package operations and obtain the required archives. After the user reviews and confirms the proposed changes, it uses `dpkg` for local installation and package-state tracking. Available-package indexes and the local installed-package database serve different purposes.
+
 Use APT for ordinary installation, upgrade, and removal because it can resolve dependencies using configured repositories. Use `dpkg` for inspection tasks in this lesson. Installing a local `.deb` directly with `dpkg` does not automatically obtain missing dependencies; use the repository-aware package manager for routine system changes.
 
 ## 3. Refreshing metadata is different from upgrading software
@@ -55,6 +59,10 @@ Use APT for ordinary installation, upgrade, and removal because it can resolve d
 `sudo apt upgrade` uses that information to upgrade installed packages when compatible updates are available. The command may propose several package changes. Review the summary before confirming. A whole-system upgrade can affect important software and should be performed in a planned maintenance window with a current backup or VM snapshot.
 
 The order matters: refresh the package index before deciding what updates are available. An update is not the same as upgrading to a new Ubuntu release; release upgrades have a separate procedure and are outside this lesson's lab.
+
+![sudo apt update refreshes local package indexes from repositories while leaving installed software unchanged. sudo apt upgrade uses indexes and installed state to propose compatible updates, which are reviewed and confirmed before installed packages change. Neither command changes the Ubuntu release.](graphics/lesson-06/02-update-versus-upgrade.png)
+
+**Figure 6.2.** `apt update` refreshes information about available packages. `apt upgrade` uses that information to propose and apply compatible updates to installed packages. Review changes before confirmation; an index refresh alone does not upgrade software or move Ubuntu to a new release.
 
 APT also offers `sudo apt full-upgrade`, which may install or remove packages when required to complete a set of upgrades. Because the transaction can remove packages, it requires careful review and is not used in the student lab. The older name `dist-upgrade` may appear in documentation and older command examples.
 
@@ -102,6 +110,10 @@ The tools all work with package sources and system state, but their command synt
 ## 8. Shared libraries are packages too
 
 Many programs rely on shared libraries: compiled code that multiple programs can use at runtime. These libraries are often packaged separately, so APT may install them as dependencies. A shared-library filename commonly includes `.so` followed by a version number, such as `libm.so.6`. Updating a library package can provide a fix to multiple programs that use it.
+
+![Two conceptual application packages depend on one shared-library package; one application also needs another package. APT resolves the required set, and one library update can benefit several programs using it. Dependency arrows point from a package to what it requires.](graphics/lesson-06/03-package-dependencies.png)
+
+**Figure 6.3.** Different application packages may depend on the same shared-library package. APT resolves the required package set and presents proposed changes for review. Updating a shared library can benefit several programs, though running programs may need restarting to use the new code.
 
 The `ldd` command displays the shared libraries required by an executable. For example, `ldd /usr/bin/tree` can show dependencies of the trusted, package-managed program installed in this lesson. Use `ldd` only on known executables from trusted sources; do not use it to inspect an arbitrary downloaded binary. If a program reports a missing library, consult the distribution's package database rather than downloading a standalone library file.
 
