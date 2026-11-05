@@ -74,11 +74,19 @@ cut -d, -f3 service-log.csv | sort | uniq -c
 
 This selects the third comma-delimited field, sorts those values so equal statuses are adjacent, then prints each distinct line with its count. The header is a value too, so the output may include `status`; remove or handle the header deliberately if it should not be counted. `sort -u` can produce unique sorted lines, but `uniq -c` is needed when counts matter.
 
+![For alpha, beta, alpha, alpha, uniq -c reports separate runs: one alpha, one beta, and two alpha. Sorting first produces alpha, alpha, alpha, beta, allowing uniq -c to report three alpha and one beta.](graphics/lesson-08/01-sort-before-uniq.png)
+
+**Figure 8.1.** `uniq -c` counts runs of adjacent equal lines. Sorting groups all equal lines together, allowing one count for each distinct value. This four-line example is separate from the service log.
+
 ## 5. Count lines and select simple fields
 
 `wc` counts lines, words, and bytes. Its options select a count: `wc -l` for lines, `wc -w` for words, and `wc -c` for bytes. With input redirection, `wc -l < service-log.csv` prints only the line count rather than repeating the filename. A header is included in the total.
 
 `cut` selects columns or character positions from each line. For a simple comma-delimited file, `cut -d, -f2` selects the second field. `-d` names the delimiter and `-f` names the field number. `cut` does not parse general CSV quoting rules: if a value contains a quoted comma, use a CSV-aware tool instead of assuming every comma separates a field.
+
+![A simple log row has fields timestamp, service, status, and message. cut -d, -f2 and awk -F, with print $2 both select search from this row. A quoted CSV message containing a comma illustrates why splitting at every comma is not complete CSV parsing.](graphics/lesson-08/02-fields-and-csv-limits.png)
+
+**Figure 8.2.** Number fields from one and identify the delimiter before selecting data. Both examples select the service field from this simple row. Quoted CSV can contain commas inside a single field, so `cut` and basic `awk -F,` are not general CSV parsers.
 
 ## 6. Transform characters with `tr`
 
@@ -127,6 +135,10 @@ grep -i 'error' service-log.csv | cut -d, -f2 | sort | uniq -c
 ```
 
 This filters rows first, extracts service names second, sorts names, and counts repeats last. Each stage has a single role. Save the final output to a new report only after confirming that the field choices and counts make sense.
+
+![grep -i selects the three error rows in the lab service log. cut extracts search, search, storage; sort keeps these grouped; uniq -c produces two search and one storage. Each stage's output becomes the next stage's input.](graphics/lesson-08/03-error-report-pipeline.png)
+
+**Figure 8.3.** Filter matching rows, select service names, group equal values, then count them. The lab data contains three case-insensitive error matches: two for `search` and one for `storage`. Inspect intermediate output before saving a report.
 
 A pipeline can obscure a problem. If an early command prints an error, a later command may still display output. Do not assume that output proves every stage succeeded. Inspect commands and intermediate results, especially when processing valuable data.
 

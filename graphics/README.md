@@ -11,6 +11,7 @@ Illustrations and their supporting information are organized by lesson. Use rela
 | 5 — Processes and Job Control | [Chapter 5](../lesson-05-processes-job-control.md) | [Figures, captions, and production notes](lesson-05/README.md) |
 | 6 — Software and Package Management | [Chapter 6](../lesson-06-software-package-management.md) | [Figures, captions, and production notes](lesson-06/README.md) |
 | 7 — Shell Scripting and Automation | [Chapter 7](../lesson-07-shell-scripting-automation.md) | [Figures, captions, and production notes](lesson-07/README.md) |
+| 8 — Text Processing and Pipelines | [Chapter 8](../lesson-08-text-processing-pipelines.md) | [Figures, captions, and production notes](lesson-08/README.md) |
 
 ## Conventions
 

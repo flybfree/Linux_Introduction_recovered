@@ -74,6 +74,8 @@ Commands should be explained in context, including their purpose, expected outpu
 
 - Lesson 7 includes Figures 7.1–7.3: script checks and launch methods, cron fields, and the lab report control/output flow. Supporting information and prompts live in `graphics/lesson-07/`.
 
+- Lesson 8 includes Figures 8.1–8.3: sort/uniq adjacency, field selection and CSV limits, and the error-report pipeline. Supporting information and prompts live in `graphics/lesson-08/`.
+
 ## Current artifacts
 
 - Lessons 1–14 each have a Markdown lesson file. All Moodle XML question banks are stored in `Question Banks/`, using the existing `lesson-NN-moodle-question-bank.xml` names.
