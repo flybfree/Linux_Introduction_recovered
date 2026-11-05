@@ -94,4 +94,4 @@ Students combine the course skills in a bounded project, such as a documented lo
 
 ## Recommended next artifact
 
-Develop Lesson 8 — Text Processing and Pipelines — using the established lesson structure. It should build on Lesson 7's report output and introduce text filtering and transformation with `grep`, `sort`, `uniq`, `cut`, `tr`, `wc`, and introductory `sed` or `awk` examples.
+Develop Lesson 9 — Storage, Filesystems, and Backups — using the established lesson structure. Build on earlier filesystem navigation while keeping storage inspection read-only and backup exercises inside a practice directory or disposable VM.

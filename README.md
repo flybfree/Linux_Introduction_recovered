@@ -13,6 +13,7 @@ This repository contains the materials for a 14-lesson introductory Linux course
 - `lesson-05-processes-job-control.md` and `lesson-05-moodle-question-bank.xml` — Lesson 5 materials
 - `lesson-06-software-package-management.md` and `lesson-06-moodle-question-bank.xml` — Lesson 6 materials
 - `lesson-07-shell-scripting-automation.md` and `lesson-07-moodle-question-bank.xml` — Lesson 7 materials
+- `lesson-08-text-processing-pipelines.md` and `lesson-08-moodle-question-bank.xml` — Lesson 8 materials
 - `course-progression.md` — Roadmap for all 14 lessons
 
 Each lesson will be developed as an independent module while maintaining a coherent progression across the course. A completed lesson is expected to include textbook content, hands-on activities, assessments, and instructor-support materials.
