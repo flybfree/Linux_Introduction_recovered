@@ -94,4 +94,4 @@ Students combine the course skills in a bounded project, such as a documented lo
 
 ## Recommended next artifact
 
-Develop Lesson 10 — Networking Fundamentals — using the established lesson structure. Build on the course's read-only inspection approach, then practice interfaces, routes, name resolution, and safe connectivity checks.
+Develop Lesson 11 — Services and System Administration — using the established lesson structure. Build on Lesson 10's local socket inspection and teach service state, logs, startup behavior, and safe management of an approved lab service.
