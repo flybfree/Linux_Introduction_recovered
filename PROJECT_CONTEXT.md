@@ -80,6 +80,8 @@ Commands should be explained in context, including their purpose, expected outpu
 
 - Lesson 10 includes Figures 10.1–10.3: TCP/IP layers, local versus gateway routing, and evidence-based network troubleshooting. Supporting information and prompts live in `graphics/lesson-10/`.
 
+- Lesson 11 includes Figures 11.1–11.4: boot stages, hardware and driver inspection, active versus enabled, and service reload/restart distinctions. Supporting information and prompts live in `graphics/lesson-11/`.
+
 ## Current artifacts
 
 - Lessons 1–14 each have a Markdown lesson file. All Moodle XML question banks are stored in `Question Banks/`, using the existing `lesson-NN-moodle-question-bank.xml` names.

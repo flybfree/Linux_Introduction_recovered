@@ -72,6 +72,10 @@ Power on
   → login screen or other user-facing system is ready
 ```
 
+![Power-on proceeds through BIOS or UEFI, a bootloader, the Linux kernel and initramfs early userspace, the real root filesystem handoff, and systemd target activation before a login or service-ready system. Some early-userspace environments also use systemd.](graphics/lesson-11/01-linux-boot-path.png)
+
+**Figure 11.1.** A common bootloader-based path moves from firmware through the kernel and early userspace to the installed system and its target units. The initramfs helps prepare access to the real root filesystem. Hardware, boot software, and distribution configuration can change the details.
+
 **Firmware** begins the bootstrap process by initializing hardware and selecting a boot device or entry. Older computers commonly use BIOS; modern computers commonly use UEFI. Some machines can boot from network services using PXE. An ISO image is a disk image commonly used to make installation or recovery media; it is not a required stage of every normal boot.
 
 A **bootloader**, often GRUB on Ubuntu, presents or follows a boot entry and loads the selected kernel image and initramfs into memory. GRUB can support multiple operating systems and kernel choices. Some older GRUB descriptions use stages 1, 1.5, and 2; that staging describes particular legacy BIOS installation layouts and is not a universal sequence for modern UEFI systems. Firmware mode, partition scheme, and bootloader installation determine the details. Students should not edit GRUB configuration or reinstall a bootloader as part of this lesson.
@@ -121,6 +125,10 @@ Replace `/dev/DEVICE` only with an existing device path identified in the lab, s
 
 Some drivers are built into the kernel; others are loadable **kernel modules**. `lsmod` lists modules currently loaded in the kernel, and `modinfo MODULE` displays metadata for a named module. A driver built into the kernel will not appear in `lsmod`. A module being loaded does not by itself prove which device it currently handles; `lspci -k` may show that relationship for PCI devices. Do not load, unload, blacklist, or install drivers in this lesson.
 
+![User-space tools inspect bus inventories, modules, sysfs views, and udev properties through kernel interfaces. Kernel drivers may be built in or loadable modules and handle hardware. User-space udev processes kernel events and manages device-node rules; /dev entries are interfaces to drivers.](graphics/lesson-11/02-hardware-driver-inspection.png)
+
+**Figure 11.2.** Inventory tools read information exposed through kernel interfaces. Drivers may be built in or provided by modules; `lsmod` lists only loaded modules. User-space udev responds to device events and manages device-node rules. A loaded module alone does not establish which device it handles.
+
 Hardware also communicates with the processor and memory. An **interrupt request (IRQ)** is a signal or message asking the processor to handle an event. Modern systems route interrupts through platform interrupt controllers, and allocation is managed by the kernel and firmware; IRQ numbers are not a simple fixed priority ranking. **Direct memory access (DMA)** lets a capable device transfer data to or from memory without the CPU copying every byte. Drivers and the kernel coordinate safe DMA mappings, sometimes with hardware such as an IOMMU. These mechanisms are useful concepts, but students do not configure interrupt or DMA settings.
 
 This is hardware **discovery and observation**, not hardware reconfiguration. The lesson does not ask students to run `modprobe`, `rmmod`, `udevadm trigger`, `hdparm` configuration, network-interface changes, printer-administration commands, or writes to `/sys`. Those operations can affect a live system and require a separate, authorized procedure.
@@ -140,6 +148,10 @@ systemctl --user is-enabled lesson11-course-demo.service
 
 A service can be **active but disabled**: it is running now but is not configured to start automatically at boot or login. It can be **enabled but inactive**: it is configured for automatic activation, but is not running now. Enabled and active describe different properties. Some units are static, generated, transient, or activated by another unit and may not have a simple enabled/disabled state.
 
+![A two-by-two matrix combines active or inactive runtime state with enabled or disabled activation configuration. The lesson demo is inactive and disabled before start, active and disabled after start, and inactive and disabled after stop.](graphics/lesson-11/03-active-versus-enabled.png)
+
+**Figure 11.3.** Active describes a unit's current runtime state; enabled describes activation configuration. The lab service can run while remaining disabled. Starting and stopping affect runtime, while enabling and disabling affect activation links; neither property alone proves application availability.
+
 ## 4. Start, stop, restart, reload, and enable
 
 The common service control actions have distinct meanings:
@@ -152,6 +164,10 @@ The common service control actions have distinct meanings:
 - `disable` removes that automatic activation configuration; it does not necessarily stop a currently running service.
 
 Changes to unit files require `systemctl daemon-reload` so the manager re-reads unit definitions. For a user unit, use `systemctl --user daemon-reload`. This action does not restart the service. It is different from `systemctl reload UNIT`, which asks the application service to reload its own configuration.
+
+![Restart stops and starts a service process. Reload asks a supporting application to reread application configuration. Daemon-reload makes the systemd manager reread unit definitions without itself restarting services. The lab copies its user unit, reloads the user manager, starts the demo, then checks status and logs.](graphics/lesson-11/04-restart-reload-daemon-reload.png)
+
+**Figure 11.4.** Restart replaces the running service instance. Reload asks the application to reread its configuration when supported. Daemon-reload updates the manager's unit definitions and dependency information; starting or restarting a service is a separate action. The sample sleep unit has no application reload operation.
 
 These are state-changing actions. In this lesson, students may run start, restart, and stop only on the course-provided user unit. They must not manage system services or enable the demonstration unit for login startup.
 
