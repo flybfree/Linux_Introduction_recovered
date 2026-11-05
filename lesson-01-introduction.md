@@ -1,6 +1,6 @@
 # Lesson 1 — Operating Systems and Linux Fundamentals
 
-[PowerPoint presentation](Presentation/lesson-01-prototype.pptx)
+[PowerPoint presentation](Presentation/lesson-01-introduction.pptx)
 
 **Course position:** 1 of 14  
 **Prototype status:** Draft for review  

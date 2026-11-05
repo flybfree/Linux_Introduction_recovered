@@ -5,10 +5,10 @@
     {
       "lesson": 1,
       "title": "Operating Systems and Linux Fundamentals",
-      "file": "lesson-01-prototype.pptx",
+      "file": "lesson-01-introduction.pptx",
       "slides": 21,
       "graphics": 4,
-      "source": "lesson-01-prototype.md",
+      "source": "lesson-01-introduction.md",
       "sha256": "3d230ee70a23450d5c76c499b86c942a0cc0ec3c01417c1735fca87753a122bb"
     },
     {

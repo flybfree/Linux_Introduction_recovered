@@ -12,7 +12,7 @@ See the [presentation index](Presentation/README.md) for all 14 PowerPoint decks
 
 ## Project structure
 
-- `lesson-01-prototype.md` — Lesson 1 textbook chapter and supporting lesson materials
+- `lesson-01-introduction.md` — Lesson 1 textbook chapter and supporting lesson materials
 - [Question Banks/lesson-01-moodle-question-bank.xml](<Question Banks/lesson-01-moodle-question-bank.xml>) — Moodle XML question bank for Lesson 1
 - `lesson-02-linux-shell.md` — Lesson 2 textbook chapter, lab, assessment, glossary, and instructor materials
 - [Question Banks/lesson-02-moodle-question-bank.xml](<Question Banks/lesson-02-moodle-question-bank.xml>) — Moodle XML question bank for Lesson 2

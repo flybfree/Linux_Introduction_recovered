@@ -8,7 +8,7 @@ Use the linked chapter for full instructions and preparation. Update the matchin
 
 | Lesson | Presentation | Source chapter | Slides | Graphics |
 |---|---|---|---:|---:|
-| 01 | [Operating Systems and Linux Fundamentals](lesson-01-prototype.pptx) | [Chapter](../lesson-01-prototype.md) | 21 | 4 |
+| 01 | [Operating Systems and Linux Fundamentals](lesson-01-introduction.pptx) | [Chapter](../lesson-01-introduction.md) | 21 | 4 |
 | 02 | [Working with the Linux Shell](lesson-02-linux-shell.pptx) | [Chapter](../lesson-02-linux-shell.md) | 22 | 3 |
 | 03 | [Files, Directories, and Paths](lesson-03-files-directories.pptx) | [Chapter](../lesson-03-files-directories.md) | 20 | 3 |
 | 04 | [Users, Groups, and Permissions](lesson-04-users-groups-permissions.pptx) | [Chapter](../lesson-04-users-groups-permissions.md) | 21 | 3 |

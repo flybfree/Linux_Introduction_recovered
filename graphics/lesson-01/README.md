@@ -1,6 +1,6 @@
 # Lesson 1 graphics
 
-[Course graphics index](../README.md) · [Source chapter](../../lesson-01-prototype.md)
+[Course graphics index](../README.md) · [Source chapter](../../lesson-01-introduction.md)
 
 ## Figure 1.1 — What does an operating system do?
 
