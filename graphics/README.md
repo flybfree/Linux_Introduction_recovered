@@ -8,6 +8,7 @@ Illustrations and their supporting information are organized by lesson. Use rela
 | 2 — Working with the Linux Shell | [Chapter 2](../lesson-02-linux-shell.md) | [Figures, captions, and production notes](lesson-02/README.md) |
 | 3 — Files, Directories, and Paths | [Chapter 3](../lesson-03-files-directories.md) | [Figures, captions, and production notes](lesson-03/README.md) |
 | 4 — Users, Groups, and Permissions | [Chapter 4](../lesson-04-users-groups-permissions.md) | [Figures, captions, and production notes](lesson-04/README.md) |
+| 5 — Processes and Job Control | [Chapter 5](../lesson-05-processes-job-control.md) | [Figures, captions, and production notes](lesson-05/README.md) |
 
 ## Conventions
 

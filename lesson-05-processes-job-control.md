@@ -40,6 +40,10 @@ Processes run with a user identity and can access only what that identity and th
 
 Some processes are started by users to perform their work; others are started by the operating system or system services to support the computer. System processes may run under dedicated service accounts and may have no interactive terminal. Students should recognize this distinction when viewing process lists. This lesson's process-control practice uses only user processes started by the student.
 
+![A stored sleep program is started twice by Bash PID 4100, producing processes PID 4210 and 4211 with PPID 4100. The shell's job table assigns them local job numbers %1 and %2. A pipeline job may contain multiple processes.](graphics/lesson-05/01-program-process-job.png)
+
+**Figure 5.1.** Starting the same program twice creates separate processes. Their PPIDs identify the parent shell in this example, while the shell tracks the two background commands with its own job numbers. A job can include more than one process, as with a pipeline.
+
 ## 2. Process IDs and states
 
 A PID identifies a process while it exists. PIDs are assigned by the system and may be reused after a process exits, so an old PID should not be treated as a permanent identity. A PPID identifies the process's parent at the time of inspection.
@@ -68,6 +72,10 @@ Linux schedulers decide which runnable processes receive CPU time. A niceness va
 
 `nice -n 10 command` starts a command with a niceness adjustment; for example, `nice -n 10 sleep 300` starts a low-impact waiting process with a higher niceness value than the usual default. `renice 15 -p PID` changes the niceness value of an existing process. Ordinary users can generally make their own processes less favored by raising the niceness value, but lowering the value to increase scheduling preference requires administrative authority. The lab only raises niceness for a process the student started. Do not use `sudo` or adjust system processes.
 
+![A Linux niceness scale runs from -20, higher scheduling preference, through the common default 0 to 19, lower preference. Raising a lab process from 10 to 15 lowers preference. nice -n 10 adjusts inherited niceness; renice 15 -p PID sets an existing process's value to 15.](graphics/lesson-05/03-niceness-scheduling.png)
+
+**Figure 5.2.** Higher niceness values generally reduce scheduling preference. `nice -n 10` adds 10 to inherited niceness, while `renice 15 -p PID` sets the selected process's niceness to 15. These settings influence scheduling rather than reserving a fixed CPU share.
+
 ## 7. Shell jobs, foreground, and background
 
 An interactive shell can track commands it started as jobs. A foreground job has the terminal's attention; a background job runs without occupying the prompt. `jobs` lists jobs known to the current shell, often with job numbers such as `%1`. Job numbers belong to that shell and are not PIDs.
@@ -75,6 +83,10 @@ An interactive shell can track commands it started as jobs. A foreground job has
 Pressing `Ctrl+Z` asks the terminal to suspend the foreground job, usually by sending `SIGTSTP`. The job remains present in a stopped state. `bg %1` resumes job 1 in the background, while `fg %1` brings it back to the foreground. These commands operate on jobs known to the current interactive shell; they do not select arbitrary processes from the system.
 
 Pressing `Ctrl+C` sends an interrupt, usually `SIGINT`, to the foreground job. Programs can handle or ignore some signals, so the key does not guarantee immediate termination. The distinction is useful: `Ctrl+Z` suspends for later continuation, while `Ctrl+C` requests interruption.
+
+![A foreground sleep job stops after Ctrl+Z and SIGTSTP. bg resumes it in the background; fg brings a background or stopped job to the foreground. Ctrl+C normally interrupts sleep with SIGINT, and kill -TERM requests termination of the captured lab process.](graphics/lesson-05/02-shell-job-control.png)
+
+**Figure 5.3.** `Ctrl+Z` normally suspends a foreground job. `bg` resumes a stopped job in the background; `fg` brings a job to the foreground and resumes it if needed. `Ctrl+C` sends an interrupt, while `kill -TERM` requests termination. Check the resulting state rather than assuming every program responds identically.
 
 ## 8. Signals and `kill`
 
