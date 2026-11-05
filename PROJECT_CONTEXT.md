@@ -57,10 +57,9 @@ Commands should be explained in context, including their purpose, expected outpu
 
 ## Current artifacts
 
-- `lesson-01-prototype.md` — Lesson 1 textbook chapter, lesson sequence, demonstrations, Ubuntu lab, knowledge check, answer key, glossary, instructor notes, and slide outline.
-- `lesson-01-moodle-question-bank.xml` — Moodle XML bank containing more than 20 graded multiple-choice and true/false questions, including command questions.
-- `README.md` — Repository purpose and project development standards.
-- `.gitignore` — Initial exclusions for editor files, generated outputs, and caches.
+- Lessons 1–7 each have a Markdown lesson file and Moodle XML question bank.
+- `course-progression.md` — The 14-lesson roadmap and scope for future modules.
+- `README.md` — Repository purpose, current artifacts, and project development standards.
 
 ## Textbook chapter structure
 
@@ -89,31 +88,9 @@ Every chapter requires at least 20 graded questions in Moodle XML. Include a del
 
 ## GitHub status
 
-The intended public repository is:
-
-```text
-Linux_Introduction
-```
-
-The local workspace is `/home/rich/Documents/ChatGPT/Linux Textbook/`.
-
-The workspace contains a read-only `.git` directory, so local Git initialization was blocked. GitHub CLI authentication for account `flybfree` was checked and reported an invalid token. The connected GitHub integration and browser session also did not have a valid authenticated repository session at the time this context was written.
-
-To resume GitHub setup, authenticate with:
-
-```bash
-gh auth login --hostname github.com --git-protocol https --web
-gh auth status
-```
-
-After authentication is valid, create the public repository, upload the current artifacts, and establish a normal branch-and-commit workflow. Do not store authentication tokens in this directory or commit them to GitHub.
+The workspace is `G:\NewCourseMaterial\Linux_Introduction`. The public repository `flybfree/Linux_Introduction_recovered` was created from this local copy. The `recovery` remote tracks that repository; `origin` still points to the original `flybfree/Linux_Introduction` repository. The local `main` branch currently tracks `recovery/main`.
 
 ## Recommended next steps
 
-1. Authenticate GitHub successfully.
-2. Create the public `Linux_Introduction` repository.
-3. Upload the current files and establish the initial commit.
-4. Decide whether future lessons should use one Markdown file plus one Moodle XML file each, or a dedicated directory per lesson.
-5. Continue refining Lesson 1 until the prototype format is approved.
-6. Draft the 14-lesson progression before developing Lesson 2 in depth.
+Continue with Lesson 8 — Text Processing and Pipelines — following the scope in `course-progression.md`.
 

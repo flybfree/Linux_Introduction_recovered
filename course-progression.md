@@ -14,7 +14,7 @@ The sequence moves from orientation and safe system use toward administration, a
 | 4 | Users, Groups, and Permissions | Who may access a resource, and why? | Create and inspect identities; interpret and change ownership and permission settings. |
 | 5 | Processes and Job Control | What is running, and how do I control it? | Inspect processes, manage foreground/background jobs, and terminate processes responsibly. |
 | 6 | Software and Package Management | How does Linux install and maintain software? | Search repositories, install and remove packages, inspect package files, and apply updates. |
-| 7 | Shell Scripting and Automation | How can repeated work become a reliable procedure? | Write, run, test, and debug small Bash scripts using variables, conditions, loops, and exit status. |
+| 7 | Shell Scripting and Automation | How can repeated work become a reliable procedure? | Write, run, test, and safely schedule small Bash scripts using variables, conditions, loops, and exit status. |
 | 8 | Text Processing and Pipelines | How can text output become useful information? | Combine commands with pipes and redirection; filter, transform, and summarize structured text. |
 | 9 | Storage, Filesystems, and Backups | How is data stored, mounted, and protected? | Inspect storage, understand mounts, compare filesystem concepts, and create a safe backup plan. |
 | 10 | Networking Fundamentals | How does a Linux system communicate? | Inspect interfaces and routes, test connectivity, resolve names, and explain common network layers. |
@@ -51,7 +51,7 @@ Deepen the introductory APT material and compare Debian packages with RPM-based 
 
 ### Lesson 7 — Shell Scripting and Automation
 
-Move from one-line commands to repeatable programs. Teach shebangs, executable permissions, variables, quoting, positional parameters, conditions, loops, functions, and exit status. Use `bash`, `read`, `test` or `[[ ]]`, and shellcheck-style reasoning. The lab should produce a script that gathers system information into a report without changing system state.
+Move from one-line commands to repeatable programs. Teach shebangs, executable permissions, variables, quoting, positional parameters, conditions, loops, functions, exit status, and introductory user-level cron scheduling. Use `bash`, `read`, `crontab -l`, `crontab -e`, `test` or `[[ ]]`, and shellcheck-style reasoning. The lab should produce a script that gathers system information into a report without changing system configuration, then briefly schedule and remove one harmless test entry in a disposable VM.
 
 ### Lesson 8 — Text Processing and Pipelines
 
@@ -94,4 +94,4 @@ Students combine the course skills in a bounded project, such as a documented lo
 
 ## Recommended next artifact
 
-Draft Lesson 2 using the same structure as the Lesson 1 prototype, then create its Moodle XML bank after the chapter's command list is stable. Lesson 2 should avoid repeating the full history and installation material; it should briefly connect back to Lesson 1 and spend its time building command-line fluency.
+Develop Lesson 8 — Text Processing and Pipelines — using the established lesson structure. It should build on Lesson 7's report output and introduce text filtering and transformation with `grep`, `sort`, `uniq`, `cut`, `tr`, `wc`, and introductory `sed` or `awk` examples.

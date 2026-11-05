@@ -8,6 +8,11 @@ This repository contains the materials for a 14-lesson introductory Linux course
 - `lesson-01-moodle-question-bank.xml` — Moodle XML question bank for Lesson 1
 - `lesson-02-linux-shell.md` — Lesson 2 textbook chapter, lab, assessment, glossary, and instructor materials
 - `lesson-02-moodle-question-bank.xml` — Moodle XML question bank for Lesson 2
+- `lesson-03-files-directories.md` and `lesson-03-moodle-question-bank.xml` — Lesson 3 materials
+- `lesson-04-users-groups-permissions.md` and `lesson-04-moodle-question-bank.xml` — Lesson 4 materials
+- `lesson-05-processes-job-control.md` and `lesson-05-moodle-question-bank.xml` — Lesson 5 materials
+- `lesson-06-software-package-management.md` and `lesson-06-moodle-question-bank.xml` — Lesson 6 materials
+- `lesson-07-shell-scripting-automation.md` and `lesson-07-moodle-question-bank.xml` — Lesson 7 materials
 - `course-progression.md` — Roadmap for all 14 lessons
 
 Each lesson will be developed as an independent module while maintaining a coherent progression across the course. A completed lesson is expected to include textbook content, hands-on activities, assessments, and instructor-support materials.
