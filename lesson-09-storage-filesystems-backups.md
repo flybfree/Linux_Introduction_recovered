@@ -60,6 +60,10 @@ storage device or partition → PV → VG (capacity pool) → LV → filesystem 
 
 A PV is a device or partition prepared for LVM. A VG combines one or more PVs into a capacity pool. An LV is a virtual block device allocated from that pool; it can then hold a filesystem and be mounted like another block device. This separation can make it easier for an administrator to allocate or resize storage, but changes still require planning, free capacity, compatible filesystems, and verified backups. A volume group may span multiple physical devices, so a failure can affect more data than expected.
 
+![A simple layout connects a storage device, partition, filesystem, and mount point. An LVM layout combines two physical volumes in one volume group, then allocates logical volumes holding filesystems mounted at /home and /srv.](graphics/lesson-09/01-storage-layers-lvm.png)
+
+**Figure 9.1.** A filesystem makes storage accessible through a mount point. LVM adds physical volumes (PVs), a pooled volume group (VG), and logical volumes (LVs) that can hold filesystems. These are example layouts; filesystems can also occupy whole devices or other storage layers.
+
 An LVM **snapshot** records a point-in-time view of a logical volume using LVM-managed storage. Depending on snapshot type, it may initially share blocks with the original and record later changes. If its reserved space fills, the snapshot can become unusable. A snapshot is useful for some short-term recovery or consistent-copy workflows, but it is not an independent backup: it may share the same devices, storage pool, and failure risks as the source. Snapshot behavior and capacity requirements depend on the LVM type and configuration.
 
 **Thin provisioning** allows logical volumes to be presented with more total capacity than is currently backed by physical storage. This can use space efficiently, but if actual writes consume the pool, the pool can run out of space and affect its volumes. Administrators must monitor and plan capacity. Students only identify LVM layers in inspection output; they do not create, resize, or snapshot volumes.
@@ -92,6 +96,10 @@ Mounting is not formatting. Formatting creates a filesystem and can overwrite da
 
 `du -sh directory` summarizes space attributed to files under a directory. It answers “how much space do these files and subdirectories use?” The `-s` option summarizes instead of listing every descendant; `-h` uses human-readable units. Filesystem metadata, reserved blocks, snapshots, hard links, sparse files, compression, and permissions can make `df` and `du` totals differ. Treat `du` as an estimate of directory data, not a complete accounting of physical device use.
 
+![df -h with HOME selects the entire filesystem containing the home path, including used and available space. du -sh with the lesson9 directory estimates space attributed to that directory and its descendants, rather than free space on the whole filesystem.](graphics/lesson-09/02-df-versus-du.png)
+
+**Figure 9.2.** `df` reports space on the filesystem containing a path. `du` estimates usage beneath the selected directory. They answer different questions, and filesystem accounting, metadata, links, snapshots, permissions, and other factors can make their totals differ.
+
 These forms of `df` and `du` are read-only. `du` over a large tree can take time, so keep the lab scope small and avoid scanning `/` or another student’s home directory.
 
 ## 5. An archive is not automatically a backup
@@ -112,11 +120,19 @@ An archive on the same device as its source is convenient for practice, but is n
 - **Incremental backup:** copies data changed since the preceding backup (full or incremental). Each run is usually smaller, but a restore may need the full backup and every later increment in order.
 - **Differential backup:** copies data changed since the most recent full backup. Later differentials may grow, but a restore usually needs the full backup and the latest differential.
 
+![Four days compare full, incremental, and differential backups. Wednesday restoration uses only Wednesday's full backup, or Sunday's full plus every following incremental in order, or Sunday's full plus Wednesday's differential.](graphics/lesson-09/04-backup-restore-chains.png)
+
+**Figure 9.3.** A full backup can restore its own selected data. A conventional incremental chain needs the starting full backup and each subsequent increment in order. A differential restore needs the starting full backup and the chosen latest differential. Separate, protected storage and tested restores remain essential for all three.
+
 Tools such as `rsync` can copy and synchronize files, but a synchronized destination is not automatically a versioned backup. Options that remove destination files can propagate an accidental deletion. Choose a separate destination (such as protected external, network, or cloud storage), preserve useful versions, protect sensitive data, and test restores. A common guideline is multiple copies on different types of storage, with at least one copy in a separate location; the plan depends on the value and sensitivity of the data.
 
 ## 6. Verify before relying on a backup
 
 List an archive with `tar -tzf` and confirm expected paths appear. Then extract a practice copy into a new, empty directory. Inspect restored files and compare them with the originals. Do not assume an archive is usable merely because its creation command returned to the prompt.
+
+![A lesson9-data folder containing notes.txt is archived, its stored paths are listed, and the archive is extracted into a new empty restore-test directory. The restored path is restore-test/lesson9-data/notes.txt; its two lines are compared with the source.](graphics/lesson-09/03-archive-restore-verify.png)
+
+**Figure 9.4.** Create an archive, inspect its stored paths, extract to a new empty directory, and compare restored content with the original. The archived `lesson9-data` directory is preserved beneath `restore-test`. A successful listing alone is not a restore test.
 
 Only extract archives you trust. An archive can contain unexpected paths or files. Extracting into an existing directory can overwrite matching files. In the lab, use an archive students created themselves and a new restore directory; never extract into `/`, a home directory with valuable data, or a system path.
 

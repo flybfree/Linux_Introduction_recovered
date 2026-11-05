@@ -76,6 +76,8 @@ Commands should be explained in context, including their purpose, expected outpu
 
 - Lesson 8 includes Figures 8.1–8.3: sort/uniq adjacency, field selection and CSV limits, and the error-report pipeline. Supporting information and prompts live in `graphics/lesson-08/`.
 
+- Lesson 9 includes Figures 9.1–9.4: storage/LVM layers, df versus du, backup restore chains, and archive restoration/verification. Supporting information and prompts live in `graphics/lesson-09/`.
+
 ## Current artifacts
 
 - Lessons 1–14 each have a Markdown lesson file. All Moodle XML question banks are stored in `Question Banks/`, using the existing `lesson-NN-moodle-question-bank.xml` names.
