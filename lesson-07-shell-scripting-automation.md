@@ -57,6 +57,10 @@ There are two common ways to run a script. `bash system-report.sh` asks Bash to 
 
 Before running a script, use `bash -n system-report.sh` to ask Bash to check its syntax without executing its commands. A syntax check cannot prove that the script's logic is correct or safe, so read and test it as well. During development, make one small change at a time and run the script again with predictable input.
 
+![After reviewing and syntax-checking system-report.sh with bash -n, either invoke bash with the readable script or add the owner's executable bit and run it directly. Direct execution uses the shebang to select the interpreter. OUTPUT_FILE stands for a new path within the lesson workspace.](graphics/lesson-07/01-check-and-run-script.png)
+
+**Figure 7.1.** `bash -n` checks syntax without executing commands. `bash system-report.sh` explicitly chooses Bash, while direct execution requires executable permission and uses the shebang. Both launch methods still require a reviewed script and appropriate input.
+
 ## 4. Variables and quoting
 
 Variables give names to values that a script will reuse. Assign a value with no spaces around the equal sign, then expand it by placing `$` before its name:
@@ -134,6 +138,10 @@ minute hour day-of-month month day-of-week command
 ```
 
 For example, `30 8 * * 1-5` means 8:30 a.m. every weekday. An asterisk means every allowed value in that field; a range such as `1-5` selects values from 1 through 5. The weekday numbering is commonly 0 or 7 for Sunday through 6 for Saturday. Scheduling uses the system's configured time zone, so a time-zone change can affect when a job runs.
+
+![The user-crontab schedule 30 8 * * 1-5 divides into minute, hour, day of month, month, and day of week. It means 08:30 Monday through Friday in the scheduler's configured time zone, followed by the command to execute.](graphics/lesson-07/02-cron-schedule-fields.png)
+
+**Figure 7.2.** In a user crontab, five time fields precede the command. `30 8 * * 1-5` selects 08:30 on Monday through Friday. Use absolute paths, capture useful output, and check that the job ran in the prepared VM.
 
 `crontab -l` lists the current user's scheduled entries. `crontab -e` opens that user's crontab for editing. A crontab belongs to the account that edits it, so run these commands as the student account; do not use `sudo` in this lesson. Do not use `crontab -r`, which removes the user's entire crontab.
 
@@ -251,6 +259,10 @@ printf 'Report written to %s\n' "$output_file"
 ```
 
 The braces group commands so their output is written to the named report file. `$(date)` runs `date` and substitutes its output into the `printf` line. `df -h /` displays human-readable space information for the filesystem containing `/`. The final message goes to the terminal because the grouped block's redirection ends before it.
+
+![A missing or empty first argument leads to a usage message and exit status 2. Otherwise the script stores the output path, gathers system information into a grouped block redirected to the report file, then prints its final message to the terminal outside that block.](graphics/lesson-07/03-system-report-flow.png)
+
+**Figure 7.3.** The script checks its first parameter before gathering information. Only the grouped block's standard output goes to the report; the final message goes to the terminal. Printed messages and numeric exit status are different results, and the report contents still need inspection.
 
 The file path comes from a parameter, so quoted use of `"$output_file"` keeps spaces in the path together. The script writes only to the output path supplied by the student. For this lab, supply a new filename inside `~/lesson7-lab`, not a system path or a file you need to preserve.
 

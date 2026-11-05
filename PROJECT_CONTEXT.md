@@ -72,6 +72,8 @@ Commands should be explained in context, including their purpose, expected outpu
 
 - Lesson 6 includes Figures 6.1–6.3: repositories/APT/dpkg, index refresh versus package upgrade, and shared-library dependencies. Supporting information and prompts live in `graphics/lesson-06/`.
 
+- Lesson 7 includes Figures 7.1–7.3: script checks and launch methods, cron fields, and the lab report control/output flow. Supporting information and prompts live in `graphics/lesson-07/`.
+
 ## Current artifacts
 
 - Lessons 1–14 each have a Markdown lesson file. All Moodle XML question banks are stored in `Question Banks/`, using the existing `lesson-NN-moodle-question-bank.xml` names.
