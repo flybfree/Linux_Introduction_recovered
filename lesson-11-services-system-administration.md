@@ -9,13 +9,15 @@ Linux systems run background programs that provide services such as networking, 
 By the end of the lesson, students will be able to:
 
 - distinguish a service, process, systemd unit, and unit file;
-- describe systemd's role in boot and service management;
+- describe the main Linux boot stages and systemd's place in them;
+- use `systemctl get-default` and current-boot journal output as read-only boot evidence;
 - distinguish a unit's active state from its enabled state;
 - inspect services with `systemctl` and view logs with `journalctl`;
 - explain the difference between start, restart, reload, and daemon-reload;
 - read a simple service unit file and describe its basic sections;
-- inspect, start, restart, and stop a harmless user-level service; and
-- use service status and logs as evidence during a basic troubleshooting sequence.
+- inspect, start, restart, and stop a harmless user-level service;
+- use service status and logs as evidence during a basic troubleshooting sequence;
+- explain the high-level firmware-to-userspace boot sequence and inspect current-boot journal evidence.
 
 ## Instructor preparation
 
@@ -26,7 +28,7 @@ Use Ubuntu Desktop LTS or a disposable course VM with systemd and a logged-in gr
 | Segment | Time |
 |---|---:|
 | Review processes and network sockets | 10 min |
-| Textbook and guided demonstrations | 40 min |
+| Boot process, textbook, and guided demonstrations | 45 min |
 | Student lab: manage a user-level unit | 45 min |
 | Knowledge check and reflection | 15 min |
 
@@ -53,6 +55,42 @@ A **unit** is a resource or action that systemd can manage. Common unit types in
 | `.mount` | Represent a filesystem mount |
 
 Unit files describe how units are configured. A unit can be supplied by a package, created by an administrator, or created for one user's session. System-level units are generally managed by the system manager and often need administrator privileges for changes. A user manager handles units for a particular account; `systemctl --user` addresses that manager and does not mean “run as root.”
+
+
+## 2a. The Linux boot process
+
+The boot process connects firmware, boot software, the Linux kernel, an early temporary filesystem, and the userspace service manager. The exact details vary with hardware, firmware mode, bootloader, distribution, and storage setup. Some UEFI configurations can load an operating system kernel directly; the diagram shows a common bootloader-based path, not an unchanging rule. A useful high-level sequence is:
+
+```text
+Power on
+  → BIOS or UEFI firmware initializes hardware and selects a boot path
+  → bootloader (often GRUB) selects and loads a kernel and initramfs
+  → Linux kernel initializes and starts early userspace from the initramfs
+  → initramfs locates and mounts the real root filesystem, then hands off
+  → systemd (commonly PID 1) starts the default target and its units
+  → login screen or other user-facing system is ready
+```
+
+**Firmware** begins the bootstrap process by initializing hardware and selecting a boot device or entry. Older computers commonly use BIOS; modern computers commonly use UEFI. Some machines can boot from network services using PXE. An ISO image is a disk image commonly used to make installation or recovery media; it is not a required stage of every normal boot.
+
+A **bootloader**, often GRUB on Ubuntu, presents or follows a boot entry and loads the selected kernel image and initramfs into memory. GRUB can support multiple operating systems and kernel choices. Some older GRUB descriptions use stages 1, 1.5, and 2; that staging describes particular legacy BIOS installation layouts and is not a universal sequence for modern UEFI systems. Firmware mode, partition scheme, and bootloader installation determine the details. Students should not edit GRUB configuration or reinstall a bootloader as part of this lesson.
+
+The **kernel** initializes its core subsystems and hardware support. The **initramfs** (initial RAM filesystem, also historically called initrd) provides a temporary early-userspace environment. It can load required modules and locate storage needed for the real root filesystem, including more complex storage configurations. Early userspace then switches to the actual root filesystem and starts the system's init process. On most Ubuntu systems, that process is systemd as PID 1. Kernel image names such as `vmlinuz` and initramfs image names such as `initrd.img` are common conventions, not names that define separate boot stages.
+
+Systemd then activates the default target and the units connected through dependencies and ordering. Services, devices, mounts, sockets, and other units may be started as the system moves toward the target. A graphical system eventually presents a login screen; a server may present a text login or run without a local interactive login. This connects directly to the unit and service material later in this lesson.
+
+Older Unix-like systems commonly described startup states with **System V runlevels**. Systemd uses **targets**. Some runlevel names map to familiar targets for compatibility, but the models are not identical; describe targets using systemd's own concepts rather than treating every runlevel as a one-to-one match.
+
+A **kernel panic** is a critical kernel error from which the kernel cannot safely continue. It differs from an initramfs prompt caused by the inability to find or mount the real root filesystem, and both differ from a single service failing after userspace has started. That distinction helps locate the stage that may need investigation.
+
+Two read-only commands can help orient an investigation:
+
+```bash
+systemctl get-default
+journalctl -b -p err --no-pager
+```
+
+`systemctl get-default` reports the configured default target. `journalctl -b` filters journal messages to the current boot, and `-p err` selects error-priority messages and more severe priorities. Journal access and retained boot history vary; an ordinary user may not see all system messages. Do not use `sudo` to bypass those permissions in this course. A displayed error is evidence to investigate, not proof by itself that boot failed.
 
 ## 3. Inspect unit state with systemctl
 
@@ -100,7 +138,7 @@ ExecStart=/usr/bin/sleep infinity
 WantedBy=default.target
 ```
 
-`[Unit]` holds general description and dependency information. `[Service]` defines how the program is started and supervised. `Type=simple` is suitable for a process that stays in the foreground. `ExecStart` names the program and its arguments; systemd does not interpret this line as a shell command by default. `[Install]` describes how an administrator or user could connect the unit to a target when enabling it. The [Install] section describes how enablement could connect the unit to a target; those activation links are not created until the unit is enabled. The lab deliberately does not enable it.
+`[Unit]` holds general description and dependency information. `[Service]` defines how the program is started and supervised. `Type=simple` is suitable for a process that stays in the foreground. `ExecStart` names the program and its arguments; systemd does not interpret this line as a shell command by default. `[Install]` describes how enablement could connect the unit to a target; those activation links are not created until the unit is enabled. The lab deliberately does not enable it.
 
 This sample runs `sleep infinity` and has no network listener, privileged command, or application data. It is intentionally minimal so students can focus on unit management. Real service unit files may include security restrictions, environment, dependencies, restart policies, credentials, and other details; copying a sample unit into production without understanding it is not appropriate.
 
@@ -165,6 +203,16 @@ journalctl --user -u lesson11-course-demo.service -n 20 --no-pager
 
 Point out the timestamps and start/stop messages. The exact messages depend on systemd version and journal settings.
 
+
+## Demonstration 4: Connect systemd to the current boot
+
+```bash
+systemctl get-default
+journalctl -b -p err --no-pager
+```
+
+Explain the active boot filter, priority selection, and possible limits on user-visible system logs. Do not attempt to repair or clear an error during this orientation; use the entry as evidence and describe which boot stage it might relate to.
+
 # Student lab: Lesson 11 — Manage a Harmless User Service
 
 ## Safety and scope
@@ -224,7 +272,18 @@ systemctl --user status lesson11-course-demo.service --no-pager
 
 Confirm that the service is no longer active. The final status may report that the unit is not found because its unit file has been removed. The `rm` command here targets only the exact course-created file; do not broaden or modify the path.
 
-## Part F: Write a short service report
+## Part F: Observe boot and target information
+
+Run the following read-only commands:
+
+```bash
+systemctl get-default
+journalctl -b -p err --no-pager
+```
+
+Record the default target and one relevant current-boot entry if visible. If the journal is empty, access is restricted, or no error entry appears, state that plainly; do not use `sudo`. Explain why one error-priority message does not necessarily mean the system failed to boot.
+
+## Part G: Write a short service report
 
 Record:
 
@@ -233,14 +292,16 @@ Record:
 3. One log entry and what it establishes.
 4. Why `daemon-reload` was needed after placing and removing the unit file.
 5. One thing the status and log output do not prove about a hypothetical network service.
+6. Which boot stage does systemd follow, and what does `systemctl get-default` tell you?
 
 ## Lab success criteria
 
 - The student reads a user unit file and explains its basic directives.
 - The student correctly distinguishes active state from enablement.
 - The student starts, restarts, inspects, and stops only the provided user unit.
-- The student filters journal output by unit and time/quantity.
+- The student filters journal output by unit and time/quantity, and interprets current-boot evidence without overstating what it proves.
 - The student removes the exact demonstration unit file and reloads the user manager.
+- The student identifies the default target and describes current-boot journal limits without escalating privileges.
 - No system service, boot target, or system-wide unit configuration is changed.
 
 # Knowledge check
@@ -271,6 +332,12 @@ Record:
 24. Why are timestamps useful when reading service logs?
 25. What should a student do if the provided user manager is unavailable?
 26. Which unit does the lab permit students to start and stop?
+27. What role does firmware play in booting a Linux system?
+28. What does the bootloader load for Linux to begin starting?
+29. What is the initramfs used for?
+30. What does `systemctl get-default` report?
+31. What does `journalctl -b -p err --no-pager` select?
+32. How does a kernel panic differ from a single service failure after userspace starts?
 
 ## Answer key
 
@@ -300,6 +367,12 @@ Record:
 24. They help correlate events with reported symptoms and establish sequence.
 25. Use instructor-provided output or a disposable VM with a working user systemd manager; do not use `sudo` to bypass the lab boundary.
 26. `lesson11-course-demo.service`, the harmless user-level unit supplied for the course.
+27. It initializes hardware and chooses a boot device or entry such as a disk or network boot path.
+28. It loads the selected kernel and initramfs into memory and transfers control to the kernel.
+29. It provides early userspace that can load necessary modules and locate/mount the real root filesystem before handing off.
+30. The target unit that the system is configured to use as its default boot target.
+31. Journal entries from the current boot at error priority or more severe, printed without a pager.
+32. A kernel panic prevents the kernel from continuing safely; a service failure happens later, after userspace has started, and can be limited to that unit.
 
 ## Exit ticket
 
@@ -307,6 +380,10 @@ A service is active, but a user reports that its application is unavailable. Nam
 
 # Chapter glossary
 
+**BIOS/UEFI:** Firmware interfaces that initialize a system and begin its boot path.
+**Bootloader:** Software such as GRUB that selects and loads a kernel and initial RAM filesystem.
+**Initramfs:** A temporary early-userspace filesystem used during startup to prepare and mount the real root filesystem.
+**Kernel panic:** A critical kernel error that prevents the kernel from safely continuing.
 **Active:** A current runtime state indicating a unit is running or otherwise activated.  
 **Daemon:** A background process that provides a service or system function.  
 **Enabled:** Configured for automatic activation by a target or trigger.  
@@ -322,8 +399,11 @@ A service is active, but a user reports that its application is unavailable. Nam
 ## Instructor notes
 
 - Connect Lesson 11 to Lesson 5's process model and Lesson 10's listening sockets.
+- Use the boot-sequence diagram to relate firmware, bootloader, kernel/initramfs, and systemd; note that GRUB's legacy BIOS stages are not universal.
+- Explain that System V runlevels are historical concepts with approximate systemd target compatibility, not a one-to-one model.
 - Use only the provided user unit for start, restart, and stop practice. Keep system-manager control commands out of the student lab.
 - Explain active versus enabled with concrete status output; do not enable the practice unit.
+- Use `systemctl get-default` and `journalctl -b -p err --no-pager` as read-only orientation commands; journal visibility varies by account and configuration.
 - Explain that `systemctl reload` asks the application to reread its configuration, while `daemon-reload` rereads systemd unit definitions.
 - Unit status may include recent logs, but use `journalctl` to teach deliberate filtering and time context.
 - Journal access varies. Do not instruct learners to use `sudo` to read logs they are not authorized to access.
@@ -334,21 +414,25 @@ A service is active, but a user reports that its application is unavailable. Nam
 ## Suggested slide outline
 
 1. Processes, daemons, services, and units
-2. systemd's role in the boot sequence
+2. Firmware, bootloader, kernel, initramfs, and systemd startup sequence
 3. Common unit types: service, socket, target, timer, and mount
 4. Active state versus enabled state
 5. Start, stop, restart, reload, and daemon-reload
 6. Unit-file sections and startup targets
 7. Journal filtering with `journalctl`
 8. A safe evidence-based service troubleshooting sequence
+9. Boot troubleshooting: locate the stage before choosing a remedy
 
 ## Commands introduced
 
-`systemctl --user status`, `list-units`, `is-active`, `is-enabled`, `start`, `restart`, `stop`, and `daemon-reload`; `journalctl --user -u`, `-n`, `--since`, and `--no-pager`. State-changing actions are limited to the provided user unit; the lab does not enable it or alter system services.
+`systemctl get-default`, `systemctl --user status`, `list-units`, `is-active`, `is-enabled`, `start`, `restart`, `stop`, and `daemon-reload`; `journalctl -b`, `-p err`, `--user -u`, `-n`, `--since`, and `--no-pager`. State-changing actions are limited to the provided user unit; the lab does not enable it or alter system services.
 
 ## Instructor references
 
+- [Linux kernel documentation: initramfs](https://www.kernel.org/doc/html/latest/filesystems/ramfs-rootfs-initramfs.html) — early userspace and transition to the real root filesystem.
+- [GNU GRUB manual](https://www.gnu.org/software/grub/manual/grub/html_node/index.html) — bootloader concepts and configuration; firmware and installation details vary.
+- [systemd bootup](https://www.freedesktop.org/software/systemd/man/latest/bootup.html) — startup sequence and targets managed by systemd.
 - [systemctl](https://www.freedesktop.org/software/systemd/man/latest/systemctl.html) — unit inspection, lifecycle actions, enablement, and manager reload behavior.
 - [systemd.unit](https://www.freedesktop.org/software/systemd/man/latest/systemd.unit.html) — unit structure, dependencies, ordering, and installation sections.
 - [systemd.service](https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html) — service unit configuration and process supervision.
-- [journalctl](https://www.freedesktop.org/software/systemd/man/latest/journalctl.html) — journal access and filtering.
+- [journalctl](https://www.freedesktop.org/software/systemd/man/latest/journalctl.html) — journal access, boot selection, and filtering.
