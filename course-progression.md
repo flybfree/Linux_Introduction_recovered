@@ -67,7 +67,7 @@ Explain interfaces, addresses, routes, DNS, ports, and basic client/server behav
 
 ### Lesson 11 — Services and System Administration
 
-Introduce `systemd` concepts, units, service state, startup, dependencies, and logs. Use `systemctl` and `journalctl` with a harmless user-level practice service. Students should practice status inspection, starting/restarting/stopping that approved unit, and reading recent logs, while distinguishing active from enabled and avoiding system-wide changes.
+Introduce read-only hardware discovery (PCI/USB, drivers, modules, sysfs, and udev), then cover `systemd` units, service state, startup, dependencies, and logs. Use `lspci`, `lsusb`, `lsmod`, `modinfo`, `udevadm info`, `systemctl`, and `journalctl` with a harmless user-level practice service. Students inspect hardware and logs, then start/restart/stop only that approved unit; no system-wide configuration or device changes.
 
 ### Lesson 12 — Security and Safe Administration
 

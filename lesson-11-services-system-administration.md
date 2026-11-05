@@ -2,7 +2,7 @@
 
 ## Lesson purpose
 
-Linux systems run background programs that provide services such as networking, printing, time synchronization, and remote access. This lesson introduces systemd as a service and system manager, explains unit files and startup relationships, and shows how to inspect service state and logs. Students practice with a harmless user-level unit that they can start and stop themselves.
+Linux systems use hardware devices and background services to provide computing, storage, networking, printing, and other functions. This lesson introduces safe hardware discovery and driver inspection, then explains systemd as a service and system manager, unit files, startup relationships, service state, and logs. Students practice with a harmless user-level unit that they can start and stop themselves.
 
 ## Learning objectives
 
@@ -17,19 +17,20 @@ By the end of the lesson, students will be able to:
 - read a simple service unit file and describe its basic sections;
 - inspect, start, restart, and stop a harmless user-level service;
 - use service status and logs as evidence during a basic troubleshooting sequence;
-- explain the high-level firmware-to-userspace boot sequence and inspect current-boot journal evidence.
+- explain the high-level firmware-to-userspace boot sequence and inspect current-boot journal evidence; and
+- identify common hardware buses and inspect devices, kernel drivers, modules, and device events without changing configuration.
 
 ## Instructor preparation
 
-Use Ubuntu Desktop LTS or a disposable course VM with systemd and a logged-in graphical user session. Place the accompanying `lesson-11-demo.service` file in the student practice directory. It starts only `/usr/bin/sleep infinity` as the student's own user; it does not listen on a network port or change system configuration. Confirm `systemctl --user` works in the classroom environment. If the user systemd manager is unavailable, provide instructor-generated status and journal output or use a disposable VM with an active login session. Do not use the lab to restart, stop, enable, disable, or edit system services.
+Use Ubuntu Desktop LTS or a disposable course VM with systemd and a logged-in graphical user session. Ensure `pciutils` (`lspci`) and `usbutils` (`lsusb`) are available; preinstall them in the course image if needed. Place the accompanying `lesson-11-demo.service` file in the student practice directory. It starts only `/usr/bin/sleep infinity` as the student's own user; it does not listen on a network port or change system configuration. Confirm `systemctl --user` works in the classroom environment. If the user systemd manager is unavailable, provide instructor-generated status and journal output or use a disposable VM with an active login session. Do not use the lab to restart, stop, enable, disable, or edit system services.
 
 ## Suggested lesson sequence
 
 | Segment | Time |
 |---|---:|
 | Review processes and network sockets | 10 min |
-| Boot process, textbook, and guided demonstrations | 45 min |
-| Student lab: manage a user-level unit | 45 min |
+| Hardware, boot process, textbook, and guided demonstrations | 55 min |
+| Student lab: hardware inventory and user-level unit | 55 min |
 | Knowledge check and reflection | 15 min |
 
 # Textbook chapter
@@ -91,6 +92,38 @@ journalctl -b -p err --no-pager
 ```
 
 `systemctl get-default` reports the configured default target. `journalctl -b` filters journal messages to the current boot, and `-p err` selects error-priority messages and more severe priorities. Journal access and retained boot history vary; an ordinary user may not see all system messages. Do not use `sudo` to bypass those permissions in this course. A displayed error is evidence to investigate, not proof by itself that boot failed.
+
+## 2b. Hardware discovery and management in Linux
+
+Linux separates **user space**, where ordinary applications and administrative tools run, from **kernel space**, where the kernel and device drivers operate with greater privilege. User-space tools request information through defined kernel interfaces; they do not need direct access to device registers to list hardware. A **device driver** is kernel software that communicates with a particular device or class of devices and exposes its functions to the operating system.
+
+Devices connect through buses such as PCI Express (PCIe) and USB. A host bus adapter (HBA) is a controller connecting a system to a storage interface or fabric; it may appear as a PCI device. In a virtual machine, the guest usually sees virtual devices, so its inventory may not match the physical host. Device IDs and names can help identify hardware, but a local ID database may not have a friendly description for every device.
+
+Read-only inventory tools complement earlier lessons:
+
+```bash
+lspci -nnk
+lsusb -t
+lsblk
+```
+
+`lspci -nnk` lists PCI devices with vendor/device IDs and, when available, the kernel driver currently handling each device and modules that could handle it. `lsusb -t` presents USB devices in a tree. `lsblk` lists block devices, which Lesson 9 used to inspect storage. Some PCI details may be restricted, and virtual machines may not expose physical host devices.
+
+The **sysfs** virtual filesystem at `/sys` presents relationships and attributes for kernel devices, buses, classes, and drivers. `/sys/bus` groups devices by bus, `/sys/class` groups them by function, and `/sys/block` represents block devices. These are interfaces to kernel objects, not ordinary storage directories. Some sysfs attributes are writable and can change live system behavior; this lesson only inspects them and does not write to `/sys`.
+
+Linux represents many devices with special device nodes under `/dev`. These are interfaces to device drivers, not hardware files to edit. On Ubuntu, **udev** (provided by systemd-udevd) handles device events and applies rules that manage device nodes, names, symlinks, and permissions. `udevadm info` queries the udev database for a device's properties; it does not trigger a rescan or reconfigure the device:
+
+```bash
+udevadm info --query=all /dev/DEVICE
+```
+
+Replace `/dev/DEVICE` only with an existing device path identified in the lab, such as one shown by `lsblk`. Device paths vary. Do not run `udevadm trigger` or edit udev rules in this course.
+
+Some drivers are built into the kernel; others are loadable **kernel modules**. `lsmod` lists modules currently loaded in the kernel, and `modinfo MODULE` displays metadata for a named module. A driver built into the kernel will not appear in `lsmod`. A module being loaded does not by itself prove which device it currently handles; `lspci -k` may show that relationship for PCI devices. Do not load, unload, blacklist, or install drivers in this lesson.
+
+Hardware also communicates with the processor and memory. An **interrupt request (IRQ)** is a signal or message asking the processor to handle an event. Modern systems route interrupts through platform interrupt controllers, and allocation is managed by the kernel and firmware; IRQ numbers are not a simple fixed priority ranking. **Direct memory access (DMA)** lets a capable device transfer data to or from memory without the CPU copying every byte. Drivers and the kernel coordinate safe DMA mappings, sometimes with hardware such as an IOMMU. These mechanisms are useful concepts, but students do not configure interrupt or DMA settings.
+
+This is hardware **discovery and observation**, not hardware reconfiguration. The lesson does not ask students to run `modprobe`, `rmmod`, `udevadm trigger`, `hdparm` configuration, network-interface changes, printer-administration commands, or writes to `/sys`. Those operations can affect a live system and require a separate, authorized procedure.
 
 ## 3. Inspect unit state with systemctl
 
@@ -213,6 +246,19 @@ journalctl -b -p err --no-pager
 
 Explain the active boot filter, priority selection, and possible limits on user-visible system logs. Do not attempt to repair or clear an error during this orientation; use the entry as evidence and describe which boot stage it might relate to.
 
+## Demonstration 5: Inspect devices and their drivers
+
+```bash
+lspci -nnk
+lsusb -t
+lsblk
+lsmod
+ls /sys/bus /sys/class /sys/block
+journalctl -k -b -n 30 --no-pager
+```
+
+Compare the bus inventories with the block-device list. In a virtual machine, explain that these are guest-visible devices. In PCI output, distinguish the kernel driver currently handling a device from modules that could handle it. Do not run a configuration or rescan command.
+
 # Student lab: Lesson 11 — Manage a Harmless User Service
 
 ## Safety and scope
@@ -272,7 +318,36 @@ systemctl --user status lesson11-course-demo.service --no-pager
 
 Confirm that the service is no longer active. The final status may report that the unit is not found because its unit file has been removed. The `rm` command here targets only the exact course-created file; do not broaden or modify the path.
 
-## Part F: Observe boot and target information
+## Part F: Inventory guest-visible hardware
+
+Run these read-only commands:
+
+```bash
+lspci -nnk
+lsusb -t
+lsblk
+lsmod
+ls /sys/bus /sys/class /sys/block
+journalctl -k -b -n 30 --no-pager
+```
+
+Record one PCI device and, if the output provides it, its current kernel driver. Record whether the VM exposes any USB devices. Compare `lsblk` output with the storage inspection from Lesson 9. Use the `/sys` listings to identify the bus, class, and block-device views. If visible, note one recent kernel message related to a device; do not infer that every message indicates a fault. If `lspci` or `lsusb` is unavailable, the instructor can provide a transcript; do not install packages during this lab.
+
+If the instructor selects a specific module that appears in `lsmod`, inspect its metadata:
+
+```bash
+modinfo MODULE
+```
+
+Replace `MODULE` with the selected module name. `modinfo` describes a module; it does not prove that the module handles a particular device. For a device node actually present in `lsblk`, optionally inspect udev properties:
+
+```bash
+udevadm info --query=all /dev/DEVICE
+```
+
+Substitute only an existing device path identified by `lsblk`. Do not use `sudo`, run `udevadm trigger`, load or unload a module, or write under `/sys`.
+
+## Part G: Observe boot and target information
 
 Run the following read-only commands:
 
@@ -283,7 +358,7 @@ journalctl -b -p err --no-pager
 
 Record the default target and one relevant current-boot entry if visible. If the journal is empty, access is restricted, or no error entry appears, state that plainly; do not use `sudo`. Explain why one error-priority message does not necessarily mean the system failed to boot.
 
-## Part G: Write a short service report
+## Part H: Write a short service and hardware report
 
 Record:
 
@@ -293,6 +368,8 @@ Record:
 4. Why `daemon-reload` was needed after placing and removing the unit file.
 5. One thing the status and log output do not prove about a hypothetical network service.
 6. Which boot stage does systemd follow, and what does `systemctl get-default` tell you?
+7. Identify one PCI or USB device and, where shown, its kernel driver. State whether your VM exposes physical or virtual hardware.
+8. Explain the difference between a loaded module and a driver shown as currently handling a device.
 
 ## Lab success criteria
 
@@ -302,7 +379,8 @@ Record:
 - The student filters journal output by unit and time/quantity, and interprets current-boot evidence without overstating what it proves.
 - The student removes the exact demonstration unit file and reloads the user manager.
 - The student identifies the default target and describes current-boot journal limits without escalating privileges.
-- No system service, boot target, or system-wide unit configuration is changed.
+- The student identifies guest-visible PCI/USB hardware, interprets driver/module output, and reads `/sys` or kernel-log evidence without changing configuration.
+- No system service, boot target, hardware device, or system-wide unit configuration is changed.
 
 # Knowledge check
 
@@ -338,6 +416,15 @@ Record:
 30. What does `systemctl get-default` report?
 31. What does `journalctl -b -p err --no-pager` select?
 32. How does a kernel panic differ from a single service failure after userspace starts?
+33. What does `lspci -nnk` show beyond a basic PCI device list?
+34. What does `lsusb -t` display?
+35. How does `lsmod` differ from `modinfo MODULE`?
+36. What does `udevadm info --query=all /dev/DEVICE` query?
+37. What do `/sys/bus`, `/sys/class`, and `/sys/block` expose?
+38. What is an IRQ?
+39. What does DMA let a capable device do?
+40. Why should students not run `udevadm trigger` or write to `/sys` in this lesson?
+41. What does `journalctl -k -b -n 30 --no-pager` display?
 
 ## Answer key
 
@@ -373,6 +460,15 @@ Record:
 30. The target unit that the system is configured to use as its default boot target.
 31. Journal entries from the current boot at error priority or more severe, printed without a pager.
 32. A kernel panic prevents the kernel from continuing safely; a service failure happens later, after userspace has started, and can be limited to that unit.
+33. PCI vendor/device IDs and, when available, the driver currently handling the device and compatible modules.
+34. The USB device hierarchy as a tree.
+35. `lsmod` lists currently loaded modules; `modinfo` displays metadata for a named module.
+36. It queries udev database properties for an existing device path.
+37. `/sys` kernel-device views organized by bus, class, and block-device function.
+38. An interrupt signal or message that requests processor attention for an event.
+39. Transfer data to or from memory without the CPU copying every byte; the kernel and drivers coordinate the operation.
+40. They can trigger device events or alter live kernel/device behavior, outside this lab's read-only scope.
+41. Up to the most recent 30 kernel journal messages from the current boot, printed without a pager.
 
 ## Exit ticket
 
@@ -384,6 +480,12 @@ A service is active, but a user reports that its application is unavailable. Nam
 **Bootloader:** Software such as GRUB that selects and loads a kernel and initial RAM filesystem.
 **Initramfs:** A temporary early-userspace filesystem used during startup to prepare and mount the real root filesystem.
 **Kernel panic:** A critical kernel error that prevents the kernel from safely continuing.
+**Device driver:** Kernel software that communicates with a device and exposes its functions to the operating system.
+**Kernel module:** Loadable kernel code; some drivers are modules, while others are built into the kernel.
+**sysfs:** A virtual filesystem exposing kernel objects and their relationships through `/sys`.
+**udev:** Device management in user space that processes kernel device events and manages device nodes and rules.
+**IRQ:** An interrupt request that notifies the processor of an event.
+**DMA:** A coordinated method for a capable device to transfer data to or from memory without CPU copying of every byte.
 **Active:** A current runtime state indicating a unit is running or otherwise activated.  
 **Daemon:** A background process that provides a service or system function.  
 **Enabled:** Configured for automatic activation by a target or trigger.  
@@ -398,8 +500,11 @@ A service is active, but a user reports that its application is unavailable. Nam
 
 ## Instructor notes
 
-- Connect Lesson 11 to Lesson 5's process model and Lesson 10's listening sockets.
+- Connect Lesson 11 to Lesson 1's hardware/kernel overview, Lesson 3's `/dev` and `/sys`, Lesson 5's process model, Lesson 9's storage inventory, and Lesson 10's network devices.
 - Use the boot-sequence diagram to relate firmware, bootloader, kernel/initramfs, and systemd; note that GRUB's legacy BIOS stages are not universal.
+- Explain that `lspci` and `lsusb` show devices visible to the current host or VM, not necessarily all physical host hardware.
+- Distinguish modules merely capable of handling a PCI device from the kernel driver currently handling it.
+- Keep `/sys`, udev, IRQ, and DMA discussion conceptual and read-only; do not demonstrate trigger, load/unload, or configuration operations.
 - Explain that System V runlevels are historical concepts with approximate systemd target compatibility, not a one-to-one model.
 - Use only the provided user unit for start, restart, and stop practice. Keep system-manager control commands out of the student lab.
 - Explain active versus enabled with concrete status output; do not enable the practice unit.
@@ -413,25 +518,33 @@ A service is active, but a user reports that its application is unavailable. Nam
 
 ## Suggested slide outline
 
-1. Processes, daemons, services, and units
-2. Firmware, bootloader, kernel, initramfs, and systemd startup sequence
-3. Common unit types: service, socket, target, timer, and mount
-4. Active state versus enabled state
-5. Start, stop, restart, reload, and daemon-reload
-6. Unit-file sections and startup targets
-7. Journal filtering with `journalctl`
-8. A safe evidence-based service troubleshooting sequence
-9. Boot troubleshooting: locate the stage before choosing a remedy
+1. Hardware inventory, drivers, and kernel modules
+2. `/dev`, sysfs, and udev
+3. IRQ and DMA concepts
+4. Processes, daemons, services, and units
+5. Firmware, bootloader, kernel, initramfs, and systemd startup sequence
+6. Common unit types: service, socket, target, timer, and mount
+7. Active state versus enabled state
+8. Start, stop, restart, reload, and daemon-reload
+9. Unit-file sections and startup targets
+10. Journal filtering with `journalctl`
+11. A safe evidence-based service troubleshooting sequence
+12. Boot troubleshooting: locate the stage before choosing a remedy
 
 ## Commands introduced
 
-`systemctl get-default`, `systemctl --user status`, `list-units`, `is-active`, `is-enabled`, `start`, `restart`, `stop`, and `daemon-reload`; `journalctl -b`, `-p err`, `--user -u`, `-n`, `--since`, and `--no-pager`. State-changing actions are limited to the provided user unit; the lab does not enable it or alter system services.
+`lspci -nnk`, `lsusb -t`, `lsblk`, `lsmod`, `modinfo MODULE`, `udevadm info --query=all /dev/DEVICE`, `ls /sys/bus /sys/class /sys/block`, and `journalctl -k -b -n 30 --no-pager`; `systemctl get-default`, `systemctl --user status`, `list-units`, `is-active`, `is-enabled`, `start`, `restart`, `stop`, and `daemon-reload`; `journalctl -b`, `-p err`, `--user -u`, `-n`, `--since`, and `--no-pager`. State-changing actions are limited to the provided user unit; the lab does not enable it or alter system services.
 
 ## Instructor references
 
 - [Linux kernel documentation: initramfs](https://www.kernel.org/doc/html/latest/filesystems/ramfs-rootfs-initramfs.html) — early userspace and transition to the real root filesystem.
 - [GNU GRUB manual](https://www.gnu.org/software/grub/manual/grub/html_node/index.html) — bootloader concepts and configuration; firmware and installation details vary.
 - [systemd bootup](https://www.freedesktop.org/software/systemd/man/latest/bootup.html) — startup sequence and targets managed by systemd.
+- [lspci(8)](https://man7.org/linux/man-pages/man8/lspci.8.html) and [lsusb(8)](https://man7.org/linux/man-pages/man8/lsusb.8.html) — PCI/USB inventory and driver information.
+- [udevadm](https://www.freedesktop.org/software/systemd/man/latest/udevadm.html) — querying device properties; trigger and control operations are outside the lab.
+- [Linux kernel documentation: sysfs](https://www.kernel.org/doc/html/latest/filesystems/sysfs.html) — device, bus, and driver objects exposed through `/sys`.
+- [Linux kernel documentation: DMA API](https://www.kernel.org/doc/html/latest/core-api/dma-api-howto.html) — kernel and driver coordination for DMA.
+- [lsmod(8)](https://man7.org/linux/man-pages/man8/lsmod.8.html) and [modinfo(8)](https://man7.org/linux/man-pages/man8/modinfo.8.html) — inspect loaded kernel modules and module metadata.
 - [systemctl](https://www.freedesktop.org/software/systemd/man/latest/systemctl.html) — unit inspection, lifecycle actions, enablement, and manager reload behavior.
 - [systemd.unit](https://www.freedesktop.org/software/systemd/man/latest/systemd.unit.html) — unit structure, dependencies, ordering, and installation sections.
 - [systemd.service](https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html) — service unit configuration and process supervision.
