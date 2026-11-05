@@ -58,6 +58,10 @@ For example, a word processor can ask the operating system to save a document wi
 
 This arrangement provides convenience, efficiency, and protection. Programs can share resources, users can work with several applications at once, and a normal application is prevented from freely changing another application's memory or damaging the entire storage system. The four operating-system responsibilities introduced in this lesson are process management, memory management, file-system management, and device management.
 
+![Browser, text editor, and music player applications request services from an operating system that manages processes, memory, files, and devices and coordinates access to CPU, RAM, storage, and peripherals.](graphics/lesson-01/01-os-responsibilities.png)
+
+**Figure 1.1.** The operating system provides services to applications and coordinates access to hardware. Process, memory, file-system, and device management work together to support a running system.
+
 ### Process management
 
 A program is a collection of instructions stored on a storage device. A **process** is that program after it has been loaded and started so that the processor can execute it. This distinction matters because one program can be started more than once, and each running instance may have its own state, open files, and permissions.
@@ -150,6 +154,10 @@ Linux kernel
 Hardware
 ```
 
+![Applications, shells and desktop components, and background services run in user space. They request protected services through the system call interface. Kernel subsystems manage processes, memory, file systems, networking, drivers, and architecture-specific support, and communicate with hardware.](graphics/lesson-01/02-linux-system-structure.png)
+
+**Figure 1.2.** Linux separates user-space programs from the privileged kernel. Programs request protected services through system calls; the kernel coordinates access to hardware. The shell is one user-space program, not a required intermediary for every application.
+
 ### Hardware
 
 At the foundation is **hardware**: the physical processor, RAM, storage, display, network interfaces, and peripherals. Hardware performs the actual electrical and mechanical work, but it exposes technical details that would be difficult for ordinary applications to manage directly.
@@ -193,6 +201,10 @@ Linux also appears in environments that do not look like a traditional desktop c
 ## 5. Linux distributions
 
 A **Linux distribution** is a packaged operating system built around the Linux kernel. A distribution combines the kernel with an installer, software repositories, package-management tools, system utilities, documentation, default configuration, and often a desktop environment. In other words, a distribution is the form in which most people actually receive and use Linux.
+
+![A Linux distribution combines the Linux kernel, libraries and utilities, package tools and repositories, system services, installer and configuration, and optional desktop applications. Maintainers integrate, test, release, and support these components for desktop, server, or special-purpose use.](graphics/lesson-01/03-linux-distribution-components.png)
+
+**Figure 1.3.** A distribution combines the Linux kernel with selected software, installation and update tools, and an integrated release and support model. Different selections suit desktop, server, and special-purpose systems; a graphical desktop is optional.
 
 Distributions differ because users have different goals. A desktop user may want a polished graphical environment and convenient hardware support. A server administrator may prioritize predictable releases, automation, security updates, and long-term support. A container image may prioritize a very small footprint. A learner may want extensive documentation and a large community. Distribution choice is therefore less about selecting a winner and more about matching a system to a job.
 

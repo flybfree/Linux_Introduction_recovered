@@ -2,6 +2,10 @@
 
 This repository contains the materials for a 14-lesson introductory Linux course.
 
+## Course illustrations
+
+See the [graphics index](graphics/README.md) for lesson illustrations, captions, accessibility text, and production notes. Figures are stored by lesson and linked directly from their chapters.
+
 ## Project structure
 
 - `lesson-01-prototype.md` — Lesson 1 textbook chapter and supporting lesson materials

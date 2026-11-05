@@ -55,6 +55,13 @@ sudo apt upgrade -y
 
 Commands should be explained in context, including their purpose, expected output, and any safety implications. Administrative commands such as `sudo apt upgrade -y` should not be presented as unexplained magic.
 
+## Graphics organization
+
+- Course graphics and associated information live in `graphics/`, with a shared [index](graphics/README.md).
+- Use `graphics/lesson-NN/` for each chapter as graphics are developed.
+- Each lesson folder includes images, a README with captions, alt text, placement, and review status, plus generation prompts or editable sources.
+- Chapters embed figures using relative paths. Chapter 1 includes Figure 1.1 (OS responsibilities), Figure 1.2 (Linux system structure), and Figure 1.3 (distribution components), with captions, accessibility text, review notes, and prompts in its graphics folder.
+
 ## Current artifacts
 
 - Lessons 1–14 each have a Markdown lesson file and Moodle XML question bank.
