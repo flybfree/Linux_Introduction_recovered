@@ -95,3 +95,7 @@ Students combine the course skills in a bounded project, such as a documented lo
 ## Recommended next artifact
 
 Lesson 14 — Integration Capstone — is complete in `lesson-14-integration-capstone.md`, with its Moodle question bank. The full 14-lesson sequence is drafted; review the curriculum for consistency, then prepare delivery materials or make refinements.
+
+## Companion textbook alignment
+
+The lesson-by-lesson reading guide for Jordan and Strohmayer's *CompTIA Linux+ Certification All-in-One Exam Guide, Second Edition (Exam XK0-005)* is in `book-alignment-linux-plus-xk0-005.md`. It uses the publisher's chapter sequence and distinguishes core companion reading from optional or advanced material.
