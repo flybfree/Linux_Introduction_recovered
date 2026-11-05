@@ -35,7 +35,7 @@ Build a mental model of the terminal, shell, command structure, options, argumen
 
 ### Lesson 3 — Files, Directories, and Paths
 
-Develop filesystem fluency using `touch`, `cp`, `mv`, `rm`, `rmdir`, `find`, `file`, `less`, and `head`/`tail`. Emphasize quoting, spaces in names, hidden files, glob patterns, and the difference between removing an empty directory and removing files. Every destructive example should use disposable lab data.
+Develop filesystem fluency and explain common FHS locations such as `/etc`, `/home`, `/usr`, `/var`, `/tmp`, `/boot`, `/dev`, `/proc`, and `/sys`, including distribution variations. Use `touch`, `cp`, `mv`, `rm`, `rmdir`, `find`, `file`, `less`, and `head`/`tail`. Emphasize quoting, spaces in names, hidden files, glob patterns, and the difference between removing an empty directory and removing files. Every destructive example should use disposable lab data.
 
 ### Lesson 4 — Users, Groups, and Permissions
 
