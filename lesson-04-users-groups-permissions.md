@@ -49,11 +49,19 @@ Use `ls -l` to display a long listing. A row includes an object type, permission
 
 The first character `-` identifies a regular file. The next nine characters are three groups of permissions: owner (`rw-`), group (`r--`), and other users (`---`). In this example, Maya can read and write the file, members of `labteam` can read it, and other users have no listed permission. File ownership is one user and one group; it is not a list of every person who can access the file.
 
+![A long listing for plan.txt identifies the regular-file marker, owner maya, group labteam, and owner rw-, group r--, and other --- permission triplets. Read is worth 4, write 2, and execute 1; these triplets correspond to mode 640.](graphics/lesson-04/01-ownership-permission-bits.png)
+
+**Figure 4.1.** The type character precedes three permission triplets: owner, group, and other. For `plan.txt`, `rw-`, `r--`, and `---` correspond to `6`, `4`, and `0`. Names identify ownership; permission bits describe the access allowed to each class in the basic model.
+
 ## 3. Read, write, and execute mean different things by object type
 
 For a regular file, read permits viewing its contents, write permits changing its contents, and execute permits running it as a program (subject to other requirements). A text document normally does not need execute permission.
 
 For a directory, read permits listing names, write permits creating or removing directory entries, and execute permits traversing the directory or accessing a known entry. Directory write permission without execute permission is generally not useful for ordinary navigation. To reach a file, a user needs traversal permission on each directory in its path as well as the needed permission on the file itself. Access can also be affected by parent directories, ACLs, mount options, and other controls; this lesson focuses on the basic owner/group/other model.
+
+![A table contrasts read, write, and execute for regular files and directories. Files can be read, changed, or executed; directories can have names listed, entries changed, or paths traversed. Reading private.txt also requires traversal through every parent directory, starting at root.](graphics/lesson-04/02-file-directory-permissions.png)
+
+**Figure 4.2.** Read, write, and execute have different effects on files and directories. Accessing a file requires traversal through each directory in its path. Removing a filename generally depends on write and traversal permissions on its parent directory, subject to additional restrictions.
 
 ## 4. Changing permission bits with `chmod`
 
@@ -70,6 +78,10 @@ The symbolic form can also set a class exactly: `chmod o=r notes.txt` makes the 
 When a program creates a file or directory, the requested starting permissions are reduced by the process's `umask`. The `umask` command without an argument displays the current mask. A mask is not itself a permission setting to apply to an existing file; it filters permissions from the creation defaults. For example, with a common mask of `022`, ordinary new files commonly start as `644` and directories as `755`, depending on the creating program's requested mode.
 
 Common masks illustrate how defaults can be tightened. With typical creation requests, `022` commonly yields files with mode `644` and directories with mode `755`; `027` commonly yields `640` and `750`; `077` commonly yields `600` and `700`. Exact results can vary with the program's requested mode. A mask filters permission bits; it is not ordinary arithmetic subtraction from every existing file.
+
+![A typical file creation request of 666 passes through umask 027 and becomes 640; a directory request of 777 becomes 750. A table compares masks 022, 027, and 077, yielding files 644, 640, and 600 and directories 755, 750, and 700.](graphics/lesson-04/03-umask-creation-filter.png)
+
+**Figure 4.3.** A process's `umask` clears permission bits from a program's creation request. Typical requests are `666` for ordinary files and `777` for directories; with mask `027`, these become `640` and `750`. Existing objects are unaffected, and programs may request more restrictive modes.
 
 In this lesson, students inspect `umask` without changing their login configuration. A temporary change affects later creations in the current shell, so if an instructor chooses to demonstrate one, restore the prior value before ending the session. Do not edit startup files for this activity.
 

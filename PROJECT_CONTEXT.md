@@ -66,6 +66,8 @@ Commands should be explained in context, including their purpose, expected outpu
 
 - Lesson 3 includes Figures 3.1–3.3: filesystem locations, copy/move/rename behavior, and copies versus hard and symbolic links. Supporting information and prompts live in `graphics/lesson-03/`.
 
+- Lesson 4 includes Figures 4.1–4.3: ownership and mode bits, file versus directory permissions, and umask creation filtering. Supporting information and prompts live in `graphics/lesson-04/`.
+
 ## Current artifacts
 
 - Lessons 1–14 each have a Markdown lesson file. All Moodle XML question banks are stored in `Question Banks/`, using the existing `lesson-NN-moodle-question-bank.xml` names.
