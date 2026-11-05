@@ -13,7 +13,10 @@ By the end of the lesson, students will be able to:
 - explain how a mounted filesystem joins the Linux directory tree;
 - use `df` to inspect filesystem space and `du` to estimate directory usage;
 - create, list, and extract a compressed `tar` archive in a practice directory;
-- verify archive contents and inspect a restored copy; and
+- verify archive contents and inspect a restored copy;
+- explain how LVM layers logical volumes over storage devices;
+- compare common RAID layouts and explain their limits;
+- distinguish full, incremental, and differential backup strategies; and
 - explain why a backup needs a separate storage destination and a restore check.
 
 ## Instructor preparation
@@ -47,6 +50,34 @@ The FHS locations from Lesson 3 help interpret mount points. The root filesystem
 
 Both commands are for inspection only. Do not create or remove partitions, create filesystems, erase signatures, copy raw device data, or change labels. Commands such as `fdisk`, `parted`, `mkfs`, `wipefs`, and `dd` when directed at a block device are outside this lesson. A typo in a device path can destroy data.
 
+## 2a. Logical volume management (LVM)
+
+Some Linux systems add a flexible storage layer between physical devices and filesystems. LVM organizes this as **physical volumes (PVs)**, **volume groups (VGs)**, and **logical volumes (LVs)**:
+
+```text
+storage device or partition → PV → VG (capacity pool) → LV → filesystem → mount point
+```
+
+A PV is a device or partition prepared for LVM. A VG combines one or more PVs into a capacity pool. An LV is a virtual block device allocated from that pool; it can then hold a filesystem and be mounted like another block device. This separation can make it easier for an administrator to allocate or resize storage, but changes still require planning, free capacity, compatible filesystems, and verified backups. A volume group may span multiple physical devices, so a failure can affect more data than expected.
+
+An LVM **snapshot** records a point-in-time view of a logical volume using LVM-managed storage. Depending on snapshot type, it may initially share blocks with the original and record later changes. If its reserved space fills, the snapshot can become unusable. A snapshot is useful for some short-term recovery or consistent-copy workflows, but it is not an independent backup: it may share the same devices, storage pool, and failure risks as the source. Snapshot behavior and capacity requirements depend on the LVM type and configuration.
+
+**Thin provisioning** allows logical volumes to be presented with more total capacity than is currently backed by physical storage. This can use space efficiently, but if actual writes consume the pool, the pool can run out of space and affect its volumes. Administrators must monitor and plan capacity. Students only identify LVM layers in inspection output; they do not create, resize, or snapshot volumes.
+
+## 2b. RAID: availability and its limits
+
+**RAID** combines storage devices to provide a chosen balance of performance, usable capacity, and resilience to some device failures. Common layouts include:
+
+| Layout | Basic arrangement | Typical failure protection |
+|---|---|---|
+| RAID 0 | Data striped across devices | None; one device failure can lose the array |
+| RAID 1 | Data mirrored to another device | Can tolerate a member failure, depending on mirror layout |
+| RAID 5 | Data striped with distributed parity | Typically one device failure; usually at least three devices |
+| RAID 6 | Data striped with dual parity | Typically two device failures; usually at least four devices |
+| RAID 10 | Striped set of mirrored pairs | Depends on which members fail; multiple failures can be tolerated in some combinations |
+
+Exact implementation, capacity, and recovery behavior vary. RAID can help keep a system available after certain disk failures, but it does not protect against accidental deletion, malware, fire, theft, or all forms of corruption. A mirrored deletion is still a deletion. RAID is not a backup. Administrators may combine RAID and LVM, but each layer adds design and recovery complexity. This lesson only discusses the concepts; students do not create or alter arrays.
+
 ## 3. Filesystems and mount points
 
 A filesystem determines how data and metadata are arranged and how names, directories, permissions, and free space are represented. Linux supports many types. Ubuntu commonly uses ext4 for local filesystems, while removable drives, other operating systems, servers, and specialized workloads may use others. Selection depends on compatibility, reliability, features, and purpose; students do not create filesystems in this lesson.
@@ -75,7 +106,13 @@ tar -xzf lesson9-backup.tar.gz -C restore-test
 
 The first command creates a gzip-compressed archive from `lesson9-data`. The second lists contents without extracting. The third extracts into `restore-test`, which must be a new, empty directory. `-C` tells `tar` to change to that directory before extracting. Use a new archive filename rather than replacing one you need.
 
-An archive on the same device as its source is convenient for practice, but is not an independent backup: device failure, theft, malware, or mistaken deletion could affect both copies. A backup plan includes a separate destination, schedule, access protection, and restore verification. A common guideline is multiple copies on different types of storage, with at least one copy in a separate location; the plan depends on the value and sensitivity of the data.
+An archive on the same device as its source is convenient for practice, but is not an independent backup: device failure, theft, malware, or mistaken deletion could affect both copies. A backup plan includes a separate destination, schedule, access protection, and restore verification. Common schedules include:
+
+- **Full backup:** copies all selected data each time. It is straightforward to restore, but each run can take more time and storage.
+- **Incremental backup:** copies data changed since the preceding backup (full or incremental). Each run is usually smaller, but a restore may need the full backup and every later increment in order.
+- **Differential backup:** copies data changed since the most recent full backup. Later differentials may grow, but a restore usually needs the full backup and the latest differential.
+
+Tools such as `rsync` can copy and synchronize files, but a synchronized destination is not automatically a versioned backup. Options that remove destination files can propagate an accidental deletion. Choose a separate destination (such as protected external, network, or cloud storage), preserve useful versions, protect sensitive data, and test restores. A common guideline is multiple copies on different types of storage, with at least one copy in a separate location; the plan depends on the value and sensitivity of the data.
 
 ## 6. Verify before relying on a backup
 
@@ -134,7 +171,7 @@ Inspect the listing and restored tree. A new empty directory makes the destinati
 
 ## Safety and scope
 
-Use only the disposable course VM and `~/linux-course/lesson9`. Do not use `sudo`, partition or format storage, mount or unmount anything, edit `/etc/fstab`, run `fdisk`, `parted`, `mkfs`, `wipefs`, or use `dd` on a device. Do not inspect another user’s data or archive an entire home directory. Keep created files and archives in the practice directory. Extract only to a new, empty directory.
+Use only the disposable course VM and `~/linux-course/lesson9`. Do not use `sudo`, configure LVM or RAID, partition or format storage, mount or unmount anything, edit `/etc/fstab`, run `fdisk`, `parted`, `mkfs`, `wipefs`, or use `dd` on a device. Do not inspect another user’s data or archive an entire home directory. Keep created files and archives in the practice directory. Extract only to a new, empty directory.
 
 ## Part A: Inspect devices and filesystem metadata
 
@@ -221,6 +258,8 @@ For important class files, write down:
 
 The lab archive stays on the same VM and is not an adequate real-world backup by itself.
 
+For the chosen class files, state whether a full, incremental, or differential schedule fits best. Explain what you would need to restore the latest version under that strategy.
+
 ## Lab success criteria
 
 - The student identifies a device, partition, filesystem, and mount point from inspection output.
@@ -255,6 +294,15 @@ The lab archive stays on the same VM and is not an adequate real-world backup by
 20. Why is an archive on the same device as its source not an independent backup?
 21. Name two ways to make a backup plan more reliable.
 22. Which storage-changing operations are excluded from this lab?
+23. In LVM, what roles do a PV, VG, and LV play?
+24. Why is an LVM snapshot not necessarily an independent backup?
+25. What risk comes with thin provisioning?
+26. What is the key resilience difference between RAID 0 and RAID 1?
+27. How many device failures can RAID 5 and RAID 6 typically tolerate?
+28. Why is RAID not a substitute for backup?
+29. What does a full backup copy?
+30. How does an incremental backup differ from a differential backup?
+31. Why should a synchronized `rsync` destination not automatically be treated as a versioned backup?
 
 ## Answer key
 
@@ -280,6 +328,15 @@ The lab archive stays on the same VM and is not an adequate real-world backup by
 20. Device failure, theft, malware, or mistaken deletion could affect both source and archive.
 21. Store a copy on separate storage or another location, protect sensitive data, keep useful versions, schedule updates, and test restores.
 22. Partitioning, formatting, mounting, unmounting, editing mount configuration, or writing raw data to devices.
+23. A PV is prepared storage for LVM; a VG pools PV capacity; an LV is a virtual block device allocated from a VG.
+24. It may share the source storage pool or devices and can be affected by the same failure; it also has snapshot-specific capacity limits.
+25. Actual writes can exhaust the physical pool even when logical volumes appear to have capacity.
+26. RAID 0 has no redundancy; RAID 1 mirrors data and can tolerate a member failure depending on layout.
+27. RAID 5 typically tolerates one device failure; RAID 6 typically tolerates two.
+28. RAID does not protect against deletion, malware, theft, or other events that affect the whole system or copy.
+29. All selected data.
+30. Incremental copies changes since the preceding backup; differential copies changes since the last full backup.
+31. Synchronization may mirror deletions or unwanted changes and may not preserve earlier versions.
 
 ## Exit ticket
 
@@ -290,6 +347,16 @@ In one or two sentences, explain the difference between inspecting a device and 
 **Archive:** A file that bundles selected files and directory structure, optionally with compression.  
 **Backup:** A separate, recoverable copy of data intended to support restoration after loss or damage.  
 **Block device:** A device that provides data in addressable blocks, such as a disk, partition, or virtual disk layer.  
+**Differential backup:** A backup of changes since the latest full backup.
+**Full backup:** A copy of all selected data.
+**Incremental backup:** A backup of changes since the preceding backup.
+**Logical volume (LV):** A virtual block device allocated from a volume group.
+**Logical volume management (LVM):** A storage layer that organizes physical volumes into volume groups and logical volumes.
+**Physical volume (PV):** A device or partition initialized for use by LVM.
+**RAID:** A method of combining devices for capacity, performance, and/or resilience.
+**Snapshot:** A point-in-time view of a logical volume managed by LVM.
+**Thin provisioning:** Allocating logical capacity beyond the physical storage currently assigned.
+**Volume group (VG):** A pool formed from one or more LVM physical volumes.
 **Filesystem:** A method and on-disk structure for organizing files, directories, metadata, and available space.  
 **Filesystem UUID:** An identifier associated with a filesystem, often used independently of a changing device name.  
 **Mount point:** A directory where a filesystem is attached to the Linux directory tree.  
@@ -311,6 +378,9 @@ In one or two sentences, explain the difference between inspecting a device and 
 - A successful archive listing is not a substitute for a restore test. Have students open and compare the restored file.
 - A same-device archive is not a real independent backup. Keep backup planning conceptual or use instructor-managed lab media.
 - Keep commands that write, format, partition, or mount storage out of the hands-on task.
+- Use a simple diagram to teach PV → VG → LV; avoid asking students to provision LVM or RAID.
+- Emphasize that LVM snapshots share failure risks and RAID protects only against defined device failures; neither replaces independent, tested backups.
+- Have students distinguish incremental from differential restore chains and discuss how synchronization differs from versioned backup.
 
 ## Suggested slide outline
 
@@ -321,7 +391,10 @@ In one or two sentences, explain the difference between inspecting a device and 
 5. Archive versus backup
 6. Create and inspect a compressed `tar` archive
 7. Restore to a clean directory and verify
-8. Build a separate, recoverable backup plan
+8. LVM: PV, VG, LV, snapshots, and thin provisioning (conceptual)
+9. RAID levels and why RAID is not backup
+10. Full, incremental, and differential backup strategies
+11. Build a separate, recoverable backup plan
 
 ## Commands introduced
 
@@ -329,6 +402,11 @@ In one or two sentences, explain the difference between inspecting a device and 
 
 ## Instructor references
 
+- [Red Hat Enterprise Linux 9: Configuring and managing logical volumes](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/configuring_and_managing_logical_volumes/) — LVM concepts, snapshots, and thin provisioning.
+- [Linux kernel: Multiple devices (RAID) support](https://docs.kernel.org/admin-guide/md.html) — Linux software RAID overview and operational cautions.
+- [rsync manual](https://rsync.samba.org/ftp/rsync/rsync.1.html) — synchronization behavior and options such as deletion; use carefully.
+
 - [lsblk(8)](https://man7.org/linux/man-pages/man8/lsblk.8.html), [blkid(8)](https://man7.org/linux/man-pages/man8/blkid.8.html), and [mount(8)](https://man7.org/linux/man-pages/man8/mount.8.html) — util-linux behavior and cautions.
 - [GNU Coreutils: df](https://www.gnu.org/software/coreutils/manual/html_node/df-invocation.html) and [GNU Coreutils: du](https://www.gnu.org/software/coreutils/manual/html_node/du-invocation.html) — filesystem and directory usage reporting.
 - [GNU tar manual](https://www.gnu.org/software/tar/manual/tar.html) — archive creation, listing, and extraction.
+
