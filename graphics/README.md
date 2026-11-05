@@ -5,6 +5,7 @@ Illustrations and their supporting information are organized by lesson. Use rela
 | Lesson | Source chapter | Graphics and notes |
 |---|---|---|
 | 1 — Operating Systems and Linux Fundamentals | [Chapter 1](../lesson-01-prototype.md) | [Figures, captions, and production notes](lesson-01/README.md) |
+| 2 — Working with the Linux Shell | [Chapter 2](../lesson-02-linux-shell.md) | [Figures, captions, and production notes](lesson-02/README.md) |
 
 ## Conventions
 

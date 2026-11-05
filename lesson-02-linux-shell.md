@@ -127,6 +127,10 @@ An **absolute path** begins at the root directory and identifies a location inde
 
 A **relative path** begins from the current directory. If the current directory is `/home/student`, the relative path `lesson2-lab/notes.txt` refers to the same file. Relative paths are shorter and convenient within a project; absolute paths are unambiguous when a command may run from an unknown location.
 
+![A directory tree runs from root through home, student, and lesson2-lab to notes.txt. With /home/student as the current directory, the absolute path /home/student/lesson2-lab/notes.txt and relative path lesson2-lab/notes.txt identify the same file.](graphics/lesson-02/01-absolute-relative-paths.png)
+
+**Figure 2.1.** An absolute path starts at root (`/`); a relative path starts at the current directory. Here both paths identify `notes.txt` because the current directory is `/home/student`.
+
 A filename is one component of a path, while a directory name identifies a container in the tree. Linux permits spaces and many punctuation characters in filenames, but unusual names require careful quoting or escaping. Names beginning with `.` are hidden by many directory listings, but they are not inherently more secure.
 
 The shell expands `~` and variables before starting a command. Quoting controls that interpretation. Single quotes preserve the characters inside them literally, while double quotes still allow variable and command expansion but preserve spaces. When in doubt, quote a path:
@@ -152,6 +156,10 @@ ls -l "$HOME/lesson2-lab"
 ```
 
 Here `ls` is the command, `-l` is an option, and the quoted path is an argument. The option and argument are separate ideas: an option changes how the program behaves, while an argument identifies what it should process.
+
+![The command ls -l "$HOME/lesson2-lab" is divided into ls, the command name; -l, the long-listing option; and the quoted path, the directory argument. Double quotes permit HOME expansion while keeping the path together.](graphics/lesson-02/02-command-anatomy.png)
+
+**Figure 2.2.** `ls` identifies the command, `-l` requests a long listing, and the quoted path selects the directory. Bash expands `$HOME` inside double quotes while preserving the path as one argument.
 
 The shell also recognizes control operators. A semicolon runs commands sequentially regardless of the first command's result. `&&` runs the next command only when the first succeeds, while `||` runs the next command when the first fails. These operators are useful but should be introduced deliberately; students should inspect commands before combining them.
 
@@ -265,6 +273,12 @@ To redirect both standard output and standard error in Bash, use `> file 2>&1` o
 ## 9. Pipelines
 
 A **pipeline** connects the standard output of one command to the standard input of another using `|`:
+
+![Standard input, descriptor 0, flows into a program; standard output, descriptor 1, carries results out; standard error, descriptor 2, carries diagnostics separately. A pipeline sends sorted words from sort words.txt to uniq -c, producing counts of two alpha, one beta, and one zeta.](graphics/lesson-02/03-streams-redirection-pipelines.png)
+
+**Figure 2.3.** Programs read standard input and write results and diagnostics to separate streams. Redirection changes a stream's source or destination; an ordinary pipe connects one command's standard output to the next command's standard input. Sorting first groups duplicate lines so `uniq -c` can count them.
+
+Illustrated pipeline: `sort words.txt | uniq -c`.
 
 ```bash
 ls -la "$HOME/lesson2-lab" | wc -l

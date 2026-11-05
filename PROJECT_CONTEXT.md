@@ -62,9 +62,11 @@ Commands should be explained in context, including their purpose, expected outpu
 - Each lesson folder includes images, a README with captions, alt text, placement, and review status, plus generation prompts or editable sources.
 - Chapters embed figures using relative paths. Chapter 1 includes Figure 1.1 (OS responsibilities), Figure 1.2 (Linux system structure), Figure 1.3 (distribution components), and Figure 1.4 (Unix/GNU/Linux history), with captions, accessibility text, review notes, and prompts in its graphics folder.
 
+- Lesson 2 includes Figures 2.1–2.3: absolute and relative paths, command anatomy, and streams/redirection/pipelines. Supporting information and prompts live in `graphics/lesson-02/`.
+
 ## Current artifacts
 
-- Lessons 1–14 each have a Markdown lesson file and Moodle XML question bank.
+- Lessons 1–14 each have a Markdown lesson file. All Moodle XML question banks are stored in `Question Banks/`, using the existing `lesson-NN-moodle-question-bank.xml` names.
 - `course-progression.md` — The 14-lesson roadmap and scope for future modules.
 - `book-alignment-linux-plus-xk0-005.md` — mapping of course lessons to the published chapters of the CompTIA Linux+ XK0-005 All-in-One Exam Guide, Second Edition.
 - `lesson-plans.md` — all 14 course lesson plans in the instructor's Objectives/Lecture Topics/Labs/Preparation/Assignments template, aligned to the companion textbook.
