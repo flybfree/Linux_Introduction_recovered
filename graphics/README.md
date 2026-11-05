@@ -13,6 +13,7 @@ Illustrations and their supporting information are organized by lesson. Use rela
 | 7 — Shell Scripting and Automation | [Chapter 7](../lesson-07-shell-scripting-automation.md) | [Figures, captions, and production notes](lesson-07/README.md) |
 | 8 — Text Processing and Pipelines | [Chapter 8](../lesson-08-text-processing-pipelines.md) | [Figures, captions, and production notes](lesson-08/README.md) |
 | 9 — Storage, Filesystems, and Backups | [Chapter 9](../lesson-09-storage-filesystems-backups.md) | [Figures, captions, and production notes](lesson-09/README.md) |
+| 10 — Networking Fundamentals | [Chapter 10](../lesson-10-networking-fundamentals.md) | [Figures, captions, and production notes](lesson-10/README.md) |
 
 ## Conventions
 

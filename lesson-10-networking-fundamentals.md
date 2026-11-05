@@ -45,6 +45,10 @@ A network exchange involves multiple responsibilities. A useful introductory mod
 
 A web request uses all of these: a link carries frames; IP gets packets to the destination network; TCP or QUIC provides transport; and HTTP describes the web request. DNS may first translate a hostname into an IP address. If a later layer works, it often implies some lower-layer communication worked for that specific exchange, but the reverse is not guaranteed.
 
+![The TCP/IP model places HTTP, DNS, and SSH at the application layer; TCP and UDP at transport; IPv4, IPv6, and ICMP at Internet; and Ethernet and Wi-Fi at link. Example HTTPS stacks distinguish TCP with TLS from HTTP/3 using QUIC over UDP.](graphics/lesson-10/01-tcp-ip-layers.png)
+
+**Figure 10.1.** Application, transport, Internet, and link responsibilities cooperate in a network exchange. Ports identify transport endpoints and IP addresses identify interfaces. The examples show HTTPS over TCP and HTTP/3 over QUIC/UDP; the four-layer model is a simplified guide rather than an exhaustive protocol map.
+
 ## 2. Interfaces, addresses, and local networks
 
 A **network interface** is a system's connection to a network. It may be a physical Ethernet or Wi-Fi adapter, a virtual adapter in a VM, a loopback interface, or a software-created interface. Interface names vary, so never assume a specific name such as `eth0` or `wlan0`.
@@ -68,6 +72,10 @@ ip route
 A **subnet** is an IP network described by an address and prefix. A host decides whether a destination is on a directly connected network or must be reached through a **router**. A **route** describes a destination network and the next step for reaching it. The **default route** is used when no more-specific route matches; it commonly points to a local **default gateway**, which forwards traffic to other networks.
 
 Use `ip route` to inspect routes. The output often includes a line beginning with `default via`, but a default route does not prove that the gateway or Internet is reachable. Routing can fail because of a missing route, an unavailable gateway, a broken local link, upstream filtering, or a remote problem. A VM's network may be virtualized or NATed, so its displayed gateway need not be a physical router in the room.
+
+![A fictional VM at 192.0.2.10/24 sends local-subnet traffic directly toward 192.0.2.20. A separate path uses gateway 192.0.2.1 toward remote documentation address 198.51.100.20. Loopback 127.0.0.1 remains inside the VM.](graphics/lesson-10/02-local-routing-gateway.png)
+
+**Figure 10.2.** A connected-subnet route serves the local example; traffic with no more-specific matching route uses the default gateway. Loopback remains within the system. A route describes where to send traffic, not whether delivery will succeed.
 
 ## 4. Name resolution and DNS
 
@@ -106,6 +114,10 @@ Record the symptom and time, then test one layer at a time. Start locally and mo
 3. **Local stack or gateway:** Does loopback respond? If authorized, does the gateway respond? Use a bounded `ping`; remember ICMP may be filtered.
 4. **Name resolution:** Does the system resolve the approved hostname? Use `getent hosts` or, where available, `resolvectl query`.
 5. **Application and port:** Does the approved application respond? Use `curl -I --max-time 10` for the approved HTTPS endpoint. Use `ss -tuln` only to inspect local listeners.
+
+![Five checks inspect interface state and addresses, routes, bounded ICMP reachability, system name lookup, and an approved HTTPS response. Each row states the limited observation and what remains unknown. Failed ping does not prove a web service is unavailable; HTTP status responses need interpretation.](graphics/lesson-10/03-layered-troubleshooting.png)
+
+**Figure 10.3.** Inspect local state, routes, reachability, name lookup, and the application response. Each check establishes only part of the path: ICMP can be filtered, name lookup can use cached or local data, and an HTTP error status still represents an application response. Record uncertainty alongside evidence.
 
 This is a reasoning aid, not a guarantee that every test is independent. A failure at one stage narrows possibilities but may have multiple causes. For example, an interface can be up while authentication to Wi-Fi has failed; a gateway can be reachable while an external route is broken; DNS can succeed from cache while the resolver is currently unavailable; and a web service can be down while the rest of the network works. Gather evidence, state what each test establishes, and avoid changing configuration until the cause and authorized remedy are understood.
 

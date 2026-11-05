@@ -78,6 +78,8 @@ Commands should be explained in context, including their purpose, expected outpu
 
 - Lesson 9 includes Figures 9.1–9.4: storage/LVM layers, df versus du, backup restore chains, and archive restoration/verification. Supporting information and prompts live in `graphics/lesson-09/`.
 
+- Lesson 10 includes Figures 10.1–10.3: TCP/IP layers, local versus gateway routing, and evidence-based network troubleshooting. Supporting information and prompts live in `graphics/lesson-10/`.
+
 ## Current artifacts
 
 - Lessons 1–14 each have a Markdown lesson file. All Moodle XML question banks are stored in `Question Banks/`, using the existing `lesson-NN-moodle-question-bank.xml` names.
