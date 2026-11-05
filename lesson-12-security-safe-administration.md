@@ -46,6 +46,10 @@ Linux assigns ownership and permissions to users and groups. Lesson 4 showed how
 
 The **principle of least privilege** means granting only the access needed, for only as long as needed. If a task can be completed in a user's own directory, it should not need administrator access. If an administrative task needs one privileged operation, avoid turning an entire interactive session into a root session.
 
+![An account identity is claimed, authentication supplies evidence of control, and authorization checks which actions are permitted. A normal student's example policy allows reading assigned course material but does not grant system-account changes. Least privilege limits access to the needed scope and duration.](graphics/lesson-12/01-identity-authentication-authorization.png)
+
+**Figure 12.1.** Authentication establishes evidence for a claimed identity; authorization evaluates the actions that identity may perform. Least privilege limits the granted access to the task and its duration. Valid credentials alone do not grant every permission or make an operation safe.
+
 ## 3. Use sudo deliberately
 
 `sudo` requests that an allowed command run with elevated privileges, commonly as root. The system's sudo policy determines which users may run which commands. When authentication is required, the prompt normally asks for the invoking user's password, not the root password. The precise policy depends on system configuration. A successful password check does not mean that the requested command is harmless.
@@ -102,6 +106,10 @@ In a key pair, the public key may be installed on an authorized server; the priv
 
 On a first connection, SSH may ask whether to trust a server key. Verify the presented fingerprint using an independently trusted channel, such as the administrator's published instructions. On later connections, a warning that the host key changed could indicate a legitimate rebuild, but it could also indicate interception or that the address now reaches a different machine. Do not bypass the warning by deleting the saved key or accepting the new one automatically. Stop and verify with the system owner first.
 
+![The client checks the server host-key fingerprint against independently trusted information. Separately, the user proves control of a private user key while the server verifies using an authorized public key. The private key is not sent. An unexpected host-key change calls for stopping and independent verification with the system owner.](graphics/lesson-12/02-ssh-user-and-host-identity.png)
+
+**Figure 12.2.** The server's host key helps the client identify the server. The user's key pair separately supports user authentication: the client proves control of its private key without transmitting it, and the server checks the proof using the authorized public key. Verify unexpected host-key changes through an independently trusted channel before proceeding.
+
 Enabling an SSH server, changing authentication policy, or editing firewall rules can lock out a remote administrator or expose a machine. These are planned changes: confirm that access works through an alternative console, validate the configuration, coordinate the change, and keep a rollback path. This course discusses the concepts but does not expose classroom computers to remote login.
 
 ## 6. Updates and software trust
@@ -146,6 +154,10 @@ When you suspect compromise, preserve information and follow the responsible org
 Before an administrative change, record the goal and current state. Check that the system is the intended target, consult trusted documentation, and verify that the operation is approved. Make the smallest change that addresses the need. Confirm the result with read-only evidence, record what changed, and know how to roll it back. For a change that could interrupt access or affect data, schedule it, notify affected users, and confirm a usable backup or recovery path.
 
 The routine can be summarized as **identify, inspect, authorize, change, verify, document**. Not every task needs a formal change ticket, but every task benefits from clarity about target, authority, impact, and result.
+
+![Six stages identify the goal and target, inspect evidence, confirm authorization, make a minimal understood change, verify the result, and document the outcome. Unclear authority or impact calls for stopping, while unexpected results call for evidence preservation and an approved investigation or rollback plan.](graphics/lesson-12/03-safe-change-workflow.png)
+
+**Figure 12.3.** Identify the target, inspect the current state, confirm authorization, make the smallest understood change, verify with evidence, and document the outcome. Plan recovery before changes that affect data or access, and pause if the result differs from expectations. The student lab practices observation and decisions rather than system changes.
 
 # Guided demonstrations
 

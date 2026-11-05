@@ -82,6 +82,8 @@ Commands should be explained in context, including their purpose, expected outpu
 
 - Lesson 11 includes Figures 11.1–11.4: boot stages, hardware and driver inspection, active versus enabled, and service reload/restart distinctions. Supporting information and prompts live in `graphics/lesson-11/`.
 
+- Lesson 12 includes Figures 12.1–12.3: identity/authentication/authorization, SSH user and host identities, and the safe-change workflow. Supporting information and prompts live in `graphics/lesson-12/`.
+
 ## Current artifacts
 
 - Lessons 1–14 each have a Markdown lesson file. All Moodle XML question banks are stored in `Question Banks/`, using the existing `lesson-NN-moodle-question-bank.xml` names.
