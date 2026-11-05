@@ -57,7 +57,7 @@ Commands should be explained in context, including their purpose, expected outpu
 
 ## Current artifacts
 
-- Lessons 1–11 each have a Markdown lesson file and Moodle XML question bank.
+- Lessons 1–12 each have a Markdown lesson file and Moodle XML question bank.
 - `course-progression.md` — The 14-lesson roadmap and scope for future modules.
 - `README.md` — Repository purpose, current artifacts, and project development standards.
 
@@ -92,4 +92,4 @@ The workspace is `G:\NewCourseMaterial\Linux_Introduction`. The public repositor
 
 ## Recommended next steps
 
-Continue with Lesson 12 — Security and Safe Administration — following the scope in `course-progression.md`.
+Continue with Lesson 13 — Troubleshooting and Documentation — following the scope in `course-progression.md`.

@@ -94,4 +94,4 @@ Students combine the course skills in a bounded project, such as a documented lo
 
 ## Recommended next artifact
 
-Develop Lesson 12 — Security and Safe Administration — using the established lesson structure. Build on package provenance, permissions, services, and safe administrative habits; keep SSH and firewall work conceptual or confined to an isolated lab.
+Lesson 12 — Security and Safe Administration — is complete in `lesson-12-security-safe-administration.md`, with its Moodle question bank. Continue with Lesson 13 — Troubleshooting and Documentation — using the established lesson structure.
