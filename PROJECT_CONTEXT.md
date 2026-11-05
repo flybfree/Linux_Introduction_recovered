@@ -84,6 +84,8 @@ Commands should be explained in context, including their purpose, expected outpu
 
 - Lesson 12 includes Figures 12.1–12.3: identity/authentication/authorization, SSH user and host identities, and the safe-change workflow. Supporting information and prompts live in `graphics/lesson-12/`.
 
+- Lesson 13 includes Figures 13.1–13.3: iterative investigation, observation versus hypothesis, and evidence-based handoff documentation. Supporting information and prompts live in `graphics/lesson-13/`.
+
 ## Current artifacts
 
 - Lessons 1–14 each have a Markdown lesson file. All Moodle XML question banks are stored in `Question Banks/`, using the existing `lesson-NN-moodle-question-bank.xml` names.

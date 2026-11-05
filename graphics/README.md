@@ -16,6 +16,7 @@ Illustrations and their supporting information are organized by lesson. Use rela
 | 10 — Networking Fundamentals | [Chapter 10](../lesson-10-networking-fundamentals.md) | [Figures, captions, and production notes](lesson-10/README.md) |
 | 11 — Services and System Administration | [Chapter 11](../lesson-11-services-system-administration.md) | [Figures, captions, and production notes](lesson-11/README.md) |
 | 12 — Security and Safe Administration | [Chapter 12](../lesson-12-security-safe-administration.md) | [Figures, captions, and production notes](lesson-12/README.md) |
+| 13 — Troubleshooting and Documentation | [Chapter 13](../lesson-13-troubleshooting-documentation.md) | [Figures, captions, and production notes](lesson-13/README.md) |
 
 ## Conventions
 

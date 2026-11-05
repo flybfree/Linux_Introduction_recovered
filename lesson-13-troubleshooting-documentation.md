@@ -52,11 +52,19 @@ Use this sequence to keep an investigation focused:
 
 The process is iterative. A test that disproves a hypothesis is useful: it narrows the search. Avoid changing several settings at once, because then a success or failure does not reveal which change mattered. Do not “try random commands” as a substitute for investigation. Some commands that look diagnostic can change state, remove evidence, interrupt a service, or expose data.
 
+![Define a symptom, scope impact, record changes, and collect evidence before forming a hypothesis and prediction. Run one authorized low-risk test, compare the result, and revise when unsupported or inconclusive. Supported explanations lead to an authorized remedy or escalation, original-task verification, and documentation.](graphics/lesson-13/01-investigation-loop.png)
+
+**Figure 13.1.** Define and scope the symptom, collect evidence, and test a prediction one variable at a time. Results may support, weaken, or leave a hypothesis unresolved. Revise as needed, resolve or escalate within authorization, verify the original task, and document uncertainty as well as outcomes.
+
 ## 3. Observations, inferences, and hypotheses
 
 An **observation** is directly shown by evidence: “`systemctl status` reports the unit as failed” or “`df -h` reports that the filesystem is 98% used.” An **inference** is a conclusion drawn from one or more observations: “The service may have failed because it could not write a file.” A **hypothesis** is an explanation that can be tested: “The service's data filesystem may be full; checking its usage and the service log should support or weaken this explanation.”
 
 Keep these categories separate in notes. A log line that says “permission denied” is an observation. The claim “the group owner is wrong” is an inference that needs inspection. A timestamp close to a failure is a clue, not proof of cause. Use exact excerpts and timestamps where appropriate, but include enough surrounding context to avoid changing a message's meaning.
+
+![A synthetic service log reports Permission denied and the unit reports failed. These observations support an access-related inference, not a confirmed claim that group ownership is wrong. A testable hypothesis about the service identity's access leads to inspecting the configured path, identity, and path permissions.](graphics/lesson-13/02-observation-inference-hypothesis.png)
+
+**Figure 13.2.** A permission-denied message is an observation. An access-related explanation is an inference until checked. Make the hypothesis testable by identifying what should be inspected next: the intended path, service identity, and applicable access controls. Do not broaden permissions based on a guess.
 
 ## 4. Choose evidence that answers a question
 
@@ -133,6 +141,10 @@ A useful record lets another person understand what happened and reproduce the r
 - **Status and follow-up:** resolved, mitigated, unresolved, or escalated, plus the next owner/action.
 
 Use neutral, specific language. Write “The service status was failed at 14:22” instead of “systemd is broken.” Include exact commands when safe and relevant, but remove secrets and identifiers. Clearly label synthetic or instructor-provided evidence. Good documentation is part of the technical solution: it prevents repeated work and helps future administrators recognize patterns.
+
+![Timestamped symptoms, brief evidence excerpts, and test results pass through redaction and context review into a troubleshooting record. The record includes impact, environment, timeline, expected and actual behavior, evidence, hypothesis, tests, actions, verification, status, and next owner. Resolved, mitigated, and escalated are alternative outcomes.](graphics/lesson-13/03-evidence-to-handoff.png)
+
+**Figure 13.3.** Turn relevant observations and tests into a reproducible record. Preserve timestamps and context while removing sensitive information. State whether the issue is resolved, mitigated, unresolved, or escalated, and name the next action or owner. Clearly mark any unperformed repair and remaining uncertainty.
 
 # Guided demonstrations
 
