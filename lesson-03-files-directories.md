@@ -65,6 +65,10 @@ The **Filesystem Hierarchy Standard (FHS)** describes a shared layout for import
 | `/srv` | Data served by services provided by the system | It may be empty or unused on a desktop installation. |
 | `/bin`, `/sbin`, `/lib`, `/lib64` | Historically, essential commands and libraries | On many modern Ubuntu systems these may be links into matching `/usr` directories (a merged-/usr layout). Follow the links and distribution documentation rather than assuming separate physical stores. |
 
+![The Linux root directory connects to common locations grouped by purpose: personal work, system software and configuration, changing data, and kernel and device interfaces. A student's practice directory is highlighted beneath /home. The administrator's /root home is distinct from the tree root /.](graphics/lesson-03/01-filesystem-map.png)
+
+**Figure 3.1.** Common Linux locations serve different purposes within one filesystem tree. The groups summarize roles rather than additional directories. `/usr/local` is below `/usr`; `/root` is the administrator's home, not the root of the tree. Student work stays in the lesson workspace.
+
 These are roles, not permissions. A directory's name does not mean a student may modify it. Course exercises stay in `~/linux-course/lesson3`; system locations are read-only examples. Never create practice files in `/etc`, `/usr`, `/var`, `/boot`, `/dev`, `/proc`, `/sys`, or `/run`.
 
 The hierarchy also helps answer “where should this file go?” Personal work belongs under a user's home directory. Configuration belongs in the appropriate configuration location and is managed by an administrator. Package-managed applications belong to distribution-managed locations, while locally installed administrator software may use `/usr/local` or `/opt` depending on the software. Logs and changing service state belong in suitable `/var` subdirectories. Temporary scratch files belong in temporary locations only when their lifetime and cleanup policy are understood.
@@ -93,11 +97,19 @@ For small text files, Lesson 2's `cat` prints the complete content. `less report
 
 `mv source destination` moves a file or directory to another location. When the destination is in the same directory, `mv old-name new-name` renames it. Moving onto an existing file may replace it, depending on options and system settings. Avoid guessing: inspect both names first, and use interactive options such as `-i` where appropriate.
 
+![Three independent before-and-after examples show cp preserving notes/plan.txt and creating archive/plan-copy.txt, mv relocating notes/plan.txt to archive/plan.txt, and mv renaming notes/todo.txt to notes/next-steps.txt.](graphics/lesson-03/02-copy-move-rename.png)
+
+**Figure 3.2.** Copying leaves the source in place and creates a separate copy. Moving changes a location; moving to a different name within the same directory renames the file. Each row is independent and assumes a destination that does not already exist.
+
 For this course, use explicit paths under the lab directory. Do not use wildcards with `cp` or `mv` until the selected set has been inspected. A command can be syntactically correct while acting on the wrong current directory.
 
 ## 5. Links: another name or a path to a target
 
 The `ln` command creates links. A hard link is another directory entry for the same underlying file data; it is limited to the same filesystem and normally cannot be made for directories. A symbolic link, created with `ln -s target link-name`, stores a path to another file or directory. It can point across filesystems and can become dangling if its target is moved or removed. For beginners, treat a symbolic link as a pointer that needs a valid target. Create links only inside the practice tree, use clear names, and inspect them with `ls -l` and `file`.
+
+![A copy has separate file data. Two hard-link names refer to the same inode and file data. A symbolic link stores notes/plan.txt as a path to its target; the link remains dangling if the target is moved or removed.](graphics/lesson-03/03-copies-and-links.png)
+
+**Figure 3.3.** A copy contains independent data. Hard links are directory entries referring to the same underlying file. A symbolic link is a separate object storing a path, so it may remain after its target disappears. Hard links normally stay within one filesystem; symbolic links can refer across filesystems.
 
 The lab introduces symbolic links only. Hard links are discussed conceptually because their behavior depends on filesystem details and can confuse the distinction between a filename and file data.
 

@@ -64,6 +64,8 @@ Commands should be explained in context, including their purpose, expected outpu
 
 - Lesson 2 includes Figures 2.1–2.3: absolute and relative paths, command anatomy, and streams/redirection/pipelines. Supporting information and prompts live in `graphics/lesson-02/`.
 
+- Lesson 3 includes Figures 3.1–3.3: filesystem locations, copy/move/rename behavior, and copies versus hard and symbolic links. Supporting information and prompts live in `graphics/lesson-03/`.
+
 ## Current artifacts
 
 - Lessons 1–14 each have a Markdown lesson file. All Moodle XML question banks are stored in `Question Banks/`, using the existing `lesson-NN-moodle-question-bank.xml` names.
