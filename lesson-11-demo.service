@@ -1,0 +1,9 @@
+[Unit]
+Description=Lesson 11 Harmless User Service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/sleep infinity
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,354 @@
+# Lesson 11 — Services and System Administration
+
+## Lesson purpose
+
+Linux systems run background programs that provide services such as networking, printing, time synchronization, and remote access. This lesson introduces systemd as a service and system manager, explains unit files and startup relationships, and shows how to inspect service state and logs. Students practice with a harmless user-level unit that they can start and stop themselves.
+
+## Learning objectives
+
+By the end of the lesson, students will be able to:
+
+- distinguish a service, process, systemd unit, and unit file;
+- describe systemd's role in boot and service management;
+- distinguish a unit's active state from its enabled state;
+- inspect services with `systemctl` and view logs with `journalctl`;
+- explain the difference between start, restart, reload, and daemon-reload;
+- read a simple service unit file and describe its basic sections;
+- inspect, start, restart, and stop a harmless user-level service; and
+- use service status and logs as evidence during a basic troubleshooting sequence.
+
+## Instructor preparation
+
+Use Ubuntu Desktop LTS or a disposable course VM with systemd and a logged-in graphical user session. Place the accompanying `lesson-11-demo.service` file in the student practice directory. It starts only `/usr/bin/sleep infinity` as the student's own user; it does not listen on a network port or change system configuration. Confirm `systemctl --user` works in the classroom environment. If the user systemd manager is unavailable, provide instructor-generated status and journal output or use a disposable VM with an active login session. Do not use the lab to restart, stop, enable, disable, or edit system services.
+
+## Suggested lesson sequence
+
+| Segment | Time |
+|---|---:|
+| Review processes and network sockets | 10 min |
+| Textbook and guided demonstrations | 40 min |
+| Student lab: manage a user-level unit | 45 min |
+| Knowledge check and reflection | 15 min |
+
+# Textbook chapter
+
+## 1. From process to service
+
+A **process** is a running instance of a program. A **service** is a program or group of programs that provides a continuing function, often without a person interacting with it directly. A service is usually represented by one or more processes, but service and process are not interchangeable terms: one service can manage several processes, and a process may be an ordinary application rather than a system service.
+
+Lesson 10 introduced listening sockets. A service may listen on a local or network address, but many services do not use network sockets at all. A process can exist without successfully providing its intended service. Service management tools help answer questions such as whether a service is loaded, active, enabled for startup, or in a failed state.
+
+## 2. systemd and unit types
+
+On most current Ubuntu installations, **systemd** is the system and service manager that runs as process ID 1 after the kernel starts it. It helps initialize the system, start units in an order based on dependencies and conditions, supervise services, and collect system logs through the journal. The boot process also involves firmware, a bootloader, and the kernel; systemd is one stage in the larger startup path.
+
+A **unit** is a resource or action that systemd can manage. Common unit types include:
+
+| Unit type | Purpose |
+|---|---|
+| `.service` | Start and supervise a service process |
+| `.socket` | Represent a listening socket and possibly activate a service when used |
+| `.target` | Group units into a system state or synchronization point |
+| `.timer` | Activate a unit at specified times or intervals |
+| `.mount` | Represent a filesystem mount |
+
+Unit files describe how units are configured. A unit can be supplied by a package, created by an administrator, or created for one user's session. System-level units are generally managed by the system manager and often need administrator privileges for changes. A user manager handles units for a particular account; `systemctl --user` addresses that manager and does not mean “run as root.”
+
+## 3. Inspect unit state with systemctl
+
+`systemctl` communicates with a systemd manager. Its inspection commands can show unit state without changing it:
+
+```bash
+systemctl --user status lesson11-course-demo.service --no-pager
+systemctl --user list-units --type=service --state=running
+systemctl --user is-active lesson11-course-demo.service
+systemctl --user is-enabled lesson11-course-demo.service
+```
+
+`status` gives a summary such as whether the unit is loaded, active, or failed, its main process when relevant, and recent log messages. `list-units` lists units currently known to the manager; it does not necessarily list every installed unit file. `is-active` asks whether a unit is active now. `is-enabled` reports whether a unit file has been configured for automatic activation through an installation target. Output varies by unit and systemd version.
+
+A service can be **active but disabled**: it is running now but is not configured to start automatically at boot or login. It can be **enabled but inactive**: it is configured for automatic activation, but is not running now. Enabled and active describe different properties. Some units are static, generated, transient, or activated by another unit and may not have a simple enabled/disabled state.
+
+## 4. Start, stop, restart, reload, and enable
+
+The common service control actions have distinct meanings:
+
+- `start` asks the manager to activate a unit now.
+- `stop` asks it to deactivate a unit now.
+- `restart` stops and starts it again. This may briefly interrupt the service.
+- `reload` asks the service itself to reread its application configuration, if it supports that operation. It does not reread the systemd unit file.
+- `enable` configures a unit to be activated through the appropriate startup target or trigger. It does not necessarily start it immediately; `--now` combines enablement and starting.
+- `disable` removes that automatic activation configuration; it does not necessarily stop a currently running service.
+
+Changes to unit files require `systemctl daemon-reload` so the manager re-reads unit definitions. For a user unit, use `systemctl --user daemon-reload`. This action does not restart the service. It is different from `systemctl reload UNIT`, which asks the application service to reload its own configuration.
+
+These are state-changing actions. In this lesson, students may run start, restart, and stop only on the course-provided user unit. They must not manage system services or enable the demonstration unit for login startup.
+
+## 5. Read a simple unit file
+
+The accompanying `lesson-11-demo.service` file contains:
+
+```ini
+[Unit]
+Description=Lesson 11 Harmless User Service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/sleep infinity
+
+[Install]
+WantedBy=default.target
+```
+
+`[Unit]` holds general description and dependency information. `[Service]` defines how the program is started and supervised. `Type=simple` is suitable for a process that stays in the foreground. `ExecStart` names the program and its arguments; systemd does not interpret this line as a shell command by default. `[Install]` describes how an administrator or user could connect the unit to a target when enabling it. The [Install] section describes how enablement could connect the unit to a target; those activation links are not created until the unit is enabled. The lab deliberately does not enable it.
+
+This sample runs `sleep infinity` and has no network listener, privileged command, or application data. It is intentionally minimal so students can focus on unit management. Real service unit files may include security restrictions, environment, dependencies, restart policies, credentials, and other details; copying a sample unit into production without understanding it is not appropriate.
+
+## 6. Dependencies, ordering, and startup
+
+Systemd uses dependencies and ordering relationships to determine which units to activate and when. For example, one unit can require another unit, or be ordered to start after a prerequisite. A requirement does not always mean the same thing as ordering: dependency directives describe relationships, while ordering directives describe sequencing. Units can start in parallel when their relationships allow it.
+
+Targets group units into a desired system state, such as a graphical or multi-user state. During boot, systemd activates a default target and the units connected to it. A unit's `WantedBy=` setting in `[Install]` helps `enable` create links that make the unit wanted by a target. This is why enablement is separate from simply starting a process. Students should understand the relationship, but do not change the system's default target or enable services in the lab.
+
+## 7. Inspect logs with journalctl
+
+The **systemd journal** collects messages from the kernel, services, and other system components. `journalctl` reads those messages. Permissions and journal configuration determine which entries a normal user can see; not every system log is available to every account, and persistent storage across reboots depends on system configuration.
+
+Use filters to keep output relevant:
+
+```bash
+journalctl --user -u lesson11-course-demo.service -n 20 --no-pager
+journalctl --user -u lesson11-course-demo.service --since today --no-pager
+```
+
+`-u` filters by unit, `-n 20` limits output to the most recent 20 entries, `--since today` limits the time range, and `--no-pager` prints directly rather than opening an interactive pager. The `--user` option selects the user's journal. For a system service, `journalctl -u NAME.service` is common, but access can be restricted and may require authorization. Do not use `sudo` to work around a permissions boundary in this course.
+
+Logs provide evidence, not an automatic explanation. Read timestamps, unit names, severity, and the actual message. A service may fail because of invalid configuration, missing files, access permissions, unavailable dependencies, or resource limits. Avoid posting logs publicly until they have been checked for usernames, hostnames, addresses, tokens, and other sensitive data.
+
+## 8. A safe service troubleshooting sequence
+
+When an application or service appears unavailable, begin by defining the symptom. Use a small set of checks and record the time:
+
+1. Check whether the expected unit exists and whether it is loaded.
+2. Inspect whether it is active, inactive, or failed with `systemctl status` or `systemctl is-active`.
+3. Read recent messages for that unit with a narrow `journalctl` filter.
+4. Compare the service process and its socket behavior with the expected design; Lesson 5 covers processes and Lesson 10 covers local listening sockets.
+5. Form one hypothesis and make only an authorized change to the lab unit, then inspect status and logs again.
+
+Do not restart services at random. A restart can interrupt users or erase useful diagnostic state. Do not enable a service simply because it is inactive: first establish whether it is intended to run now and whether startup activation is required. In a production environment, follow the change procedure and obtain the required authorization.
+
+# Guided demonstrations
+
+## Demonstration 1: Inspect user units
+
+```bash
+systemctl --user list-units --type=service --state=running
+systemctl --user status lesson11-course-demo.service --no-pager
+```
+
+Before the student unit is installed, the named unit may be reported as not found. Use that result to explain the difference between “not installed/loaded” and “failed.”
+
+## Demonstration 2: Compare active and enabled states
+
+```bash
+systemctl --user is-active lesson11-course-demo.service
+systemctl --user is-enabled lesson11-course-demo.service
+```
+
+After starting (but not enabling) the unit, show that it can be active and disabled. Explain that `is-enabled` may return different state labels for static or transient units.
+
+## Demonstration 3: Read unit-specific journal entries
+
+```bash
+journalctl --user -u lesson11-course-demo.service -n 20 --no-pager
+```
+
+Point out the timestamps and start/stop messages. The exact messages depend on systemd version and journal settings.
+
+# Student lab: Lesson 11 — Manage a Harmless User Service
+
+## Safety and scope
+
+Use your own course VM user account. The provided unit runs `/usr/bin/sleep infinity` as your user and does not listen on a port. Do not use `sudo`, copy this unit into `/etc/systemd`, stop or restart any other service, enable the unit, or change boot targets. Use the exact unit name `lesson11-course-demo.service`. At the end, stop the unit and remove the user unit file you installed.
+
+## Part A: Install the course unit
+
+From the directory containing the provided `lesson-11-demo.service`, inspect its contents, then create the user unit directory and copy it into place:
+
+```bash
+mkdir -p ~/.config/systemd/user
+cp lesson-11-demo.service ~/.config/systemd/user/lesson11-course-demo.service
+systemctl --user daemon-reload
+```
+
+`daemon-reload` asks the user manager to reread unit files. It does not start the service. If the destination file already exists, do not overwrite it; ask the instructor for guidance.
+
+## Part B: Inspect before starting
+
+```bash
+systemctl --user status lesson11-course-demo.service --no-pager
+systemctl --user is-active lesson11-course-demo.service
+systemctl --user is-enabled lesson11-course-demo.service
+```
+
+Record the reported state. It should not be active yet. It should not be enabled. Depending on systemd version, an inactive or not-found-style result can vary before the first load; discuss the actual evidence with the instructor.
+
+## Part C: Start and verify the service
+
+```bash
+systemctl --user start lesson11-course-demo.service
+systemctl --user status lesson11-course-demo.service --no-pager
+systemctl --user is-active lesson11-course-demo.service
+```
+
+Confirm that status shows the unit active and that the main process is the expected `sleep` program. Explain why the service can be active while still disabled.
+
+## Part D: Restart and inspect logs
+
+```bash
+systemctl --user restart lesson11-course-demo.service
+journalctl --user -u lesson11-course-demo.service -n 20 --no-pager
+```
+
+Find a recent start or stop event and record its timestamp. Explain what restart did and why log output may vary.
+
+## Part E: Stop and clean up
+
+```bash
+systemctl --user stop lesson11-course-demo.service
+systemctl --user is-active lesson11-course-demo.service
+rm -- ~/.config/systemd/user/lesson11-course-demo.service
+systemctl --user daemon-reload
+systemctl --user status lesson11-course-demo.service --no-pager
+```
+
+Confirm that the service is no longer active. The final status may report that the unit is not found because its unit file has been removed. The `rm` command here targets only the exact course-created file; do not broaden or modify the path.
+
+## Part F: Write a short service report
+
+Record:
+
+1. The unit's state before start, after start, and after stop.
+2. The difference between active and enabled for this unit.
+3. One log entry and what it establishes.
+4. Why `daemon-reload` was needed after placing and removing the unit file.
+5. One thing the status and log output do not prove about a hypothetical network service.
+
+## Lab success criteria
+
+- The student reads a user unit file and explains its basic directives.
+- The student correctly distinguishes active state from enablement.
+- The student starts, restarts, inspects, and stops only the provided user unit.
+- The student filters journal output by unit and time/quantity.
+- The student removes the exact demonstration unit file and reloads the user manager.
+- No system service, boot target, or system-wide unit configuration is changed.
+
+# Knowledge check
+
+1. How does a service differ from a process?
+2. What is systemd's role on a typical current Ubuntu system?
+3. What is a systemd unit?
+4. Name three systemd unit types and their purposes.
+5. What is the purpose of `systemctl`?
+6. What does `systemctl status UNIT` summarize?
+7. What does `systemctl is-active UNIT` report?
+8. What does `systemctl is-enabled UNIT` report?
+9. How can a service be active but disabled?
+10. Does `systemctl enable UNIT` necessarily start the service now?
+11. What does `systemctl start UNIT` do?
+12. What does `systemctl restart UNIT` do, and what is one impact?
+13. How does application `reload` differ from `daemon-reload`?
+14. Why does a user unit use `systemctl --user`?
+15. What is the role of the `[Service]` section?
+16. What does `ExecStart=` specify in the lesson's unit file?
+17. What is a target used for?
+18. What is the purpose of `journalctl`?
+19. What does `journalctl -u UNIT` filter?
+20. What does `-n 20` do in a `journalctl` command?
+21. Why might a normal user be unable to read some system journal entries?
+22. Why should students not restart an arbitrary system service?
+23. What is the purpose of `systemctl daemon-reload` after changing a unit file?
+24. Why are timestamps useful when reading service logs?
+25. What should a student do if the provided user manager is unavailable?
+26. Which unit does the lab permit students to start and stop?
+
+## Answer key
+
+1. A service provides a continuing function and is often managed as a unit; a process is a running program instance. A service can involve one or more processes.
+2. It is the system and service manager, commonly PID 1, that initializes the system and manages units.
+3. A resource or action that systemd manages, described by unit configuration and runtime state.
+4. Examples: `.service` manages a service process; `.socket` represents a socket; `.target` groups units; `.timer` activates a unit by time; `.mount` represents a mount.
+5. It communicates with a systemd manager to inspect or control units.
+6. Load and runtime state, process details when relevant, and recent log messages.
+7. Whether the unit is active now.
+8. Whether the unit file is configured for automatic activation through an installation target or trigger.
+9. It has been started manually or by another trigger but is not configured for automatic startup through enablement.
+10. No. Enablement configures automatic activation; starting is a separate action unless `--now` is used.
+11. It asks the manager to activate the unit now.
+12. It stops and starts the unit again; this may briefly interrupt its function.
+13. A service reload asks the application to reread its own configuration if supported. `daemon-reload` makes systemd reread unit definitions.
+14. It addresses the systemd manager for the current user's session, not the system-wide manager.
+15. It holds service-specific settings such as type and start command.
+16. The executable and arguments that systemd should launch for the service.
+17. It groups units into a state or synchronization point and can participate in startup activation.
+18. It reads and filters messages collected in the systemd journal.
+19. Journal records associated with the specified unit.
+20. It limits displayed entries to the latest 20.
+21. Journal permissions and configuration limit which records the account can access.
+22. It may interrupt users or affect system operation, and the student may not have authorization or understand its dependencies.
+23. It asks the manager to reread unit files; it does not itself restart the service.
+24. They help correlate events with reported symptoms and establish sequence.
+25. Use instructor-provided output or a disposable VM with a working user systemd manager; do not use `sudo` to bypass the lab boundary.
+26. `lesson11-course-demo.service`, the harmless user-level unit supplied for the course.
+
+## Exit ticket
+
+A service is active, but a user reports that its application is unavailable. Name two pieces of evidence you would inspect next and one conclusion that status alone cannot support.
+
+# Chapter glossary
+
+**Active:** A current runtime state indicating a unit is running or otherwise activated.  
+**Daemon:** A background process that provides a service or system function.  
+**Enabled:** Configured for automatic activation by a target or trigger.  
+**Journal:** systemd's structured log store for system and service messages.  
+**Service:** A program or group of programs that provides a continuing function.  
+**systemd:** A system and service manager commonly used as PID 1 on Ubuntu.  
+**Target:** A systemd unit that groups other units into a state or synchronization point.  
+**Unit:** A systemd-managed resource or action, such as a service, socket, target, timer, or mount.  
+**Unit file:** Configuration that describes a systemd unit.  
+
+# Instructor materials
+
+## Instructor notes
+
+- Connect Lesson 11 to Lesson 5's process model and Lesson 10's listening sockets.
+- Use only the provided user unit for start, restart, and stop practice. Keep system-manager control commands out of the student lab.
+- Explain active versus enabled with concrete status output; do not enable the practice unit.
+- Explain that `systemctl reload` asks the application to reread its configuration, while `daemon-reload` rereads systemd unit definitions.
+- Unit status may include recent logs, but use `journalctl` to teach deliberate filtering and time context.
+- Journal access varies. Do not instruct learners to use `sudo` to read logs they are not authorized to access.
+- Have students inspect the unit file before installing it and remove the exact user-level file during cleanup.
+- The user manager and journal behavior vary across desktop sessions and distributions; provide a prepared transcript if the unit is unavailable.
+- Ask students to redact usernames, hostnames, addresses, tokens, and other sensitive data from reports.
+
+## Suggested slide outline
+
+1. Processes, daemons, services, and units
+2. systemd's role in the boot sequence
+3. Common unit types: service, socket, target, timer, and mount
+4. Active state versus enabled state
+5. Start, stop, restart, reload, and daemon-reload
+6. Unit-file sections and startup targets
+7. Journal filtering with `journalctl`
+8. A safe evidence-based service troubleshooting sequence
+
+## Commands introduced
+
+`systemctl --user status`, `list-units`, `is-active`, `is-enabled`, `start`, `restart`, `stop`, and `daemon-reload`; `journalctl --user -u`, `-n`, `--since`, and `--no-pager`. State-changing actions are limited to the provided user unit; the lab does not enable it or alter system services.
+
+## Instructor references
+
+- [systemctl](https://www.freedesktop.org/software/systemd/man/latest/systemctl.html) — unit inspection, lifecycle actions, enablement, and manager reload behavior.
+- [systemd.unit](https://www.freedesktop.org/software/systemd/man/latest/systemd.unit.html) — unit structure, dependencies, ordering, and installation sections.
+- [systemd.service](https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html) — service unit configuration and process supervision.
+- [journalctl](https://www.freedesktop.org/software/systemd/man/latest/journalctl.html) — journal access and filtering.

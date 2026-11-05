@@ -16,6 +16,8 @@ This repository contains the materials for a 14-lesson introductory Linux course
 - `lesson-08-text-processing-pipelines.md` and `lesson-08-moodle-question-bank.xml` — Lesson 8 materials
 - `lesson-09-storage-filesystems-backups.md` and `lesson-09-moodle-question-bank.xml` — Lesson 9 materials
 - `lesson-10-networking-fundamentals.md` and `lesson-10-moodle-question-bank.xml` — Lesson 10 materials
+- `lesson-11-services-system-administration.md` and `lesson-11-moodle-question-bank.xml` — Lesson 11 materials
+- `lesson-11-demo.service` — harmless user-level service unit used in the Lesson 11 lab
 - `course-progression.md` — Roadmap for all 14 lessons
 
 Each lesson will be developed as an independent module while maintaining a coherent progression across the course. A completed lesson is expected to include textbook content, hands-on activities, assessments, and instructor-support materials.

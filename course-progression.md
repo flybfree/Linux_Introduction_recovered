@@ -67,7 +67,7 @@ Explain interfaces, addresses, routes, DNS, ports, and basic client/server behav
 
 ### Lesson 11 — Services and System Administration
 
-Introduce `systemd` concepts, units, service state, startup, dependencies, and logs. Use `systemctl` and `journalctl` on a harmless service or a preconfigured lab application. Students should practice status inspection, restarting an approved service, and reading recent logs, with explicit boundaries around privileged actions.
+Introduce `systemd` concepts, units, service state, startup, dependencies, and logs. Use `systemctl` and `journalctl` with a harmless user-level practice service. Students should practice status inspection, starting/restarting/stopping that approved unit, and reading recent logs, while distinguishing active from enabled and avoiding system-wide changes.
 
 ### Lesson 12 — Security and Safe Administration
 
@@ -94,4 +94,4 @@ Students combine the course skills in a bounded project, such as a documented lo
 
 ## Recommended next artifact
 
-Develop Lesson 11 — Services and System Administration — using the established lesson structure. Build on Lesson 10's local socket inspection and teach service state, logs, startup behavior, and safe management of an approved lab service.
+Develop Lesson 12 — Security and Safe Administration — using the established lesson structure. Build on package provenance, permissions, services, and safe administrative habits; keep SSH and firewall work conceptual or confined to an isolated lab.
